@@ -19,5 +19,15 @@ lel
 AWESOME
 agree
 yes
+<<<<<<< HEAD
+sdf
+
+Erster Change meinerseits
+=======
 
 amk
+<<<<<<< HEAD
+
+Test
+=======
+
