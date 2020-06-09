@@ -19,6 +19,11 @@ lel
 AWESOME
 agree
 yes
+<<<<<<< HEAD
 sdf
 
 Erster Change meinerseits
+=======
+
+amk
+>>>>>>> a64460595ad2343798dae51e240e578b83cb33b6
