@@ -1,0 +1,1 @@
+print("Business Object (bo) package initialisiert...")
