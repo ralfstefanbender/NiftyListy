@@ -13,10 +13,3 @@ Zhang, William
 Ün, Rahel
 
 Bender, Ralf
-
-best list app worldwide
-lel
-AWESOME
-agree
-yes
-amk
