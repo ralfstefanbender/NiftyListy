@@ -13,8 +13,6 @@ class Einkaufsliste:
     def get_items(self):
         return self.__items
 
-    def get_id(self):
-        return self.__id
 
     def get_name(self):
         return self.__name
@@ -49,6 +47,3 @@ class Einkaufsliste:
         self.__items = {}
 
 
-def create_einkaufsliste(name):
-    new_einkaufsliste = Einkaufsliste(name)
-    all_einkaufslisten[new_einkaufsliste.get_id()] = new_einkaufsliste
