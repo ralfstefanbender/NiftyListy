@@ -1,4 +1,4 @@
-from src.server.bo import BusinessObject
+from src.server.bo.BusinessObject import BusinessObject
 
 class Einkaufsliste(BusinessObject):
     id = 0
