@@ -47,6 +47,3 @@ class Einkaufsliste:
         self.__items = {}
 
 
-def create_einkaufsliste(name):
-    new_einkaufsliste = Einkaufsliste(name)
-    all_einkaufslisten[new_einkaufsliste.get_id()] = new_einkaufsliste

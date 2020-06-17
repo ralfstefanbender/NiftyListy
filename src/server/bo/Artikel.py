@@ -25,6 +25,6 @@ class Artikel(BusinessObject):
         all_Artikel[new_artikel.get_id()] = new_artikel
 
 
-    create_artikel("Honig", 3)
+
 
 
