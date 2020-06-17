@@ -1,3 +1,5 @@
+from src.server.bo import BusinessObject
+
 class Einkaufsliste:
     id = 0
     item_id = 0

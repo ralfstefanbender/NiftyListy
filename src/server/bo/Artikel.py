@@ -1,14 +1,11 @@
-class Artikel:
+from src.server.bo import BusinessObject
+
+class Artikel(BusinessObject):
     id = 0
 
     def __init__(self, name, einheit):
         self.__name = name
         self.__einheit = einheit
-        self.__id = Artikel.id
-        Artikel.id += 1
-
-    def get_id(self):
-        return self.__id
 
     def get_name(self):
         return self.__name
