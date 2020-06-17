@@ -20,3 +20,6 @@ class BusinessObject(ABC):
     def get_erstellungszeitpunkt(self):
         """Auslesen des Erstellungszeitpunkt"""
         return self.erstellungszeitpunkt()
+
+
+

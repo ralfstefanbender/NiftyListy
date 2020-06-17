@@ -1,7 +1,7 @@
-from src.server.bo import BusinessObject
+from src.server.bo.BusinessObject import BusinessObject
+
 
 class Artikel(BusinessObject):
-    id = 0
 
     def __init__(self, name, einheit):
         self.__name = name
@@ -20,6 +20,11 @@ class Artikel(BusinessObject):
         self.__einheit = new_einheit
 
 
-def create_artikel(name, einheit="Stk"):
-    new_artikel = Artikel(name, einheit)
-    all_Artikel[new_artikel.get_id()] = new_artikel
+    def create_artikel(name, einheit="Stk"):
+        new_artikel = Artikel(name, einheit)
+        all_Artikel[new_artikel.get_id()] = new_artikel
+
+
+    create_artikel("Honig", 3)
+
+

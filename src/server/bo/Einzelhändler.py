@@ -13,8 +13,6 @@ class Einkaufsliste:
     def get_items(self):
         return self.__items
 
-    def get_id(self):
-        return self.__id
 
     def get_name(self):
         return self.__name
