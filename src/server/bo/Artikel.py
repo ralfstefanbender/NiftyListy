@@ -1,5 +1,7 @@
 from src.server.bo import BusinessObject
 
+all_Artikel = {}
+
 class Artikel(BusinessObject):
     id = 0
 
