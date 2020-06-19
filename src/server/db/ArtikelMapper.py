@@ -1,9 +1,9 @@
-from server.bo.Anwender import Anwender
+from server.bo.Artikel import Artikel
 from server.db.Mapper import Mapper
 
 
-class AnwenderMapper (Mapper):
-    """Mapper-Klasse, die Anwender-Objekte auf eine relationale
+class ArtikelMapper (Mapper):
+    """Mapper-Klasse, die Artikel-Objekte auf eine relationale
     Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
     gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
     gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
