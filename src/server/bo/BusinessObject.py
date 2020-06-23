@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class BusinessObject(ABC):
-    """Definiert die Basisklasse des Projekts und die mindestfunktionaöität aller Business-Objekte.
+    """Definiert die Basisklasse des Projekts und die Mindestfunktionaöität aller Business-Objekte.
        Jedes BusinessObject besitzt eine ID welche als Primärschlüssel in der relationalen
        Datenbank genutzt wird und eine Erstellungszeitpunkt
     """
