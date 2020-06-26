@@ -12,3 +12,21 @@ class AnwenderMapper (Mapper):
 
     def __init__(self):
         super().__init__()
+
+        def auslesen(self):
+
+        result = []
+        cursor = self._cnx.cursor()
+        cursor.execute("Wählen sie eine ID aus")
+        tuples = cursor.fetchall()
+
+       """ for (id, owner) in tuples:
+            account = Account()
+            account.set_id(id)
+            account.set_owner(owner)
+            result.append(account) """
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
