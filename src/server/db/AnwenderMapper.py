@@ -13,11 +13,11 @@ class AnwenderMapper (Mapper):
     def __init__(self):
         super().__init__()
 
-        def auslesen(self):
+    def auslesen(self):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("Wählen sie eine ID aus")
+        cursor.execute("PLatzhalter für SQL Code")
         tuples = cursor.fetchall()
 
        """ for (id, owner) in tuples:
