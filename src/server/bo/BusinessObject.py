@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 
 class BusinessObject(ABC):
-    """Definiert die Basisklasse des Projekts und die Mindestfunktionaöität aller Business-Objekte.
-       Jedes BusinessObject besitzt eine ID welche als Primärschlüssel in der relationalen
-       Datenbank genutzt wird und eine Erstellungszeitpunkt
+    """
+    Definiert die Basisklasse des Projekts und die Mindestfunktionalität aller Business-Objekte.
+    Jedes BusinessObject besitzt eine ID welche als Primärschlüssel in der relationalen
+    Datenbank genutzt wird und einen Erstellungszeitpunkt
     """
     def __init__(self):
         self._id = 0  # eindeutige Identifikationsnummer einer Instanz dieser Klasse.
