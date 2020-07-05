@@ -6,7 +6,7 @@ import BusinessObject from './BusinessObject';
  * Enthalten die BO andere Methoden neben get und set?
  */
 
-export default class EinkaufsgruppeBO extends BusinessObject {
+export default class EinkaufshändlerBO extends BusinessObject {
 
     //this.itemID = 0
     //this.id = 0
@@ -15,24 +15,24 @@ export default class EinkaufsgruppeBO extends BusinessObject {
         this.name = name
         //this.items ist ein dictionary
         /**Wie geht hier die Umsetzung:
-        self.__id = Einkaufsliste.id
-        Einkaufsliste.id += 1 */
+        self.__id = Einkaufshändler.id
+        Einkaufshändler.id += 1 */
     }
 
 
 
     // Returns an Array of EinzelhändlerBO from a given JSON structure
-    static fromJSON(einzelhaendler) {
+    static fromJSON(einzelhändler) {
         let result = [];
 
-        if (Array.isArray(einzelhaendler)) {
-            einzelhaendler.forEach((eh) => {
+        if (Array.isArray(einzelhändler)) {
+            einzelhändler.forEach((eh) => {
                 Object.setPrototypeOf(eh, EinzelhändlerBO.prototype)
                 result.push(eh)
             })
         } else {
             // Es handelt sich offenbar um ein singuläres Objekt
-            let eh = einzelhaendler
+            let eh = einzelhändler
             Object.setPrototypeOf(eh, EinzelhändlerBO.prototype)
             result.push(eh)
         }

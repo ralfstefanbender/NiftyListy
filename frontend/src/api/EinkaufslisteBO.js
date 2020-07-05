@@ -1,6 +1,6 @@
 import BusinessObject from './BusinessObject';
 
-export default class EinkaufsgruppeBO extends BusinessObject {
+export default class EinkaufslisteBO extends BusinessObject {
 
     //this.itemID = 0
     //this.id = 0
