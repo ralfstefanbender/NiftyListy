@@ -12,3 +12,30 @@ class EinkaufsgruppeMapper (Mapper):
 
     def __init__(self):
         super().__init__()
+
+    def find_all(self):
+        """Liest alle Tupel aus und gibt sie als Objekte zurück"""
+        cursor = self._cnx.cursor()
+        pass
+
+    def find_by_key(self):
+        """Sucht die Einkaufsgruppe nach der eingegebenen ID aus"""
+        cursor = self._cnx.cursor()
+        pass
+
+    def insert(self):
+        """Gruppe hinzufügen"""
+        cursor = self._cnx.cursor()
+        pass
+
+    def delete(self):
+        """Gruppe löschen"""
+        cursor = self._cnx.cursor()
+        
+        command = """Platzhalter"""
+
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+        pass
