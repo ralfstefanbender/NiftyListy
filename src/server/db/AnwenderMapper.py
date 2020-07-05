@@ -13,7 +13,8 @@ class AnwenderMapper (Mapper):
     def __init__(self):
         super().__init__()
 
-    def find_all_anwender(self):
+    def find_all(self):
+        """Auslesen aller App-Anwender."""
 
         result = []
         cursor = self._cnx.cursor()
@@ -33,7 +34,8 @@ class AnwenderMapper (Mapper):
 
         return result
     
-    def find_anwender_by_anwender_id(self, Anwender_ID):
+    def find_by_key(self, Anwender_ID):
+        """Suchen eines Anwenders mit vorgegebener Anwender ID"""
 
         result = []
         cursor = self._cnx.cursor()
@@ -41,15 +43,30 @@ class AnwenderMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        """ for (id, anwender) in tuples:
+        """for (id, anwender) in tuples:
             account = Account()
             account.set_id(id)
             account.set_anwender(anwender)
             result.append(account) """
         
-        """ Klare Definition der Rollenbetitelung fehlt  """
+        """Klare Definition der Rollenbetitelung fehlt  """
 
         self._cnx.commit()
         cursor.close()
 
         return result
+
+    def find_by_name(self, name):
+        """Suchen eines Anwenders anhand des Anwendernames."""
+
+    def insert(self, anwender):
+        """Einfügen eines Anwender-Objekts in die Datenbank."""
+        pass
+    
+    def update(self, object):
+        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
+        pass
+
+    def delete(self, object):
+        """Löschen der Daten eines Anwenders-Objekts aus der Datenbank."""
+        pass
