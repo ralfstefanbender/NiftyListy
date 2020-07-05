@@ -8,7 +8,7 @@ class BusinessObject(ABC):
     """
     def __init__(self):
         self._id = 0  # eindeutige Identifikationsnummer einer Instanz dieser Klasse.
-        self._erstellungszeitpunkt
+        self._erstellungszeitpunkt = None
 
     def get_id(self):
         """Auslesen der ID."""
@@ -20,7 +20,7 @@ class BusinessObject(ABC):
 
     def get_erstellungszeitpunkt(self):
         """Auslesen des Erstellungszeitpunkt"""
-        return self.erstellungszeitpunkt()
+        return self._erstellungszeitpunkt
 
 
 

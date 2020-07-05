@@ -29,4 +29,7 @@ class Einkaufsgruppe(BusinessObject):
         self.__einkaufsgruppe_name = name
         return
 
-    
+    @staticmethod
+    def from_dict(dict):
+        new_einkaufsgruppe = Einkaufsgruppe(dict["name"], dict["teilnehmerliste"], dict["artikelliste"])
+        return new_einkaufsgruppe

@@ -4,15 +4,12 @@ class Einkaufsliste(BusinessObject):
     """
     Realisierung der Einkaufsliste
     """
-    id = 0
     item_id = 0
 
     def __init__(self, name):
         super().__init__()
         self.__name = name
         self.__items = {}
-        self.__id = Einkaufsliste.id
-        Einkaufsliste.id += 1
 
     def get_items(self):
         """Auslesen der Items"""
@@ -61,3 +58,8 @@ class Einkaufsliste(BusinessObject):
     def clear_list(self):
         """Entfernen aller Items"""
         self.__items = {}
+
+    @staticmethod
+    def from_dict(dict):
+        new_einkaufsliste = Einkaufsliste(dict["name"])
+        return new_einkaufsliste

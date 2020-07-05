@@ -28,10 +28,11 @@ class Artikel(BusinessObject):
         """Setzen der Einheit"""
         self.__einheit = new_einheit
 
-
-    def create_artikel(name, einheit="Stk"):
-        new_artikel = Artikel(name, einheit)
-        all_Artikel[new_artikel.get_id()] = new_artikel
+    @staticmethod
+    def from_dict(dict):
+        new_artikel = Artikel(dict["name"], dict["einheit"])
+        return new_artikel
+        
 
 
 

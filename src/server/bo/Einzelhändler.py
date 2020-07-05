@@ -17,6 +17,10 @@ class Einzelhändler(BusinessObject):
         """Ändern des Einzelhändlernamens"""
         self.__name = new_name
 
-    
+    @staticmethod
+    def from_dict(dict):
+        new_einzelhaendler = Einzelhändler(dict["name"])
+        return new_einzelhaendler
+        
 
 

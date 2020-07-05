@@ -24,3 +24,10 @@ class Anwender(BusinessObject):
         self.__admin = True
         return
 
+    @staticmethod
+    def from_dict(dict):
+        new_anwender = Anwender(dict["benutzername"])
+        new_anwender.set_id(dict["id"])
+        if dict["admin"] is True:
+            new_anwender.set_admin()
+        return new_anwender
