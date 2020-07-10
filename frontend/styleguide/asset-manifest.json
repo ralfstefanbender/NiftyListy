@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.js": "/build/main.3d50b459.js",
+    "runtime-main.js": "/build/bundle.b1e58a59.js",
+    "build/2.5dba817c.js": "/build/2.5dba817c.js",
+    "build/2.5dba817c.js.LICENSE.txt": "/build/2.5dba817c.js.LICENSE.txt",
+    "index.html": "/index.html",
+    "precache-manifest.891d40554b52984cf611366e414c138c.js": "/precache-manifest.891d40554b52984cf611366e414c138c.js",
+    "service-worker.js": "/service-worker.js"
+  },
+  "entrypoints": [
+    "build/bundle.b1e58a59.js",
+    "build/2.5dba817c.js",
+    "build/main.3d50b459.js"
+  ]
+}
