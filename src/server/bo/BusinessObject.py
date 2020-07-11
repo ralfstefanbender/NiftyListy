@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from datetime import datetime
 
 class BusinessObject(ABC):
     """
@@ -8,7 +9,7 @@ class BusinessObject(ABC):
     """
     def __init__(self):
         self._id = 0  # eindeutige Identifikationsnummer einer Instanz dieser Klasse.
-        self._erstellungszeitpunkt = None
+        self._erstellungszeitpunkt = datetime.now()
 
     def get_id(self):
         """Auslesen der ID."""
@@ -19,8 +20,12 @@ class BusinessObject(ABC):
         self._id = value
 
     def get_erstellungszeitpunkt(self):
-        """Auslesen des Erstellungszeitpunkt"""
+        """Auslesen des Erstellungszeitpunkts"""
         return self._erstellungszeitpunkt
+
+    def set_erstellungszeitpunkt(self, date):
+        """Auslesen des Erstellungszeitpunkt"""
+        self._erstellungszeitpunkt = date
 
 
 
