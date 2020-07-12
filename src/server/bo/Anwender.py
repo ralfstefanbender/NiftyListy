@@ -14,7 +14,6 @@ class Anwender(BusinessObject):
     def set_benutzername(self, benutzername):
         """Setzen des Benutzernamens"""
         self.__benutzername = benutzername
-        return
 
     def get_benutzername(self):
         """Auslesen des Benutzernames"""
@@ -23,7 +22,6 @@ class Anwender(BusinessObject):
     def set_email(self, email):
         """Setzen der E-Mail"""
         self.__email = email
-        return
 
     def get_email(self):
         """Auslesen der E-Mail"""
