@@ -34,8 +34,8 @@ class AnwenderMapper (Mapper):
 
         return result
     
-    def find_by_key(self, Anwender_ID):
-        """Suchen eines Anwenders mit vorgegebener Anwender ID"""
+    def find_by_key(self, user_ID):
+        """Suchen eines Anwenders mit vorgegebener user ID
 
         result = []
         cursor = self._cnx.cursor()
@@ -43,21 +43,25 @@ class AnwenderMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        """for (id, anwender) in tuples:
-            account = Account()
-            account.set_id(id)
-            account.set_anwender(anwender)
-            result.append(account) """
-        
-        """Klare Definition der Rollenbetitelung fehlt  """
+        self._cnx.commit()
+        cursor.close()
+
+        return result"""
+        pass 
+
+    def find_by_name(self, name):
+        """Suchen eines Anwenders anhand des Anwendernames."""
+
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT name FROM anwender WHERE name like '{}'".format(name)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
 
         self._cnx.commit()
         cursor.close()
 
         return result
-
-    def find_by_name(self, name):
-        """Suchen eines Anwenders anhand des Anwendernames."""
 
     def insert(self, anwender):
         """Einfügen eines Anwender-Objekts in die Datenbank."""
