@@ -8,6 +8,7 @@ from .DB.Mapper import Mapper
 from .DB.AnwenderMapper import AnwenderMapper
 from .DB.EinkaufsgruppeMapper import EinkaufsgruppeMapper
 from .DB.ArtikelMapper import ArtikelMapper
+from .DB.EinkaufslisteMapper import EinkaufslisteMapper
 
 class EinkaufAdministration (object):
     """Diese Klasse aggregiert nahezu sämtliche Applikationslogik (engl. Business Logic).
@@ -32,3 +33,9 @@ class EinkaufAdministration (object):
 
 def __init__(self):
     pass
+
+def get_all_lists(slef):
+    """Hier sollen alle unsere Listen ausgelesen werden"""
+    with EinkaufslisteMapper() as mapper:
+        return mapper.find_all()
+
