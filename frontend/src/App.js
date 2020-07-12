@@ -3,18 +3,12 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import Header from './components/layout/Header';
 import About from './components/pages/About';
 import SignIn from './components/pages/SignIn';
+import Theme from './Theme';
 
 
-/**
- * The main bank administration app. It uses Googles firebase to log into the bank end. For routing the 
- * user to the respective pages, react-router-dom ist used.
- * 
- * @see See Google [firebase.auth()](https://firebase.google.com/docs/reference/js/firebase.auth.Auth)
- * @see See Google [firebase.auth().signInWithRedirect](https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signinwithredirect)
- * @see [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
- */
 class App extends React.Component {
 
   // Your web app's Firebase configuration
@@ -132,16 +126,6 @@ class App extends React.Component {
 							// Is a user signed in?
 							currentUser ?
 								<>
-									<Redirect from='/' to='customers' />
-									<Route exact path='/customers'>
-										<CustomerList />
-									</Route>
-									<Route path='/transactions'>
-										<TransactionList />
-									</Route>
-									<Route path='/accounts'>
-										<AllAccountList />
-									</Route>
 									<Route path='/about' component={About} />
 								</>
 								:
@@ -151,10 +135,7 @@ class App extends React.Component {
 									<SignIn onSignIn={this.handleSignIn} />
 								</>
 						}
-						<LoadingProgress show={authLoading} />
-						<ContextErrorMessage error={authError} contextErrorMsg={`Something went wrong during sighn in process.`} onReload={this.handleSignIn} />
-						<ContextErrorMessage error={appError} contextErrorMsg={`Something went wrong inside the app. Please reload the page.`} />
-					</Container>
+					</Container>	
 				</Router>
 			</ThemeProvider>
 		);
