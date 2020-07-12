@@ -9,6 +9,11 @@ class Mapper (AbstractContextManager, ABC):
     def __init__(self):
         self._cnx = None
 
+    def __enter__(self):
+        """Verbindungsaufbau mit der Datenbank"""
+        self._cnx = connector.connect(user='ssls_root', password='user123', host='127.0.0.1', database='niftylisty')
+        return self
+
     @abstractmethod
     def find_all(self):
         """Lies alle Tupel aus und gib sie als Objekte zurück."""
