@@ -8,8 +8,15 @@ class Anwender(BusinessObject):
     def __init__(self):
         super().__init__()
         self.__benutzername = ""
+        self.__name =""
         self.__email = ""
         self.__user_id = ""
+
+    def get_name(self):
+        return self.__name
+
+    def set_name(self, name):
+        self.__name = name
 
     def set_benutzername(self, benutzername):
         """Setzen des Benutzernamens"""
