@@ -19,7 +19,7 @@ const theme = createMuiTheme({
     },
     error: {
         contrastText: white,
-        main: red.A400
+        main: colors.red[600]
     },
     background: {
         default: '#f0fffd',
