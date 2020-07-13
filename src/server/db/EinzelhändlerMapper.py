@@ -32,7 +32,7 @@ class EinzelhändlerMapper (Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT händler_ID FROM einzelhändler WHERE händler_ID like '{}'".format(händler_ID)
+        command = "SELECT händler_ID FROM einzelhändler WHERE händler_ID like '{}'".format(Einzelhändler_ID)
         cursor.execute(command)
         tuples = cursor.fetchall()
         
