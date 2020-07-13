@@ -18,39 +18,31 @@ class AnwenderMapper (Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("PLatzhalter für SQL Code")
+        command = "SELECT * FROM anwender"
+        cursor.execute(command)
         tuples = cursor.fetchall()
-
-       """ for (id, owner) in tuples:
-            account = Account()
-            account.set_id(id)
-            account.set_owner(owner)
-            result.append(account) """
         
-        """ Klare Definition der Rollenbetitelung fehlt  """
-
         self._cnx.commit()
         cursor.close()
 
         return result
     
     def find_by_key(self, user_ID):
-        """Suchen eines Anwenders mit vorgegebener user ID
+        """Suchen eines Anwenders mit vorgegebener user ID"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "PLatzhalter für SQL Code".format(Anwender_ID)
+        command = "SELECT user_ID FROM anwender WHERE user_ID like '{}'".format(user_ID)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         self._cnx.commit()
         cursor.close()
 
-        return result"""
-        pass 
+        return result
 
     def find_by_name(self, name):
-        """Suchen eines Anwenders anhand des Anwendernames."""
+        """Suchen eines Anwenders anhand des Namens des Anwenders."""
 
         result = []
         cursor = self._cnx.cursor()
@@ -65,7 +57,20 @@ class AnwenderMapper (Mapper):
 
     def insert(self, anwender):
         """Einfügen eines Anwender-Objekts in die Datenbank."""
-        pass
+
+        cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(user_id) as MAXID from anwender")
+        tuples = cursor.fetchall()
+
+        for (MAXID) in tuples:
+            anwender.set_id(MAXID[0]+1)
+
+        command = "INSERT INTO anwender (user_id, name, benutzername, email) VALUES ('{}','{}','{}','{}')"\
+                .format(anwender.get_user_id(), anwender.get_name(), anwender.get_benutzername(), anwender.get_email())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()        
     
     def update(self, object):
         """Wiederholtes Schreiben eines Objekts in die Datenbank."""

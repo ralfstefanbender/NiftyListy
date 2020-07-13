@@ -15,27 +15,40 @@ class ArtikelMapper (Mapper):
 
     def find_all(self):
         """Liest alle Tupel aus und gibt sie als Objekte zurück"""
+
+        result = []
         cursor = self._cnx.cursor()
-        pass
+        command = "SELECT * FROM artikel"
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
     def find_by_key(self):
         """Sucht die Artikel nach der eingegebenen ID aus"""
+
+        result = []
         cursor = self._cnx.cursor()
-        pass
+        command = "SELECT artikel_ID FROM artikel WHERE artikel_ID like '{}'".format(artikel_ID)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
     def insert(self):
         """Artikel hinzufügen"""
-        cursor = self._cnx.cursor()
+        pass
+
+    def update(self):
+        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
         pass
 
     def delete(self):
         """Artikel löschen"""
-        cursor = self._cnx.cursor()
-        
-        command = """Platzhalter"""
-
-        cursor.execute(command)
-
-        self._cnx.commit()
-        cursor.close()
         pass

@@ -39,3 +39,4 @@ def get_all_lists(slef):
     with EinkaufslisteMapper() as mapper:
         return mapper.find_all()
 
+"""Administration muss auf den neusten Stand gebracht werden"""

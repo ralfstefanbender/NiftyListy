@@ -16,27 +16,41 @@ class EinkaufslisteMapper (Mapper):
     
     def find_all(self):
         """Liest alle Tupel aus und gibt sie als Objekte zurück"""
+
+        result = []
         cursor = self._cnx.cursor()
+        command = "SELECT * FROM einkaufsliste"
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
         pass
 
     def find_by_key(self):
         """Sucht die Einkaufsliste nach der eingegebenen Listen ID aus"""
+
+        result = []
         cursor = self._cnx.cursor()
-        pass
+        command = "SELECT einkaufsliste_ID FROM einkaufsliste WHERE einkaufsliste_ID like '{}'".format(einkaufsliste_ID)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
     def insert(self):
         """Liste hinzufügen"""
-        cursor = self._cnx.cursor()
+        pass
+
+    def update(self):
+        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
         pass
 
     def delete(self):
         """Liste löschen"""
-        cursor = self._cnx.cursor()
-        
-        command = """Platzhalter"""
-
-        cursor.execute(command)
-
-        self._cnx.commit()
-        cursor.close()
         pass

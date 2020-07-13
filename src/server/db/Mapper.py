@@ -11,7 +11,11 @@ class Mapper (AbstractContextManager, ABC):
 
     def __enter__(self):
         """Verbindungsaufbau mit der Datenbank"""
-        self._cnx = connector.connect(user='ssls_root', password='user123', host='127.0.0.1', database='niftylisty')
+        
+        self._cnx = connector.connect(user='ssls_root', 
+                                    password='user123', 
+                                    host='127.0.0.1', 
+                                    database='niftylisty')
         return self
 
     @abstractmethod

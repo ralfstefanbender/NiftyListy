@@ -15,13 +15,45 @@ class EinzelhändlerMapper (Mapper):
 
     def find_all(self):
         """Auslesen aller EInzelhändler."""
-        pass
+
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM einzelhändler"
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
     
     def find_by_key(self, Einzelhändler_ID):
         """Suchen eines Einzelhändlers mit vorgegebener Einzelhändler ID."""
 
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT händler_ID FROM einzelhändler WHERE händler_ID like '{}'".format(händler_ID)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
     def find_by_name(self, name):
         """Suchen eines Einzelhändlers anhand der Einzelhändler ID."""
+
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT name FROM einzelhändler WHERE name like '{}'".format(name)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
     def insert(self, anwender):
         """Einfügen eines Einzelhändlers-Objekts in die Datenbank."""

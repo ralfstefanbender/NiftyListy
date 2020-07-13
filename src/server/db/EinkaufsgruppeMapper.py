@@ -15,27 +15,41 @@ class EinkaufsgruppeMapper (Mapper):
 
     def find_all(self):
         """Liest alle Tupel aus und gibt sie als Objekte zurück"""
+
+        result = []
         cursor = self._cnx.cursor()
+        command = "SELECT * FROM einkaufsgruppe"
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
         pass
 
     def find_by_key(self):
         """Sucht die Einkaufsgruppe nach der eingegebenen ID aus"""
+
+        result = []
         cursor = self._cnx.cursor()
-        pass
+        command = "SELECT einkaufsgruppe_ID FROM einkaufsgruppe WHERE einkaufsgruppe_ID like '{}'".format(einkaufsgruppe_ID)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
     def insert(self):
         """Gruppe hinzufügen"""
-        cursor = self._cnx.cursor()
+        pass
+
+    def update(self):
+        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
         pass
 
     def delete(self):
         """Gruppe löschen"""
-        cursor = self._cnx.cursor()
-        
-        command = """Platzhalter"""
-
-        cursor.execute(command)
-
-        self._cnx.commit()
-        cursor.close()
         pass
