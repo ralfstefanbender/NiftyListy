@@ -10,11 +10,29 @@ class ListenobjektMapper (Mapper):
 
     def find_all(self):
 
-        pass    
-    
-    def find_by_key(self, Einzelhändler_ID):
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM listenobjekt"
+        cursor.execute(command)
+        tuples = cursor.fetchall()
         
-        pass
+        self._cnx.commit()
+        cursor.close()
+
+        return result 
+    
+    def find_by_key(self, listenobjekt_ID):
+        
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT listenobjekt_ID FROM listenobjekt WHERE listenobjekt_ID like '{}'".format(listenobjekt_ID)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
     def find_by_name(self, name):
         

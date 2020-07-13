@@ -27,7 +27,6 @@ class EinkaufslisteMapper (Mapper):
         cursor.close()
 
         return result
-        pass
 
     def find_by_key(self):
         """Sucht die Einkaufsliste nach der eingegebenen Listen ID aus"""

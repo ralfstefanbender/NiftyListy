@@ -26,7 +26,6 @@ class EinkaufsgruppeMapper (Mapper):
         cursor.close()
 
         return result
-        pass
 
     def find_by_key(self):
         """Sucht die Einkaufsgruppe nach der eingegebenen ID aus"""
