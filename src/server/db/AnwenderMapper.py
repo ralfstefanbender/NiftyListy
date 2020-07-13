@@ -21,7 +21,15 @@ class AnwenderMapper (Mapper):
         command = "SELECT * FROM anwender"
         cursor.execute(command)
         tuples = cursor.fetchall()
-        
+
+        for (id, name, benutzername, email) in tuples:
+            anwender = Anwender()
+            anwender.set_user_id(id)
+            anwender.set_name(name)
+            anwender.set_benutzername(benutzername)
+            anwender.set_email(email)
+            result.append(anwender)
+
         self._cnx.commit()
         cursor.close()
 
@@ -36,6 +44,14 @@ class AnwenderMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
+        for (id, name, benutzername, email) in tuples:
+            anwender = Anwender()
+            anwender.set_user_id(id)
+            anwender.set_name(name)
+            anwender.set_benutzername(benutzername)
+            anwender.set_email(email)
+            result.append(anwender)
+
         self._cnx.commit()
         cursor.close()
 
@@ -49,6 +65,14 @@ class AnwenderMapper (Mapper):
         command = "SELECT name FROM anwender WHERE name like '{}'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id, name, benutzername, email) in tuples:
+            anwender = Anwender()
+            anwender.set_user_id(id)
+            anwender.set_name(name)
+            anwender.set_benutzername(benutzername)
+            anwender.set_email(email)
+            result.append(anwender)
 
         self._cnx.commit()
         cursor.close()
@@ -95,10 +119,13 @@ class AnwenderMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-"""Testzwecke um uns die Daten anzeigen zu lassen"""
+"""
+Testzwecke um uns die Daten anzeigen zu lassen
 
 if __name__ == "__main__":
     with AnwenderMapper() as mapper:
 
         result = mapper.find_by_key(1)
         print(result.get_user_id())
+
+"""
