@@ -22,6 +22,12 @@ class EinkaufslisteMapper (Mapper):
         command = "SELECT * FROM einkaufsliste"
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id, name) in tuples:
+            einkaufsliste = Einkaufsliste()
+            einkaufsliste.set_id(id)
+            einkaufsliste.set_einkaufsliste_name(name)
+            result.append(einkaufsliste)
         
         self._cnx.commit()
         cursor.close()

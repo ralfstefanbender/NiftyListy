@@ -16,6 +16,11 @@ class ListenobjektMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
         
+        for (id) in tuples:
+            listenobjekt = Listenobjekt()
+            listenobjekt.set_id(id)
+            result.append(listenobjekt)
+
         self._cnx.commit()
         cursor.close()
 

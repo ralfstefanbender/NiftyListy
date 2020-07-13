@@ -21,6 +21,12 @@ class EinzelhändlerMapper (Mapper):
         command = "SELECT * FROM einzelhändler"
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id, name) in tuples:
+            einzelhändler = Einzelhändler()
+            einzelhändler.set_id(id)
+            einzelhändler.set_einzelhändler_name(name)
+            result.append(einzelhändler)
         
         self._cnx.commit()
         cursor.close()
