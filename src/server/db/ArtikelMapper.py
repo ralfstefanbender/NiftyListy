@@ -21,6 +21,12 @@ class ArtikelMapper (Mapper):
         command = "SELECT * FROM artikel"
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id, name) in tuples:
+            artikel = Artikel()
+            artikel.set_artikel_id(id)
+            artikel.set_name(name)
+            result.append(artikel)
         
         self._cnx.commit()
         cursor.close()
@@ -35,6 +41,12 @@ class ArtikelMapper (Mapper):
         command = "SELECT artikel_ID FROM artikel WHERE artikel_ID like '{}'".format(artikel_ID)
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id, name) in tuples:
+            artikel = Artikel()
+            artikel.set_artikel_id(id)
+            artikel.set_name(name)
+            result.append(artikel)
         
         self._cnx.commit()
         cursor.close()
@@ -80,10 +92,11 @@ class ArtikelMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-"""Testzwecke um uns die Daten anzeigen zu lassen"""
+"""Testzwecke um uns die Daten anzeigen zu lassen
 
 if __name__ == "__main__":
     with ArtikelMapper() as mapper:
         result = mapper.find_all()
         for p in result:
             print(p)
+"""

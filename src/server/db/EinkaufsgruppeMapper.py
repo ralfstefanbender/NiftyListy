@@ -21,6 +21,12 @@ class EinkaufsgruppeMapper (Mapper):
         command = "SELECT * FROM einkaufsgruppe"
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id, name) in tuples:
+            einkaufsgruppe = Einkaufsgruppe()
+            einkaufsgruppe.set_id(id)
+            einkaufsgruppe.set_einkaufsgruppe_name(name)
+            result.append(einkaufsgruppe)
         
         self._cnx.commit()
         cursor.close()
@@ -35,6 +41,12 @@ class EinkaufsgruppeMapper (Mapper):
         command = "SELECT einkaufsgruppe_ID FROM einkaufsgruppe WHERE einkaufsgruppe_ID like '{}'".format(einkaufsgruppe_ID)
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id, name) in tuples:
+            einkaufsgruppe = Einkaufsgruppe()
+            einkaufsgruppe.set_id(id)
+            einkaufsgruppe.set_einkaufsgruppe_name(name)
+            result.append(einkaufsgruppe)
         
         self._cnx.commit()
         cursor.close()
@@ -80,10 +92,11 @@ class EinkaufsgruppeMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-"""Testzwecke um uns die Daten anzeigen zu lassen"""
+"""Testzwecke um uns die Daten anzeigen zu lassen
 
 if __name__ == "__main__":
     with EinkaufsgruppeMapper() as mapper:
         result = mapper.find_all()
         for p in result:
             print(p)
+"""

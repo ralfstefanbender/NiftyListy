@@ -82,10 +82,11 @@ class EinkaufslisteMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-"""Testzwecke um uns die Daten anzeigen zu lassen"""
+"""Testzwecke um uns die Daten anzeigen zu lassen
 
 if __name__ == "__main__":
     with EinkaufslisteMapper() as mapper:
         result = mapper.find_all()
         for p in result:
             print(p)
+"""
