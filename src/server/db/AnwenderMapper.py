@@ -72,10 +72,33 @@ class AnwenderMapper (Mapper):
         self._cnx.commit()
         cursor.close()        
     
-    def update(self, object):
+    def update(self, anwender):
         """Wiederholtes Schreiben eines Objekts in die Datenbank."""
-        pass
 
-    def delete(self, object):
+        cursor = self._cnx.cursor()
+
+        command = "UPDATE anwender SET name = ('{}'), benutzername = ('{}'), email = ('{}') WHERE user_id = ('{}')"\
+                .format(anwender.get_name(), anwender.get_benutzername(), anwender.get_email())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+    def delete(self, anwender):
         """Löschen der Daten eines Anwenders-Objekts aus der Datenbank."""
-        pass
+
+        cursor = self._cnx.cursor()
+
+        command = "DELETE FROM anwender WHERE id={}".format(anwender.get_user_id())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+"""Testzwekce um uns die Daten anzeigen zu lassen"""
+
+if __name__ == "__main__":
+    with AnwenderMapper() as mapper:
+
+        result = mapper.find_by_key(1)
+        print(result.get_user_id())
