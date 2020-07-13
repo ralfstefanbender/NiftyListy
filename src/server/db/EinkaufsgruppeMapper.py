@@ -27,7 +27,7 @@ class EinkaufsgruppeMapper (Mapper):
 
         return result
 
-    def find_by_key(self):
+    def find_by_key(self, einkaufsgruppe):
         """Sucht die Einkaufsgruppe nach der eingegebenen ID aus"""
 
         result = []
@@ -41,14 +41,49 @@ class EinkaufsgruppeMapper (Mapper):
 
         return result
 
-    def insert(self):
+    def insert(self, einkaufsgruppe):
         """Gruppe hinzufügen"""
-        pass
+        cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(id) as MAXID from einkaufsgruppe")
+        tuples = cursor.fetchall()
 
-    def update(self):
+        for (MAXID) in tuples:
+            einkaufsgruppe.set_id(MAXID[0]+1)
+
+        command = "INSERT INTO einkaufsgruppe (einkaufsgruppe_id, name) VALUES ('{}','{}')"\
+                .format(einkaufsgruppe.get_id(), einkaufsgruppe.get_name())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()  
+
+    def update(self, einkaufsgruppe):
         """Wiederholtes Schreiben eines Objekts in die Datenbank."""
-        pass
 
-    def delete(self):
+        cursor = self._cnx.cursor()
+
+        command = "UPDATE einkaufsgruppe SET name = ('{}')" "WHERE einkaufsgruppe_id = ('{}')"\
+                .format(einkaufsgruppe.get_name(), einkaufsgruppe.get_artikel_id)
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+    def delete(self, einkaufsgruppe):
         """Gruppe löschen"""
-        pass
+
+        cursor = self._cnx.cursor()
+
+        command = "DELETE FROM einkaufsgruppe WHERE id={}".format(einkaufsgruppe.get_artikel_id())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
+
+if __name__ == "__main__":
+    with EinkaufsgruppeMapper() as mapper:
+        result = mapper.find_all()
+        for p in result:
+            print(p)

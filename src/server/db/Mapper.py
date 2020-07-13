@@ -1,5 +1,4 @@
 import mysql.connector as connector
-import os
 from contextlib import AbstractContextManager
 from abc import ABC, abstractmethod
 
@@ -11,7 +10,7 @@ class Mapper (AbstractContextManager, ABC):
 
     def __enter__(self):
         """Verbindungsaufbau mit der Datenbank"""
-        
+
         self._cnx = connector.connect(user='ssls_root', 
                                     password='user123', 
                                     host='127.0.0.1', 

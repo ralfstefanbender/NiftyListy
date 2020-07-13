@@ -14,7 +14,7 @@ class EinzelhändlerMapper (Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller EInzelhändler."""
+        """Auslesen aller Einzelhändler."""
 
         result = []
         cursor = self._cnx.cursor()
@@ -55,14 +55,50 @@ class EinzelhändlerMapper (Mapper):
 
         return result
 
-    def insert(self, anwender):
+    def insert(self, einzelhändler):
         """Einfügen eines Einzelhändlers-Objekts in die Datenbank."""
-        pass
-    
-    def update(self, object):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
-        pass
 
-    def delete(self, object):
+        cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(id) as MAXID from einzelhändler")
+        tuples = cursor.fetchall()
+
+        for (MAXID) in tuples:
+            einzelhändler.set_id(MAXID[0]+1)
+
+        command = "INSERT INTO einzelhändler (händler_id, name) VALUES ('{}','{}')"\
+                .format(einzelhändler.get_id(), einzelhändler.get_name())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+    
+    def update(self, einzelhändler):
+        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
+
+        cursor = self._cnx.cursor()
+
+        command = "UPDATE einzelhändler SET name = ('{}')" "WHERE händler_id = ('{}')"\
+                .format(einzelhändler.get_name(), einzelhändler.get_händler_id)
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+    def delete(self, einzelhändler):
         """Löschen der Daten eines Einzelhändler-Objekts aus der Datenbank."""
-        pass
+
+        cursor = self._cnx.cursor()
+
+        command = "DELETE FROM einzelhändler WHERE id={}".format(einzelhändler.get_händler_id())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
+
+if __name__ == "__main__":
+    with EinzelhändlerMapper() as mapper:
+        result = mapper.find_all()
+        for p in result:
+            print(p)

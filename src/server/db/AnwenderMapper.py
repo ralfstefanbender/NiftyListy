@@ -77,8 +77,8 @@ class AnwenderMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE anwender SET name = ('{}'), benutzername = ('{}'), email = ('{}') WHERE user_id = ('{}')"\
-                .format(anwender.get_name(), anwender.get_benutzername(), anwender.get_email())
+        command = "UPDATE anwender SET name = ('{}'), benutzername = ('{}'), email = ('{}')" "WHERE user_id = ('{}')"\
+                .format(anwender.get_name(), anwender.get_benutzername(), anwender.get_email(), anwender.get_user_id)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -95,7 +95,7 @@ class AnwenderMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-"""Testzwekce um uns die Daten anzeigen zu lassen"""
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
     with AnwenderMapper() as mapper:

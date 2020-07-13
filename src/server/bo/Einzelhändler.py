@@ -9,7 +9,7 @@ class Einzelhändler(BusinessObject):
         super().__init__()
         self.__name = name
 
-    def get_name(self)
+    def get_name(self):
         """Auslesen des Einzelhändlernamens"""
         return self.__name
 

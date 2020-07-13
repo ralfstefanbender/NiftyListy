@@ -1,4 +1,4 @@
-from server.bo.Einkaufliste import Einkaufsliste
+from server.bo.Einkaufsliste import Einkaufsliste
 from server.db.Mapper import Mapper
 
 
@@ -28,7 +28,7 @@ class EinkaufslisteMapper (Mapper):
 
         return result
 
-    def find_by_key(self):
+    def find_by_key(self, einkaufsliste_ID):
         """Sucht die Einkaufsliste nach der eingegebenen Listen ID aus"""
 
         result = []
@@ -42,14 +42,50 @@ class EinkaufslisteMapper (Mapper):
 
         return result
 
-    def insert(self):
+    def insert(self, einkaufsliste):
         """Liste hinzufügen"""
-        pass
 
-    def update(self):
+        cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(id) as MAXID from einkaufsliste")
+        tuples = cursor.fetchall()
+
+        for (MAXID) in tuples:
+            einkaufsliste.set_id(MAXID[0]+1)
+
+        command = "INSERT INTO einkaufsgruppe (einkaufsliste_id, name) VALUES ('{}','{}')"\
+                .format(einkaufsliste.get_id(), einkaufsliste.get_name())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()  
+
+    def update(self, einkaufsliste):
         """Wiederholtes Schreiben eines Objekts in die Datenbank."""
-        pass
 
-    def delete(self):
+        cursor = self._cnx.cursor()
+
+        command = "UPDATE einkaufsliste SET name = ('{}')" "WHERE einkaufsliste_id = ('{}')"\
+                .format(einkaufsliste.get_name(), einkaufsliste.get_einkaufsliste_id)
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+    def delete(self, einkaufsliste):
         """Liste löschen"""
-        pass
+
+        cursor = self._cnx.cursor()
+
+        command = "DELETE FROM einkaufsliste WHERE id={}".format(einkaufsliste.get_einkaufsliste_id())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
+
+if __name__ == "__main__":
+    with EinkaufslisteMapper() as mapper:
+        result = mapper.find_all()
+        for p in result:
+            print(p)

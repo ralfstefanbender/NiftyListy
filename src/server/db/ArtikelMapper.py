@@ -41,14 +41,49 @@ class ArtikelMapper (Mapper):
 
         return result
 
-    def insert(self):
+    def insert(self, artikel):
         """Artikel hinzufügen"""
-        pass
 
-    def update(self):
+        cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(artikel_id) as MAXID from artikel")
+        tuples = cursor.fetchall()
+
+        for (MAXID) in tuples:
+            Artikel.set_id(MAXID[0]+1)
+
+        command = "INSERT INTO artikel (artikel_id, name) VALUES ('{}','{}')"\
+                .format(artikel.get_artikel_id(), artikel.get_name())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()  
+
+    def update(self, artikel):
         """Wiederholtes Schreiben eines Objekts in die Datenbank."""
-        pass
+        cursor = self._cnx.cursor()
 
-    def delete(self):
+        command = "UPDATE artikel SET name = ('{}')" "WHERE artikel_id = ('{}')"\
+                .format(artikel.get_name(), artikel.get_artikel_id)
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+    def delete(self, artikel):
         """Artikel löschen"""
-        pass
+
+        cursor = self._cnx.cursor()
+
+        command = "DELETE FROM artikel WHERE id={}".format(artikel.get_artikel_id())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
+
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
+
+if __name__ == "__main__":
+    with ArtikelMapper() as mapper:
+        result = mapper.find_all()
+        for p in result:
+            print(p)
