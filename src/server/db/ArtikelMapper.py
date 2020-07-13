@@ -27,7 +27,7 @@ class ArtikelMapper (Mapper):
 
         return result
 
-    def find_by_key(self):
+    def find_by_key(self, artikel_ID):
         """Sucht die Artikel nach der eingegebenen ID aus"""
 
         result = []

@@ -27,7 +27,7 @@ class EinkaufsgruppeMapper (Mapper):
 
         return result
 
-    def find_by_key(self, einkaufsgruppe):
+    def find_by_key(self, einkaufsgruppe_ID):
         """Sucht die Einkaufsgruppe nach der eingegebenen ID aus"""
 
         result = []
