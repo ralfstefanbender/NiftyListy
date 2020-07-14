@@ -3,6 +3,7 @@ from src.server.bo.Artikel import Artikel
 from src.server.bo.Einkaufsgruppe import Einkaufsgruppe
 from src.server.bo.Einkaufsliste import Einkaufsliste
 from src.server.bo.Einzelhändler import Einzelhändler
+from src.server.bo.Listenobjekt import Listenobjekt
 
 from src.server.db.Mapper import Mapper
 from src.server.db.AnwenderMapper import AnwenderMapper
@@ -32,12 +33,91 @@ class EinkaufAdministration (object):
     - die Klassen BusinessObject und deren Subklassen,
     - die Mapper-Klassen für den DB-Zugriff."""
 
-def __init__(self):
-    pass
+    def __init__(self):
+        pass
 
-def get_all_lists(slef):
-    """Hier sollen alle unsere Listen ausgelesen werden"""
-    with EinkaufslisteMapper() as mapper:
-        return mapper.find_all()
+    # Anwender
 
-"""Administration muss auf den neusten Stand gebracht werden"""
+    def create_anwender(self, name, email, google_user_id):
+
+        user = Anwender()
+        user.set_benutzername(name)
+        user.set_email(email)
+        user.set_google_id(google_user_id)
+        user.set_id(1)
+
+        with AnwenderMapper() as mapper:
+            return mapper.insert(user)
+
+
+    def get_anwender_by_name(self, name):
+        with AnwenderMapper() as mapper:
+            return mapper.find_by_name(name)
+
+
+    def get_anwender_by_id(self, number):
+        with AnwenderMapper() as mapper:
+            return mapper.find_by_key(number)
+
+
+    def get_anwender_by_email(self, email):
+        with AnwenderMapper() as mapper:
+            return mapper.find_by_email(email)
+
+
+    def get_anwender_by_google_user_id(self, id):
+        with AnwenderMapper() as mapper:
+            return mapper.find_by_google_user_id(id)
+
+
+    def get_all_anwender(self):
+        with AnwenderMapper() as mapper:
+            return mapper.find_all()
+
+
+    def save_anwender(self, user):
+        with AnwenderMapper() as mapper:
+            mapper.update(user)
+
+
+    def delete_anwender(self, user):
+        with AnwenderMapper() as mapper:
+            mapper.delete(user)
+
+
+    def get_all_lists(self):
+        with EinkaufslisteMapper() as mapper:
+            return mapper.find_all()
+
+    # Artikel
+
+    def create_artikel(self, name, einheit):
+        artikel = Artikel()
+        artikel.set_name(name)
+        artikel.set_einheit(einheit)
+        artikel.set_id(1)
+
+        with ArtikelMapper() as mapper:
+            return mapper.insert(Artikel)
+
+    def get_artikel_by_name(self, last_name):
+        with ArtikelMapper() as mapper:
+            return mapper.find_by_last_name(last_name)
+
+    def get_artikel_by_id(self, number):
+        with ArtikelMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_all_artikel(self):
+        with ArtikelMapper() as mapper:
+            return mapper.find_all()
+
+    def save_artikel(self, artikel):
+        with ArtikelMapper() as mapper:
+            mapper.update(artikel)
+
+    def delete_artikel(self, artikel):
+        with ArtikelMapper() as mapper:
+            mapper.delete(artikel)
+
+    
