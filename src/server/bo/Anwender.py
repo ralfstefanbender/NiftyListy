@@ -8,15 +8,8 @@ class Anwender(BusinessObject):
     def __init__(self):
         super().__init__()
         self.__benutzername = ""
-        self.__name =""
         self.__email = ""
-        self.__user_id = ""
-
-    def get_name(self):
-        return self.__name
-
-    def set_name(self, name):
-        self.__name = name
+        self.__google_id = ""
 
     def set_benutzername(self, benutzername):
         """Setzen des Benutzernamens"""
@@ -34,13 +27,13 @@ class Anwender(BusinessObject):
         """Auslesen der E-Mail"""
         return self.__email
 
-    def set_user_id(self, id):
+    def set_google_id(self, id):
         """Setzen der User ID"""
-        self.__user_id = id
+        self.__google_id = id
 
-    def get_user_id(self):
+    def get_google_id(self):
         """Auslesen der User ID"""
-        return self.__user_id
+        return self.__google_id
 
 
     @staticmethod
@@ -48,7 +41,7 @@ class Anwender(BusinessObject):
         """Umwandeln eines Python dict() in einen listentry()"""
         new_anwender = Anwender()
         new_anwender.set_id(dict["id"])
-        new_anwender.set_user_id(dict["user_id"])
+        new_anwender.set_google_id()_id(dict["google_id"])
         new_anwender.set_benutzername(dict["benutzername"])
         new_anwender.set_email(dict["email"])
         return new_anwender

@@ -6,19 +6,9 @@ class Einkaufsgruppe(BusinessObject):
     """
     Realisierung der Einkaufsgruppe
     """
-    def __init__(self, einkaufsgruppe_name, teilnehmerliste = [], artikelliste =[]):
+    def __init__(self):
         super().__init__()
-        self.__einkaufsgruppe_name = einkaufsgruppe_name
-        self.__teilnehmerliste = teilnehmerliste
-        self.artikelliste = artikelliste
-
-    def add_user(self, Anwender):
-        """Hinzufügen eines Users"""
-        self.__teilnehmerliste.extend(Anwender)
-
-    def del_user(self,Anwender):
-        """Löschen eines Users"""
-        self.__teilnehmerliste.remove(Anwender)
+        self.__einkaufsgruppe_name = ""
 
     def get_einkaufsgruppe_name(self):
         """Auslesen des Gruppennamens"""
@@ -31,5 +21,7 @@ class Einkaufsgruppe(BusinessObject):
 
     @staticmethod
     def from_dict(dict):
-        new_einkaufsgruppe = Einkaufsgruppe(dict["name"], dict["teilnehmerliste"], dict["artikelliste"])
+        new_einkaufsgruppe = Einkaufsgruppe()
+        new_einkaufsgruppe.set_id(dict["id"])
+        new_einkaufsgruppe.set_einkaufsgruppe_name(dict["name"])
         return new_einkaufsgruppe

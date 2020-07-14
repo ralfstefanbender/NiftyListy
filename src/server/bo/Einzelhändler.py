@@ -19,7 +19,9 @@ class Einzelhändler(BusinessObject):
 
     @staticmethod
     def from_dict(dict):
-        new_einzelhaendler = Einzelhändler(dict["name"])
+        new_einzelhaendler = Einzelhändler()
+        new_einzelhaendler.set_id(dict["id"])
+        new_einzelhaendler.set_name(dict["name"])
         return new_einzelhaendler
         
 
