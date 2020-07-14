@@ -22,9 +22,11 @@ class ArtikelMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name) in tuples:
+        for (id, name, einheit, create_time) in tuples:
             artikel = Artikel()
-            artikel.set_artikel_id(id)
+            artikel.set_id(id)
+            artikel.set_erstellungszeitpunkt(create_time)
+            artikel.set_einheit(einheit)
             artikel.set_name(name)
             result.append(artikel)
         
@@ -92,11 +94,10 @@ class ArtikelMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-"""Testzwecke um uns die Daten anzeigen zu lassen
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
     with ArtikelMapper() as mapper:
         result = mapper.find_all()
         for p in result:
             print(p)
-"""
