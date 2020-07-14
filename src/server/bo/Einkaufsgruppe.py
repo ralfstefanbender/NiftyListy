@@ -1,8 +1,8 @@
-from src.server.bo import BusinessObject
+from src.server.bo import BusinessObject as bo
 from src.server.bo import Anwender
 
 
-class Einkaufsgruppe(BusinessObject):
+class Einkaufsgruppe(bo.BusinessObject):
     """
     Realisierung der Einkaufsgruppe
     """

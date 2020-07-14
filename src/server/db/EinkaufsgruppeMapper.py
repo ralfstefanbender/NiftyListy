@@ -1,5 +1,5 @@
-from server.bo.Einkaufsgruppe import Einkaufsgruppe
-from server.db.Mapper import Mapper
+from src.server.bo.Einkaufsgruppe import Einkaufsgruppe
+from src.server.db.Mapper import Mapper
 
 
 class EinkaufsgruppeMapper (Mapper):

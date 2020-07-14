@@ -1,5 +1,5 @@
-from server.bo.Einzelhändler import Einzelhändler
-from server.db.Mapper import Mapper
+from src.server.bo.Einzelhändler import Einzelhändler
+from src.server.db.Mapper import Mapper
 
 
 class EinzelhändlerMapper (Mapper):
