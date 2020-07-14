@@ -17,6 +17,9 @@ class Mapper (AbstractContextManager, ABC):
                                     database='niftylisty')
         return self
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self._cnx.close()
+        
     @abstractmethod
     def find_all(self):
         """Lies alle Tupel aus und gib sie als Objekte zurück."""
