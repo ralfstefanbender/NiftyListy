@@ -22,12 +22,13 @@ class AnwenderMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, benutzername, email) in tuples:
+        for (id, benutzername, email, google_id, create_time) in tuples:
             anwender = Anwender()
-            anwender.set_user_id(id)
-            anwender.set_name(name)
+            anwender.set_id(id)
             anwender.set_benutzername(benutzername)
             anwender.set_email(email)
+            anwender.set_google_id(google_id)
+            anwender.set_erstellungszeitpunkt(create_time)
             result.append(anwender)
 
         self._cnx.commit()
@@ -120,12 +121,10 @@ class AnwenderMapper (Mapper):
         cursor.close()
 
 """
-Testzwecke um uns die Daten anzeigen zu lassen
+Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
     with AnwenderMapper() as mapper:
-
-        result = mapper.find_by_key(1)
-        print(result.get_user_id())
-
-"""
+        result = mapper.find_all()
+        for p in result:
+            print(p)
