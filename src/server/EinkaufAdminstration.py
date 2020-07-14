@@ -120,4 +120,3 @@ class EinkaufAdministration (object):
         with ArtikelMapper() as mapper:
             mapper.delete(artikel)
 
-    
