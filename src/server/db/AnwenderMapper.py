@@ -36,12 +36,12 @@ class AnwenderMapper (Mapper):
 
         return result
     
-    def find_by_key(self, user_ID):
+    def find_by_key(self, user_id):
         """Suchen eines Anwenders mit vorgegebener user ID"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT user_ID FROM anwender WHERE user_ID like '{}'".format(user_ID)
+        command = "SELECT user_id FROM anwender WHERE user_id like '{}'".format(user_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
