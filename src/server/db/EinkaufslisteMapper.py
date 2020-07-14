@@ -23,10 +23,11 @@ class EinkaufslisteMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name) in tuples:
+        for (id, name, create_time) in tuples:
             einkaufsliste = Einkaufsliste()
             einkaufsliste.set_id(id)
             einkaufsliste.set_einkaufsliste_name(name)
+            einkaufsliste.set_erstellungszeitpunkt(create_time)
             result.append(einkaufsliste)
         
         self._cnx.commit()
@@ -34,14 +35,25 @@ class EinkaufslisteMapper (Mapper):
 
         return result
 
-    def find_by_key(self, einkaufsliste_ID):
+    def find_by_key(self, einkaufsliste_id):
         """Sucht die Einkaufsliste nach der eingegebenen Listen ID aus"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT einkaufsliste_ID FROM einkaufsliste WHERE einkaufsliste_ID like '{}'".format(einkaufsliste_ID)
+        command = "SELECT einkaufsliste_id FROM einkaufsliste WHERE einkaufsliste_id like '{}'".format(einkaufsliste_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        if len (tuples) != 0:
+
+            for (id, name, create_time) in tuples:
+                einkaufsliste = Einkaufsliste()
+                einkaufsliste.set_id(id)
+                einkaufsliste.set_einkaufsliste_name(name)
+                einkaufsliste.set_erstellungszeitpunkt(create_time)
+                result.append(einkaufsliste)
+
+        result = einkaufsliste
         
         self._cnx.commit()
         cursor.close()
@@ -52,14 +64,14 @@ class EinkaufslisteMapper (Mapper):
         """Liste hinzufügen"""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) as MAXID from einkaufsliste")
+        cursor.execute("SELECT MAX(id) as MaxID from einkaufsliste")
         tuples = cursor.fetchall()
 
-        for (MAXID) in tuples:
-            einkaufsliste.set_id(MAXID[0]+1)
+        for (MaxID) in tuples:
+            einkaufsliste.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO einkaufsgruppe (einkaufsliste_id, name) VALUES ('{}','{}')"\
-                .format(einkaufsliste.get_id(), einkaufsliste.get_name())
+        command = "INSERT INTO einkaufsgruppe (einkaufsliste_id, name, create_time) VALUES ('{}','{}','{}')"\
+                .format(einkaufsliste.get_id(), einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -70,8 +82,8 @@ class EinkaufslisteMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE einkaufsliste SET name = ('{}')" "WHERE einkaufsliste_id = ('{}')"\
-                .format(einkaufsliste.get_name(), einkaufsliste.get_einkaufsliste_id)
+        command = "UPDATE einkaufsliste SET name = ('{}'), create_time = ('{}')" "WHERE einkaufsliste_id = ('{}')"\
+                .format(einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt, einkaufsliste.get_id)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -82,17 +94,16 @@ class EinkaufslisteMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM einkaufsliste WHERE id={}".format(einkaufsliste.get_einkaufsliste_id())
+        command = "DELETE FROM einkaufsliste WHERE einkaufsliste_id={}".format(einkaufsliste.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
 
-"""Testzwecke um uns die Daten anzeigen zu lassen
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
     with EinkaufslisteMapper() as mapper:
         result = mapper.find_all()
         for p in result:
-            print(p)
-"""
+            print(p.get_name)

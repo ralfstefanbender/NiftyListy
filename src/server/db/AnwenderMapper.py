@@ -45,13 +45,18 @@ class AnwenderMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, benutzername, email) in tuples:
-            anwender = Anwender()
-            anwender.set_user_id(id)
-            anwender.set_name(name)
-            anwender.set_benutzername(benutzername)
-            anwender.set_email(email)
-            result.append(anwender)
+        if len (tuples) != 0:
+
+            for (id, benutzername, email, google_id, create_time) in tuples:
+                anwender = Anwender()
+                anwender.set_user_id(id)
+                anwender.set_benutzername(benutzername)
+                anwender.set_email(email)
+                anwender.set_google_id(google_id)
+                anwender.set_erstellungszeitpunkt(create_time)
+                result.append(anwender)
+
+        result = anwender
 
         self._cnx.commit()
         cursor.close()
@@ -67,12 +72,13 @@ class AnwenderMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, benutzername, email) in tuples:
+        for (id, benutzername, email, google_id, create_time) in tuples:
             anwender = Anwender()
             anwender.set_user_id(id)
-            anwender.set_name(name)
             anwender.set_benutzername(benutzername)
             anwender.set_email(email)
+            anwender.set_google_id(google_id)
+            anwender.set_erstellungszeitpunkt(create_time)
             result.append(anwender)
 
         self._cnx.commit()
@@ -80,18 +86,41 @@ class AnwenderMapper (Mapper):
 
         return result
 
+    def find_by_google_id(self, google_id):
+        """Suchen eines Anwenders anhand der Google ID des Anwenders."""
+
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT google_id FROM anwender WHERE google_id like '{}'".format(google_id)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, benutzername, email, google_id, create_time) in tuples:
+            anwender = Anwender()
+            anwender.set_user_id(id)
+            anwender.set_benutzername(benutzername)
+            anwender.set_email(email)
+            anwender.set_google_id(google_id)
+            anwender.set_erstellungszeitpunkt(create_time)
+            result.append(anwender)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result        
+
     def insert(self, anwender):
         """Einfügen eines Anwender-Objekts in die Datenbank."""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(user_id) as MAXID from anwender")
+        cursor.execute("SELECT MAX(user_id) as MaxID from anwender")
         tuples = cursor.fetchall()
 
-        for (MAXID) in tuples:
-            anwender.set_id(MAXID[0]+1)
+        for (MaxID) in tuples:
+            anwender.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO anwender (user_id, name, benutzername, email) VALUES ('{}','{}','{}','{}')"\
-                .format(anwender.get_user_id(), anwender.get_name(), anwender.get_benutzername(), anwender.get_email())
+        command = "INSERT INTO anwender (user_id, benutzername, email, google_id, create_time) VALUES ('{}','{}','{}','{}','{}')"\
+                .format(anwender.get_user_id(), anwender.get_benutzername(), anwender.get_email(), anwender.get_google_id, anwender.get_erstellungszeitpunkt)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -102,8 +131,8 @@ class AnwenderMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE anwender SET name = ('{}'), benutzername = ('{}'), email = ('{}')" "WHERE user_id = ('{}')"\
-                .format(anwender.get_name(), anwender.get_benutzername(), anwender.get_email(), anwender.get_user_id)
+        command = "UPDATE anwender SET benutzername = ('{}'), email = ('{}'), google_id = ('{}'), create_time = ('{}')" "WHERE user_id = ('{}')"\
+                .format(anwender.get_benutzername(), anwender.get_email(), anwender.get_google_id, anwender.get_erstellungszeitpunkt, anwender.get_user_id)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -114,17 +143,16 @@ class AnwenderMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM anwender WHERE id={}".format(anwender.get_user_id())
+        command = "DELETE FROM anwender WHERE user_id={}".format(anwender.get_user_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
 
-"""
-Testzwecke um uns die Daten anzeigen zu lassen"""
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
     with AnwenderMapper() as mapper:
         result = mapper.find_all()
         for p in result:
-            print(p)
+            print(p.get_google_id)

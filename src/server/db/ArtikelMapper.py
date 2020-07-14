@@ -25,9 +25,9 @@ class ArtikelMapper (Mapper):
         for (id, name, einheit, create_time) in tuples:
             artikel = Artikel()
             artikel.set_id(id)
-            artikel.set_erstellungszeitpunkt(create_time)
-            artikel.set_einheit(einheit)
             artikel.set_name(name)
+            artikel.set_einheit(einheit)
+            artikel.set_create_time(create_time)
             result.append(artikel)
         
         self._cnx.commit()
@@ -35,20 +35,26 @@ class ArtikelMapper (Mapper):
 
         return result
 
-    def find_by_key(self, artikel_ID):
+    def find_by_key(self, artikel_id):
         """Sucht die Artikel nach der eingegebenen ID aus"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT artikel_ID FROM artikel WHERE artikel_ID like '{}'".format(artikel_ID)
+        command = "SELECT artikel_id FROM artikel WHERE artikel_id like '{}'".format(artikel_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name) in tuples:
-            artikel = Artikel()
-            artikel.set_artikel_id(id)
-            artikel.set_name(name)
-            result.append(artikel)
+        if len (tuples) != 0:
+
+            for (id, name, einheit, create_time) in tuples:
+                artikel = Artikel()
+                artikel.set_artikel_id(id)
+                artikel.set_name(name)
+                artikel.set_einheit(einheit)
+                artikel.set_create_time(create_time)
+                result.append(artikel)
+
+            result = artikel
         
         self._cnx.commit()
         cursor.close()
@@ -59,14 +65,14 @@ class ArtikelMapper (Mapper):
         """Artikel hinzufügen"""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(artikel_id) as MAXID from artikel")
+        cursor.execute("SELECT MAX(artikel_id) as MaxID from artikel")
         tuples = cursor.fetchall()
 
-        for (MAXID) in tuples:
-            Artikel.set_id(MAXID[0]+1)
+        for (MaxID) in tuples:
+            Artikel.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO artikel (artikel_id, name) VALUES ('{}','{}')"\
-                .format(artikel.get_artikel_id(), artikel.get_name())
+        command = "INSERT INTO artikel (artikel_id, name, einheit, create_time) VALUES ('{}','{}','{}','{}')"\
+                .format(artikel.get_id(), artikel.get_name(), artikel.get_einheit, artikel.get_erstellungszeitpunkt)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -76,8 +82,8 @@ class ArtikelMapper (Mapper):
         """Wiederholtes Schreiben eines Objekts in die Datenbank."""
         cursor = self._cnx.cursor()
 
-        command = "UPDATE artikel SET name = ('{}')" "WHERE artikel_id = ('{}')"\
-                .format(artikel.get_name(), artikel.get_artikel_id)
+        command = "UPDATE artikel SET name = ('{}'), einheit = ('{}'), create_time = ('{}')" "WHERE artikel_id = ('{}')"\
+                .format(artikel.get_name(), artikel.get_einheit, artikel.get_erstellungszeitpunkt, artikel.get_id)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -88,7 +94,7 @@ class ArtikelMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM artikel WHERE id={}".format(artikel.get_artikel_id())
+        command = "DELETE FROM artikel WHERE id = {}".format(artikel.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -100,4 +106,4 @@ if __name__ == "__main__":
     with ArtikelMapper() as mapper:
         result = mapper.find_all()
         for p in result:
-            print(p)
+            print(p.get_name)

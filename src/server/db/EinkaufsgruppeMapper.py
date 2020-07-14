@@ -22,10 +22,13 @@ class EinkaufsgruppeMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name) in tuples:
+        for (id, name, create_time, teilnehmerliste, artikelliste) in tuples:
             einkaufsgruppe = Einkaufsgruppe()
             einkaufsgruppe.set_id(id)
             einkaufsgruppe.set_einkaufsgruppe_name(name)
+            einkaufsgruppe.set_erstellungszeitpunkt(create_time)
+            einkaufsgruppe.set_teilnehmerliste(teilnehmerliste)
+            einkaufsgruppe.set_artikelliste(artikelliste)
             result.append(einkaufsgruppe)
         
         self._cnx.commit()
@@ -33,20 +36,27 @@ class EinkaufsgruppeMapper (Mapper):
 
         return result
 
-    def find_by_key(self, einkaufsgruppe_ID):
+    def find_by_key(self, einkaufsgruppe_id):
         """Sucht die Einkaufsgruppe nach der eingegebenen ID aus"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT einkaufsgruppe_ID FROM einkaufsgruppe WHERE einkaufsgruppe_ID like '{}'".format(einkaufsgruppe_ID)
+        command = "SELECT einkaufsgruppe_id FROM einkaufsgruppe WHERE einkaufsgruppe_id like '{}'".format(einkaufsgruppe_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name) in tuples:
-            einkaufsgruppe = Einkaufsgruppe()
-            einkaufsgruppe.set_id(id)
-            einkaufsgruppe.set_einkaufsgruppe_name(name)
-            result.append(einkaufsgruppe)
+        if len (tuples) != 0:
+
+            for (id, name, create_time, teilnehmerliste, artikelliste) in tuples:
+                einkaufsgruppe = Einkaufsgruppe()
+                einkaufsgruppe.set_id(id)
+                einkaufsgruppe.set_einkaufsgruppe_name(name)
+                einkaufsgruppe.set_erstellungszeitpunkt(create_time)
+                einkaufsgruppe.set_teilnehmerliste(teilnehmerliste)
+                einkaufsgruppe.set_artikelliste(artikelliste)
+                result.append(einkaufsgruppe)
+        
+        result = einkaufsgruppe
         
         self._cnx.commit()
         cursor.close()
@@ -56,14 +66,14 @@ class EinkaufsgruppeMapper (Mapper):
     def insert(self, einkaufsgruppe):
         """Gruppe hinzufügen"""
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) as MAXID from einkaufsgruppe")
+        cursor.execute("SELECT Max(einkaufsgruppe_id) as MaxID from einkaufsgruppe")
         tuples = cursor.fetchall()
 
-        for (MAXID) in tuples:
-            einkaufsgruppe.set_id(MAXID[0]+1)
+        for (MaxID) in tuples:
+            einkaufsgruppe.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO einkaufsgruppe (einkaufsgruppe_id, name) VALUES ('{}','{}')"\
-                .format(einkaufsgruppe.get_id(), einkaufsgruppe.get_name())
+        command = "INSERT INTO einkaufsgruppe (einkaufsgruppe_id, einkaufsgruppe_name, create_time, teilnehmerliste, artikelliste) VALUES ('{}','{}','{}','{}','{}')"\
+                .format(einkaufsgruppe.get_id(), einkaufsgruppe.get_name(), einkaufsgruppe.get_erstellungszeitpunkt, einkaufsgruppe.get_teilnehmerliste, einkaufsgruppe.get_artikelliste)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -74,8 +84,8 @@ class EinkaufsgruppeMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE einkaufsgruppe SET name = ('{}')" "WHERE einkaufsgruppe_id = ('{}')"\
-                .format(einkaufsgruppe.get_name(), einkaufsgruppe.get_einkaufsgruppe_id)
+        command = "UPDATE einkaufsgruppe SET einkaufsgruppe_name = ('{}'), einkaufsgruppe_create_time = ('{}'), einkaufsgruppe_teilnehmerliste = ('{}'), einkaufsgruppe_artikelliste = ('{}')" "WHERE einkaufsgruppe_id = ('{}')"\
+                .format(einkaufsgruppe.get_name(), einkaufsgruppe.get_id, einkaufsgruppe.get_create_time, einkaufsgruppe.get_teilnehmerliste, einkaufsgruppe.get_artikelliste)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -86,17 +96,16 @@ class EinkaufsgruppeMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM einkaufsgruppe WHERE id={}".format(einkaufsgruppe.get_einkaufsgruppe_id())
+        command = "DELETE FROM einkaufsgruppe WHERE einkaufsgruppe_id = {}".format(einkaufsgruppe.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
 
-"""Testzwecke um uns die Daten anzeigen zu lassen
+"""Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
     with EinkaufsgruppeMapper() as mapper:
         result = mapper.find_all()
         for p in result:
-            print(p)
-"""
+            print(p.get_einkaufsgruppe_name)
