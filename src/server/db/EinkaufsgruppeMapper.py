@@ -75,7 +75,7 @@ class EinkaufsgruppeMapper (Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE einkaufsgruppe SET name = ('{}')" "WHERE einkaufsgruppe_id = ('{}')"\
-                .format(einkaufsgruppe.get_name(), einkaufsgruppe.get_artikel_id)
+                .format(einkaufsgruppe.get_name(), einkaufsgruppe.get_einkaufsgruppe_id)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -86,7 +86,7 @@ class EinkaufsgruppeMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM einkaufsgruppe WHERE id={}".format(einkaufsgruppe.get_artikel_id())
+        command = "DELETE FROM einkaufsgruppe WHERE id={}".format(einkaufsgruppe.get_einkaufsgruppe_id())
         cursor.execute(command)
 
         self._cnx.commit()
