@@ -1,7 +1,7 @@
-from src.server.bo import BusinessObject
+from src.server.bo import BusinessObject as bo
 
 
-class Anwender(BusinessObject):
+class Anwender(bo.BusinessObject):
     """
     Realisierung der Anwender
     """
@@ -41,7 +41,7 @@ class Anwender(BusinessObject):
         """Umwandeln eines Python dict() in einen listentry()"""
         new_anwender = Anwender()
         new_anwender.set_id(dict["id"])
-        new_anwender.set_google_id()_id(dict["google_id"])
+        new_anwender.set_google_id(dict["google_id"])
         new_anwender.set_benutzername(dict["benutzername"])
         new_anwender.set_email(dict["email"])
         return new_anwender

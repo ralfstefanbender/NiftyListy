@@ -1,14 +1,15 @@
-from .bo.Anwender import Anwender
-from .bo.Artikel import Artikel
-from .bo.Einkaufsgruppe import Einkaufsgruppe
-from .bo.Einkaufsliste import Einkaufsliste
-from .bo.Einzelhändler import Einzelhändler
+from src.server.bo.Anwender import Anwender
+from src.server.bo.Artikel import Artikel
+from src.server.bo.Einkaufsgruppe import Einkaufsgruppe
+from src.server.bo.Einkaufsliste import Einkaufsliste
+from src.server.bo.Einzelhändler import Einzelhändler
 
-from .db.Mapper import Mapper
-from .db.AnwenderMapper import AnwenderMapper
-from .db.EinkaufsgruppeMapper import EinkaufsgruppeMapper
-from .db.ArtikelMapper import ArtikelMapper
-from .db.EinkaufslisteMapper import EinkaufslisteMapper
+from src.server.db.Mapper import Mapper
+from src.server.db.AnwenderMapper import AnwenderMapper
+from src.server.db.EinkaufsgruppeMapper import EinkaufsgruppeMapper
+from src.server.db.ArtikelMapper import ArtikelMapper
+from src.server.db.EinkaufslisteMapper import EinkaufslisteMapper
+
 
 class EinkaufAdministration (object):
     """Diese Klasse aggregiert nahezu sämtliche Applikationslogik (engl. Business Logic).
