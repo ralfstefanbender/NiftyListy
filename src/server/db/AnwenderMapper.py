@@ -1,5 +1,5 @@
-from server.bo.Anwender import Anwender
-from server.db.Mapper import Mapper
+from src.server.bo.Anwender import Anwender
+from src.server.db.Mapper import Mapper
 
 
 class AnwenderMapper (Mapper):

@@ -1,5 +1,5 @@
-from server.bo.Artikel import Artikel
-from server.db.Mapper import Mapper
+from src.server.bo.Artikel import Artikel
+from src.server.db.Mapper import Mapper
 
 
 class ArtikelMapper (Mapper):

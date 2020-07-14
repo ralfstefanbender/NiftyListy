@@ -1,5 +1,5 @@
-from server.bo.Listenobjekt import Listenobjekt
-from server.db.Mapper import Mapper
+from src.server.bo.Listenobjekt import Listenobjekt
+from src.server.db.Mapper import Mapper
 
 
 class ListenobjektMapper (Mapper):
