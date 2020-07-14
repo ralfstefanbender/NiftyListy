@@ -10,7 +10,8 @@ from src.server.db.AnwenderMapper import AnwenderMapper
 from src.server.db.EinkaufsgruppeMapper import EinkaufsgruppeMapper
 from src.server.db.ArtikelMapper import ArtikelMapper
 from src.server.db.EinkaufslisteMapper import EinkaufslisteMapper
-
+from src.server.db.EinzelhändlerMapper import EinzelhändlerMapper
+from src.server.db.ListenobjektMapper import ListenobjektMapper
 
 class EinkaufAdministration (object):
     """Diese Klasse aggregiert nahezu sämtliche Applikationslogik (engl. Business Logic).
@@ -119,4 +120,68 @@ class EinkaufAdministration (object):
     def delete_artikel(self, artikel):
         with ArtikelMapper() as mapper:
             mapper.delete(artikel)
+
+    # Einzelhändler
+
+    def create_einzelhändler(self, name):
+        einzelhändler = Einzelhändler()
+        einzelhändler.set_name(name)
+
+        with EinzelhändlerMapper() as mapper:
+            return mapper.insert(Einzelhändler)
+
+    def get_einzelhändler_by_name(self, last_name):
+        with EinzelhändlerMapper() as mapper:
+            return mapper.find_by_last_name(last_name)
+
+    def get_einzelhändler_by_id(self, number):
+        with EinzelhändlerMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_all_einzelhändler(self):
+        with EinzelhändlerMapper() as mapper:
+            return mapper.find_all()
+
+    def save_einzelhändler(self, artikel):
+        with EinzelhändlerMapper() as mapper:
+            mapper.update(artikel)
+
+    def delete_einzelhändler(self, einzelhändler):
+        with EinzelhändlerMapper() as mapper:
+            mapper.delete(einzelhändler)
+
+    # Listenobjekt
+
+    def create_listenobjekt(self, parent_list, user_id, artikel_id, einzelhändler_id, artikel_preis, menge, ticked):
+        listenobjekt = Listenobjekt()
+        listenobjekt.set_parent_list(parent_list)
+        listenobjekt.set_user_id(user_id)
+        listenobjekt.set_artikel_id(artikel_id)
+        listenobjekt.set_einzelhändler_id(einzelhändler_id)
+        listenobjekt.set_artikel_preis(artikel_preis)
+        listenobjekt.set_menge(menge)
+        listenobjekt.set_ticked(ticked)
+
+        with ListenobjektMapper() as mapper:
+            return mapper.insert(Listenobjekt)
+
+    def get_listenobjekt_by_name(self, last_name):
+        with ListenobjektMapper() as mapper:
+            return mapper.find_by_last_name(last_name)
+
+    def get_listenobjekt_by_id(self, number):
+        with ListenobjektMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_all_listenobjekt(self):
+        with ListenobjektMapper() as mapper:
+            return mapper.find_all()
+
+    def save_listenobjekt(self, artikel):
+        with ListenobjektMapper() as mapper:
+            mapper.update(artikel)
+
+    def delete_listenobjekt(self, listenobjekt):
+        with ListenobjektMapper() as mapper:
+            mapper.delete(listenobjekt)
 
