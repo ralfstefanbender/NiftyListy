@@ -41,7 +41,7 @@ class AnwenderMapper (Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT user_id FROM anwender WHERE user_id like '{}'".format(user_id)
+        command = "SELECT * FROM anwender WHERE user_id like '{}'".format(user_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -113,14 +113,14 @@ class AnwenderMapper (Mapper):
         """Einfügen eines Anwender-Objekts in die Datenbank."""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(user_id) as MaxID from anwender")
+        cursor.execute("SELECT MAX(id) as MaxID from anwender")
         tuples = cursor.fetchall()
 
         for (MaxID) in tuples:
             anwender.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO anwender (user_id, benutzername, email, google_id, create_time) VALUES ('{}','{}','{}','{}','{}')"\
-                .format(anwender.get_user_id(), anwender.get_benutzername(), anwender.get_email(), anwender.get_google_id, anwender.get_erstellungszeitpunkt)
+        command = "INSERT INTO anwender (id, benutzername, email, google_id, create_time) VALUES ('{}','{}','{}','{}','{}')"\
+                .format(anwender.get_id(), anwender.get_benutzername(), anwender.get_email(), anwender.get_google_id(), anwender.get_erstellungszeitpunkt())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -131,8 +131,8 @@ class AnwenderMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE anwender SET benutzername = ('{}'), email = ('{}'), google_id = ('{}'), create_time = ('{}')" "WHERE user_id = ('{}')"\
-                .format(anwender.get_benutzername(), anwender.get_email(), anwender.get_google_id, anwender.get_erstellungszeitpunkt, anwender.get_user_id)
+        command = "UPDATE anwender SET benutzername = ('{}'), email = ('{}'), google_id = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
+                .format(anwender.get_benutzername(), anwender.get_email(), anwender.get_google_id(), anwender.get_erstellungszeitpunkt(), anwender.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -143,7 +143,7 @@ class AnwenderMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM anwender WHERE user_id={}".format(anwender.get_user_id())
+        command = "DELETE FROM anwender WHERE id={}".format(anwender.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
