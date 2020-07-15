@@ -35,12 +35,12 @@ class EinkaufslisteMapper (Mapper):
 
         return result
 
-    def find_by_key(self, einkaufsliste_id):
+    def find_by_key(self, id):
         """Sucht die Einkaufsliste nach der eingegebenen Listen ID aus"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT einkaufsliste_id FROM einkaufsliste WHERE einkaufsliste_id like '{}'".format(einkaufsliste_id)
+        command = "SELECT * FROM einkaufsliste WHERE id like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -71,7 +71,7 @@ class EinkaufslisteMapper (Mapper):
             einkaufsliste.set_id(MaxID[0]+1)
 
         command = "INSERT INTO einkaufsgruppe (einkaufsliste_id, name, create_time) VALUES ('{}','{}','{}')"\
-                .format(einkaufsliste.get_id(), einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt)
+                .format(einkaufsliste.get_id(), einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -82,8 +82,8 @@ class EinkaufslisteMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE einkaufsliste SET name = ('{}'), create_time = ('{}')" "WHERE einkaufsliste_id = ('{}')"\
-                .format(einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt, einkaufsliste.get_id)
+        command = "UPDATE einkaufsliste SET name = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
+                .format(einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt(), einkaufsliste.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -94,7 +94,7 @@ class EinkaufslisteMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM einkaufsliste WHERE einkaufsliste_id={}".format(einkaufsliste.get_id())
+        command = "DELETE FROM einkaufsliste WHERE id={}".format(einkaufsliste.get_id())
         cursor.execute(command)
 
         self._cnx.commit()

@@ -33,12 +33,12 @@ class ZugehörigkeitMapper (Mapper):
 
         return result
 
-    def find_by_key(self, zugehörigkeit_id):
+    def find_by_key(self, id):
         """Suchen eines Anwenders mit vorgegebener user ID"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT zugehörigkeit_id FROM zugehörigkeit WHERE zugehörigkeit_id like '{}'".format(zugehörigkeit_id)
+        command = "SELECT * FROM zugehörigkeit WHERE id like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -62,51 +62,29 @@ class ZugehörigkeitMapper (Mapper):
         """Einfügen eines Anwender-Objekts in die Datenbank."""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(zugehörigkeit_id) as MaxID from zugehörigkeit")
+        cursor.execute("SELECT MAX(id) as MaxID from zugehörigkeit")
         tuples = cursor.fetchall()
 
         for (MaxID) in tuples:
             zugehörigkeit.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO zugehörigkeit (zugehörigkeit_id, user_id, einkaufsgruppe_id) VALUES ('{}','{}','{}')"\
-            .format(zugehörigkeit.get_id(), zugehörigkeit.get_anwender_id(), zugehörigkeit.get_einkaufsgruppe_id)
+        command = "INSERT INTO zugehörigkeit (id, anwender_id, einkaufsgruppe_id) VALUES ('{}','{}','{}')"\
+            .format(zugehörigkeit.get_id(), zugehörigkeit.get_id(), zugehörigkeit.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close() 
-"""
-        def update(self, anwender):
-        hierdreiGänsefüschenWiederholtes Schreiben eines Objekts in die Datenbank.hierdreiGänsefüschen
-
-        cursor = self._cnx.cursor()
-
-        command = "UPDATE anwender SET benutzername = ('{}'), user_id = ('{}'), einkaufsgruppe_id = ('{}')" "WHERE zugehörigkeit_id = ('{}')"\
-                .format(anwender.get_benutzername(), anwender.get_email(), anwender.get_google_id, anwender.get_erstellungszeitpunkt, anwender.get_user_id)
-        cursor.execute(command)
-
-        self._cnx.commit()
-        cursor.close()
 
     def delete(self, anwender):
-        hierdreiGänsefüschenLöschen der Daten eines Anwenders-Objekts aus der Datenbank.hierdreiGänsefüschen
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM anwender WHERE user_id={}".format(anwender.get_user_id())
+        command = "DELETE FROM anwender WHERE id={}".format(anwender.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
         
-
-!!!!!!!!!!!!!!!!
-with ZugehörigkeitMapper() as mapper:
-TypeError: Can't instantiate abstract class ZugehörigkeitMapper with abstract methods delete, update,
--> bedeutet also das Wenn Zugehörigkeit zum Obermapper gehört er die Methoden delete und update haben muss..
-Wir brauchen eine neue Herangehensweise.
-!!!!!!!!!!!!!!!!
-
-"""
 
 """Testzwecke um uns die Daten anzeigen zu lassen"""
 

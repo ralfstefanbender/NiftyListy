@@ -91,7 +91,7 @@ class AnwenderMapper (Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT google_id FROM anwender WHERE google_id like '{}'".format(google_id)
+        command = "SELECT * FROM anwender WHERE google_id like '{}'".format(google_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

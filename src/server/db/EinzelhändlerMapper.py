@@ -34,12 +34,12 @@ class EinzelhändlerMapper(Mapper):
 
         return result
     
-    def find_by_key(self, händler_ID):
+    def find_by_key(self, id):
         """Suchen eines Einzelhändlers mit vorgegebener Einzelhändler ID."""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT händler_ID FROM einzelhändler WHERE händler_ID like '{}'".format(händler_ID)
+        command = "SELECT * FROM einzelhändler WHERE ID like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -84,13 +84,13 @@ class EinzelhändlerMapper(Mapper):
         """Einfügen eines Einzelhändlers-Objekts in die Datenbank."""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(händler_id) as MAXID from einzelhändler")
+        cursor.execute("SELECT MAX(id) as MAXID from einzelhändler")
         tuples = cursor.fetchall()
 
         for (MaxID) in tuples:
             einzelhändler.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO einzelhändler (händler_id, name, create_time) VALUES ('{}','{}','{}')"\
+        command = "INSERT INTO einzelhändler (id, name, create_time) VALUES ('{}','{}','{}')"\
                 .format(einzelhändler.get_id(), einzelhändler.get_name(), einzelhändler.get_erstellungszeitpunkt())
         cursor.execute(command)
 
@@ -102,8 +102,8 @@ class EinzelhändlerMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE einzelhändler SET name = ('{}'), create_time = ('{}')" "WHERE händler_id = ('{}')"\
-                .format(einzelhändler.get_name(), einzelhändler.get_erstellungszeitpunkt(), einzelhändler.get_händler_id)
+        command = "UPDATE einzelhändler SET name = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
+                .format(einzelhändler.get_name(), einzelhändler.get_erstellungszeitpunkt(), einzelhändler.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -114,7 +114,7 @@ class EinzelhändlerMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM einzelhändler WHERE id={}".format(einzelhändler.get_händler_id())
+        command = "DELETE FROM einzelhändler WHERE id={}".format(einzelhändler.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
