@@ -31,11 +31,11 @@ class ListenobjektMapper (Mapper):
 
         return result 
     
-    def find_by_key(self, listenobjekt_ID):
+    def find_by_key(self, id):
         
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT listenobjekt_ID FROM listenobjekt WHERE listenobjekt_ID like '{}'".format(listenobjekt_ID)
+        command = "SELECT * FROM listenobjekt WHERE id like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
         
@@ -66,7 +66,7 @@ class ListenobjektMapper (Mapper):
         for (MAXID) in tuples:
             listenobjekt.set_id(MAXID[0]+1)
 
-        command = "INSERT INTO listenobjekt (listenobjekt_id, name) VALUES ('{}','{}')"\
+        command = "INSERT INTO listenobjekt (id, name) VALUES ('{}','{}')"\
                 .format(listenobjekt.get_id(), listenobjekt.get_name())
         cursor.execute(command)
 
@@ -77,8 +77,8 @@ class ListenobjektMapper (Mapper):
         
         cursor = self._cnx.cursor()
 
-        command = "UPDATE listenobjekt SET name = ('{}')" "WHERE listenobjekt_id = ('{}')"\
-                .format(listenobjekt.get_name(), listenobjekt.get_listenobjekt_id)
+        command = "UPDATE listenobjekt SET name = ('{}')" "WHERE id = ('{}')"\
+                .format(listenobjekt.get_name(), listenobjekt.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -88,7 +88,7 @@ class ListenobjektMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM listenobjekt WHERE id={}".format(listenobjekt.get_händler_id())
+        command = "DELETE FROM listenobjekt WHERE id={}".format(listenobjekt.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
