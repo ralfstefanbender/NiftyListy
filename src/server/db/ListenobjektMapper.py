@@ -31,11 +31,11 @@ class ListenobjektMapper (Mapper):
 
         return result 
     
-    def find_by_key(self, listenobjekt_ID):
+    def find_by_key(self, id):
         
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT listenobjekt_ID FROM listenobjekt WHERE listenobjekt_ID like '{}'".format(listenobjekt_ID)
+        command = "SELECT * FROM listenobjekt WHERE id like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
         
@@ -77,8 +77,8 @@ class ListenobjektMapper (Mapper):
         
         cursor = self._cnx.cursor()
 
-        command = "UPDATE listenobjekt SET name = ('{}')" "WHERE listenobjekt_id = ('{}')"\
-                .format(listenobjekt.get_name(), listenobjekt.get_listenobjekt_id)
+        command = "UPDATE listenobjekt SET name = ('{}')" "WHERE id = ('{}')"\
+                .format(listenobjekt.get_name(), listenobjekt.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -88,7 +88,7 @@ class ListenobjektMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM listenobjekt WHERE id={}".format(listenobjekt.get_händler_id())
+        command = "DELETE FROM listenobjekt WHERE id={}".format(listenobjekt.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
