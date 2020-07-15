@@ -27,7 +27,7 @@ class ArtikelMapper (Mapper):
             artikel.set_id(id)
             artikel.set_name(name)
             artikel.set_einheit(einheit)
-            artikel.set_create_time(create_time)
+            artikel.set_erstellungszeitpunkt(create_time)
             result.append(artikel)
         
         self._cnx.commit()
@@ -48,10 +48,10 @@ class ArtikelMapper (Mapper):
 
             for (id, name, einheit, create_time) in tuples:
                 artikel = Artikel()
-                artikel.set_artikel_id(id)
+                artikel.set_id(id)
                 artikel.set_name(name)
                 artikel.set_einheit(einheit)
-                artikel.set_create_time(create_time)
+                artikel.set_erstellungszeitpunkt(create_time)
                 result.append(artikel)
 
             result = artikel

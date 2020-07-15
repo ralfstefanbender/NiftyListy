@@ -1,8 +1,8 @@
 from src.server.bo.Zugehörigkeit import Zugehörigkeit
 from src.server.db.Mapper import Mapper
 
-class AnwenderMapper (Mapper):
-    """Mapper-Klasse, die Anwender-Objekte auf eine relationale
+class ZugehörigkeitMapper (Mapper):
+    """Mapper-Klasse, die Zugehörigkeiten auf eine relationale
     Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
     gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
     gelöscht werden können. Das Mapping ist bidirektional. D.h., Objekte können
@@ -13,7 +13,7 @@ class AnwenderMapper (Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller App-Anwender."""
+        """Auslesen aller Zugehörigkeiten."""
 
         result = []
         cursor = self._cnx.cursor()
@@ -33,7 +33,7 @@ class AnwenderMapper (Mapper):
 
         return result
 
-        def find_by_key(self, zugehörigkeit_id):
+    def find_by_key(self, zugehörigkeit_id):
         """Suchen eines Anwenders mit vorgegebener user ID"""
 
         result = []
@@ -45,20 +45,20 @@ class AnwenderMapper (Mapper):
         if len (tuples) != 0:
 
             for (id, user_id, einkaufsgruppe_id) in tuples:
-            zugehörigkeit = Zugehörigkeit()
-            zugehörigkeit.set_id(id)
-            zugehörigkeit.set_user_id(user_id)
-            zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
-            result.append(zugehörigkeit)
+                zugehörigkeit = Zugehörigkeit()
+                zugehörigkeit.set_id(id)
+                zugehörigkeit.set_user_id(user_id)
+                zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
+                result.append(zugehörigkeit)
 
-        result = anwender
+        result = zugehörigkeit
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-        def insert(self, anwender):
+    def insert(self, zugehörigkeit):
         """Einfügen eines Anwender-Objekts in die Datenbank."""
 
         cursor = self._cnx.cursor()
@@ -66,17 +66,17 @@ class AnwenderMapper (Mapper):
         tuples = cursor.fetchall()
 
         for (MaxID) in tuples:
-            anwender.set_id(MaxID[0]+1)
+            zugehörigkeit.set_id(MaxID[0]+1)
 
         command = "INSERT INTO zugehörigkeit (zugehörigkeit_id, user_id, einkaufsgruppe_id) VALUES ('{}','{}','{}')"\
             .format(zugehörigkeit.get_id(), zugehörigkeit.get_anwender_id(), zugehörigkeit.get_einkaufsgruppe_id)
-            cursor.execute(command)
+        cursor.execute(command)
 
         self._cnx.commit()
         cursor.close() 
 """
         def update(self, anwender):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
+        hierdreiGänsefüschenWiederholtes Schreiben eines Objekts in die Datenbank.hierdreiGänsefüschen
 
         cursor = self._cnx.cursor()
 
@@ -88,7 +88,7 @@ class AnwenderMapper (Mapper):
         cursor.close()
 
     def delete(self, anwender):
-        """Löschen der Daten eines Anwenders-Objekts aus der Datenbank."""
+        hierdreiGänsefüschenLöschen der Daten eines Anwenders-Objekts aus der Datenbank.hierdreiGänsefüschen
 
         cursor = self._cnx.cursor()
 
@@ -97,11 +97,21 @@ class AnwenderMapper (Mapper):
 
         self._cnx.commit()
         cursor.close()
+        
+
+!!!!!!!!!!!!!!!!
+with ZugehörigkeitMapper() as mapper:
+TypeError: Can't instantiate abstract class ZugehörigkeitMapper with abstract methods delete, update,
+-> bedeutet also das Wenn Zugehörigkeit zum Obermapper gehört er die Methoden delete und update haben muss..
+Wir brauchen eine neue Herangehensweise.
+!!!!!!!!!!!!!!!!
+
 """
+
 """Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
     with ZugehörigkeitMapper() as mapper:
-        result = mapper.find_all()
+        result = mapper.find_all
         for p in result:
             print(p.get_id)
