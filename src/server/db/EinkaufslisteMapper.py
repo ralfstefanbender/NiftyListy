@@ -70,7 +70,7 @@ class EinkaufslisteMapper (Mapper):
         for (MaxID) in tuples:
             einkaufsliste.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO einkaufsgruppe (einkaufsliste_id, name, create_time) VALUES ('{}','{}','{}')"\
+        command = "INSERT INTO einkaufsgruppe (id, name, create_time) VALUES ('{}','{}','{}')"\
                 .format(einkaufsliste.get_id(), einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt())
         cursor.execute(command)
 
