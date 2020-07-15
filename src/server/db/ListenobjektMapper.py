@@ -66,7 +66,7 @@ class ListenobjektMapper (Mapper):
         for (MAXID) in tuples:
             listenobjekt.set_id(MAXID[0]+1)
 
-        command = "INSERT INTO listenobjekt (listenobjekt_id, name) VALUES ('{}','{}')"\
+        command = "INSERT INTO listenobjekt (id, name) VALUES ('{}','{}')"\
                 .format(listenobjekt.get_id(), listenobjekt.get_name())
         cursor.execute(command)
 
