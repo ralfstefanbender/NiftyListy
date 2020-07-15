@@ -24,6 +24,11 @@ class ListenobjektMapper (Mapper):
         for (id) in tuples:
             listenobjekt = Listenobjekt()
             listenobjekt.set_id(id)
+            listenobjekt.set_id(id)
+            listenobjekt.set_id(id)
+            listenobjekt.set_artikel_preis(preis)
+            listenobjekt.set_menge(menge)
+            listenobjekt.set_ticked(ticked)
             result.append(listenobjekt)
 
         self._cnx.commit()
@@ -38,6 +43,16 @@ class ListenobjektMapper (Mapper):
         command = "SELECT * FROM listenobjekt WHERE id like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id) in tuples:
+            listenobjekt = Listenobjekt()
+            listenobjekt.set_id(id)
+            listenobjekt.set_id(id)
+            listenobjekt.set_id(id)
+            listenobjekt.set_artikel_preis(preis)
+            listenobjekt.set_menge(menge)
+            listenobjekt.set_ticked(ticked)
+            result.append(listenobjekt)
         
         self._cnx.commit()
         cursor.close()
@@ -51,6 +66,16 @@ class ListenobjektMapper (Mapper):
         command = "SELECT name FROM listenobjekt WHERE name like '{}'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
+
+        for (id) in tuples:
+            listenobjekt = Listenobjekt()
+            listenobjekt.set_id(id)
+            listenobjekt.set_id(id)
+            listenobjekt.set_id(id)
+            listenobjekt.set_artikel_preis(preis)
+            listenobjekt.set_menge(menge)
+            listenobjekt.set_ticked(ticked)
+            result.append(listenobjekt)
 
         self._cnx.commit()
         cursor.close()
