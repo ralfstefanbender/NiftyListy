@@ -1,6 +1,5 @@
 from src.server.bo.Einzelhändler import Einzelhändler
 from src.server.db.Mapper import Mapper
-"Hier kommt der Error, dass er name bei Zeile 27 braucht als Parameter bei Einzelhändler()"
 
 class EinzelhändlerMapper(Mapper):
     """Mapper-Klasse, die Einzelhändler-Objekte auf eine relationale

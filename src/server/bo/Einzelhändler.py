@@ -5,9 +5,9 @@ class Einzelhändler(BusinessObject):
     Realisierung der Einzelhändler
     """
 
-    def __init__(self, name):
+    def __init__(self):
         super().__init__()
-        self.__name = name
+        self.__name = ""
 
     def get_name(self):
         """Auslesen des Einzelhändlernamens"""
