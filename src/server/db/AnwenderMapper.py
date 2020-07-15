@@ -49,7 +49,7 @@ class AnwenderMapper (Mapper):
 
             for (id, benutzername, email, google_id, create_time) in tuples:
                 anwender = Anwender()
-                anwender.set_user_id(id)
+                anwender.set_id(id)
                 anwender.set_benutzername(benutzername)
                 anwender.set_email(email)
                 anwender.set_google_id(google_id)
@@ -74,7 +74,7 @@ class AnwenderMapper (Mapper):
 
         for (id, benutzername, email, google_id, create_time) in tuples:
             anwender = Anwender()
-            anwender.set_user_id(id)
+            anwender.set_id(id)
             anwender.set_benutzername(benutzername)
             anwender.set_email(email)
             anwender.set_google_id(google_id)
@@ -97,7 +97,7 @@ class AnwenderMapper (Mapper):
 
         for (id, benutzername, email, google_id, create_time) in tuples:
             anwender = Anwender()
-            anwender.set_user_id(id)
+            anwender.set_id(id)
             anwender.set_benutzername(benutzername)
             anwender.set_email(email)
             anwender.set_google_id(google_id)

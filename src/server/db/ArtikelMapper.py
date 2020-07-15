@@ -35,12 +35,12 @@ class ArtikelMapper (Mapper):
 
         return result
 
-    def find_by_key(self, artikel_id):
+    def find_by_key(self, id):
         """Sucht die Artikel nach der eingegebenen ID aus"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT artikel_id FROM artikel WHERE artikel_id like '{}'".format(artikel_id)
+        command = "SELECT * FROM artikel WHERE id like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -65,14 +65,14 @@ class ArtikelMapper (Mapper):
         """Artikel hinzufügen"""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(artikel_id) as MaxID from artikel")
+        cursor.execute("SELECT MAX(id) as MaxID from artikel")
         tuples = cursor.fetchall()
 
         for (MaxID) in tuples:
-            Artikel.set_id(MaxID[0]+1)
+            artikel.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO artikel (artikel_id, name, einheit, create_time) VALUES ('{}','{}','{}','{}')"\
-                .format(artikel.get_id(), artikel.get_name(), artikel.get_einheit, artikel.get_erstellungszeitpunkt)
+        command = "INSERT INTO artikel (id, name, einheit, create_time) VALUES ('{}','{}','{}','{}')"\
+                .format(artikel.get_id(), artikel.get_name(), artikel.get_einheit(), artikel.get_erstellungszeitpunkt())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -82,8 +82,8 @@ class ArtikelMapper (Mapper):
         """Wiederholtes Schreiben eines Objekts in die Datenbank."""
         cursor = self._cnx.cursor()
 
-        command = "UPDATE artikel SET name = ('{}'), einheit = ('{}'), create_time = ('{}')" "WHERE artikel_id = ('{}')"\
-                .format(artikel.get_name(), artikel.get_einheit, artikel.get_erstellungszeitpunkt, artikel.get_id)
+        command = "UPDATE artikel SET name = ('{}'), einheit = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
+                .format(artikel.get_name(), artikel.get_einheit(), artikel.get_erstellungszeitpunkt(), artikel.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -104,6 +104,11 @@ class ArtikelMapper (Mapper):
 
 if __name__ == "__main__":
     with ArtikelMapper() as mapper:
+        artikel = mapper.find_by_key(2)
+        artikel.set_einheit("liter")
+        mapper.update(artikel)
         result = mapper.find_all()
         for p in result:
-            print(p.get_name)
+            print(p.get_einheit())
+
+
