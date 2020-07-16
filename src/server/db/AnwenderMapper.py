@@ -36,12 +36,12 @@ class AnwenderMapper (Mapper):
 
         return result
     
-    def find_by_key(self, user_id):
+    def find_by_key(self, id):
         """Suchen eines Anwenders mit vorgegebener user ID"""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM anwender WHERE user_id like '{}'".format(user_id)
+        command = "SELECT * FROM anwender WHERE id like '{}'".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -63,12 +63,12 @@ class AnwenderMapper (Mapper):
 
         return result
 
-    def find_by_name(self, name):
+    def find_by_benutzername(self, benutzername):
         """Suchen eines Anwenders anhand des Namens des Anwenders."""
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT name FROM anwender WHERE name like '{}'".format(name)
+        command = "SELECT * FROM anwender WHERE benutzername like '{}'".format(benutzername)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -153,6 +153,8 @@ class AnwenderMapper (Mapper):
 
 if __name__ == "__main__":
     with AnwenderMapper() as mapper:
+        user = mapper.find_by_key(12)
+        mapper.delete(user)
         result = mapper.find_all()
         for p in result:
-            print(p.get_google_id)
+            print(p.get_email())
