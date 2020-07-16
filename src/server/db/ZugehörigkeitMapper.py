@@ -52,7 +52,11 @@ class ZugehörigkeitMapper(Mapper):
                 zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
                 result.append(zugehörigkeit)
 
-        result = zugehörigkeit
+            result = zugehörigkeit
+
+        else:
+
+            result = None
 
         self._cnx.commit()
         cursor.close()

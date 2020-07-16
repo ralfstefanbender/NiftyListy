@@ -55,7 +55,11 @@ class EinkaufslisteMapper (Mapper):
                 einkaufsliste.set_erstellungszeitpunkt(create_time)
                 result.append(einkaufsliste)
 
-        result = einkaufsliste
+            result = einkaufsliste
+            
+        else:
+
+            result = None
         
         self._cnx.commit()
         cursor.close()
