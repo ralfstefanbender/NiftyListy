@@ -76,11 +76,11 @@ class ZugehörigkeitMapper(Mapper):
         self._cnx.commit()
         cursor.close() 
 
-    def delete(self, anwender):
+    def delete(self, zugehörigkeit):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM anwender WHERE id={}".format(anwender.get_id())
+        command = "DELETE FROM zugehörigkeit WHERE id={}".format(zugehörigkeit.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
