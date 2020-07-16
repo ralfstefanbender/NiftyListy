@@ -59,7 +59,7 @@ class EinzelhändlerMapper(Mapper):
         return result
 
     def find_by_name(self, name):
-        """Suchen eines Einzelhändlers anhand der Einzelhändler ID."""
+        """Suchen eines Einzelhändlers anhand des Namen vom Einzelhändler."""
 
         result = []
         cursor = self._cnx.cursor()
