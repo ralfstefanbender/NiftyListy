@@ -109,6 +109,6 @@ if __name__ == "__main__":
         mapper.update(artikel)
         result = mapper.find_all()
         for p in result:
-            print(p.get_einheit())
+            print(p.get_name())
 
 

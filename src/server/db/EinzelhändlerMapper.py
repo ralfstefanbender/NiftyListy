@@ -12,7 +12,6 @@ class EinzelhändlerMapper(Mapper):
     def __init__(self):
         super().__init__()
 
-    @property
     def find_all(self):
         """Auslesen aller Einzelhändler."""
 
@@ -64,7 +63,7 @@ class EinzelhändlerMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT name FROM einzelhändler WHERE name like '{}'".format(name)
+        command = "SELECT * FROM einzelhändler WHERE name like '{}'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -124,6 +123,5 @@ class EinzelhändlerMapper(Mapper):
 
 if __name__ == "__main__":
     with EinzelhändlerMapper() as mapper:
-        result = mapper.find_all
-        for p in result:
-            print(p)
+        Rewe = mapper.find_by_key(189)
+        mapper.delete(Rewe)
