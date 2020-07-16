@@ -106,5 +106,6 @@ class EinkaufslisteMapper (Mapper):
 
 if __name__ == "__main__":
     with EinkaufslisteMapper() as mapper:
-        liste = mapper.find_by_key(2)
-        mapper.delete(liste)
+        liste = mapper.find_by_key(3)
+        liste.set_einkaufsgruppe(1)
+        mapper.update(liste)
