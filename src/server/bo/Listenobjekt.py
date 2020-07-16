@@ -8,7 +8,6 @@ class Listenobjekt(BusinessObject):
         self.__user_id = 0
         self.__artikel_id = 0
         self.einzelhändler_id = 0
-        self.__artikel_preis = 0
         self.__menge = 0
         self.__ticked = 0
 
@@ -35,12 +34,6 @@ class Listenobjekt(BusinessObject):
 
     def set_einzelhändler_id(self,einzelhändler_id):
         self.einzelhändler_id = einzelhändler_id
-
-    def get_artikel_preis():
-        return self.__artikel_preis
-
-    def set_artikel_preis(preis):
-        self.__artikel_preis = preis
 
     def get_menge(self):
         return self.__menge

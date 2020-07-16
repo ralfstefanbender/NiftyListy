@@ -92,5 +92,7 @@ class ZugehörigkeitMapper(Mapper):
 if __name__ == "__main__":
     with ZugehörigkeitMapper() as mapper:
         result = mapper.find_all()
+        for p in result:
+            print(p.get_id())
 
 
