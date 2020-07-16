@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,jsonify
 from flask_restx import Api, Resource, fields
 from flask_cors import CORS
 
@@ -67,9 +67,8 @@ Zugehörigkeit = api.inherit('Zugehörigkeit', bo, {
 @api.route('/hello')
 class HelloWorld(Resource):
     def get(self):
-        return {'hello', 'world'}
+        return jsonify({'hello': 'world'})
 
-api.add_resource(HelloWorld, '/')
 
 if __name__ =='__main__':
     app.run(debug=True)
