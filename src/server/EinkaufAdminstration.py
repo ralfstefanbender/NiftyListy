@@ -101,9 +101,9 @@ class EinkaufAdministration (object):
         with ArtikelMapper() as mapper:
             return mapper.insert(Artikel)
 
-    def get_artikel_by_name(self, last_name):
+    def get_artikel_by_name(self, name):
         with ArtikelMapper() as mapper:
-            return mapper.find_by_last_name(last_name)
+            return mapper.find_by_name(name)
 
     def get_artikel_by_id(self, number):
         with ArtikelMapper() as mapper:
@@ -130,9 +130,9 @@ class EinkaufAdministration (object):
         with EinzelhändlerMapper() as mapper:
             return mapper.insert(Einzelhändler)
 
-    def get_einzelhändler_by_name(self, last_name):
+    def get_einzelhändler_by_name(self, name):
         with EinzelhändlerMapper() as mapper:
-            return mapper.find_by_last_name(last_name)
+            return mapper.find_by_name(name)
 
     def get_einzelhändler_by_id(self, number):
         with EinzelhändlerMapper() as mapper:
@@ -163,11 +163,11 @@ class EinkaufAdministration (object):
         listenobjekt.set_ticked(ticked)
 
         with ListenobjektMapper() as mapper:
-            return mapper.insert(Listenobjekt)
+            return mapper.insert(listenobjekt)
 
-    def get_listenobjekt_by_name(self, last_name):
+    def get_listenobjekt_by_name(self, name):
         with ListenobjektMapper() as mapper:
-            return mapper.find_by_last_name(last_name)
+            return mapper.find_by_name(name)
 
     def get_listenobjekt_by_id(self, number):
         with ListenobjektMapper() as mapper:
@@ -185,3 +185,58 @@ class EinkaufAdministration (object):
         with ListenobjektMapper() as mapper:
             mapper.delete(listenobjekt)
 
+    # Einkaufsgruppe
+
+    def create_einkaufsgruppe(self, name):
+        einkaufsgruppe = Einkaufsgruppe()
+        einkaufsgruppe.set_einkaufsgruppe_name(name)
+
+        with ListenobjektMapper() as mapper:
+            return mapper.insert(einkaufsgruppe)
+
+    def get_einkaufsgruppe_by_id(self, number):
+        with EinkaufsgruppeMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_all_einkaufsgruppe(self):
+        with EinkaufsgruppeMapper() as mapper:
+            return mapper.find_all()
+
+    def save_einkaufsgruppe(self, einkaufsgruppe):
+        with EinkaufsgruppeMapper() as mapper:
+            mapper.update(einkaufsgruppe)
+
+    def delete_einkaufsgruppe(self, einkaufsgruppe):
+        with EinkaufsgruppeMapper() as mapper:
+            mapper.delete(einkaufsgruppe)
+
+    # Einkaufsliste
+
+    def create_einkaufsliste(self, name, einkaufsgruppe_id):
+        einkaufsliste = Einkaufsliste()
+        einkaufsliste.set_einkaufsgruppe(einkaufsgruppe_id)
+        einkaufsliste.set_name(name)
+        einkaufsliste.set_id(1)
+
+        with EinkaufslisteMapper() as mapper:
+            return mapper.insert(einkaufsliste)
+
+    def get_einkaufsliste_by_name(self, name):
+        with EinkaufslisteMapper() as mapper:
+            return mapper.find_by_name(name)
+
+    def get_einkaufsliste_by_id(self, number):
+        with EinkaufslisteMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_all_einkaufsliste(self):
+        with EinkaufslisteMapper() as mapper:
+            return mapper.find_all()
+
+    def save_einkaufsliste(self, einkaufsliste):
+        with EinkaufslisteMapper() as mapper:
+            mapper.update(einkaufsliste)
+
+    def delete_einkaufsliste(self, einkaufsliste):
+        with EinkaufslisteMapper() as mapper:
+            mapper.delete(einkaufsliste)
