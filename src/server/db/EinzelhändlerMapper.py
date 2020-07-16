@@ -51,7 +51,11 @@ class EinzelhändlerMapper(Mapper):
                 einzelhändler.set_erstellungszeitpunkt(create_time)
                 result.append(einzelhändler)
 
-        result = einzelhändler
+            result = einzelhändler
+
+        else:
+
+            result = None
 
         self._cnx.commit()
         cursor.close()

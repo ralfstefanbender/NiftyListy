@@ -52,8 +52,12 @@ class EinkaufsgruppeMapper (Mapper):
                 einkaufsgruppe.set_erstellungszeitpunkt(create_time)
                 result.append(einkaufsgruppe)
         
-        result = einkaufsgruppe
+            result = einkaufsgruppe
         
+        else:
+
+            result = None
+
         self._cnx.commit()
         cursor.close()
 

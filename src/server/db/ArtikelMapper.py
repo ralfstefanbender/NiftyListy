@@ -55,6 +55,10 @@ class ArtikelMapper (Mapper):
                 result.append(artikel)
 
             result = artikel
+
+        else:
+
+            result = None
         
         self._cnx.commit()
         cursor.close()

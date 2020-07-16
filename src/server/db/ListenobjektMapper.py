@@ -59,6 +59,12 @@ class ListenobjektMapper (Mapper):
                 listenobjekt.set_user_id(anwender_id)
                 listenobjekt.set_parent_list(einkaufsliste_id)
                 result.append(listenobjekt)
+            
+            result = listenobjekt
+        
+        else:
+
+            result = None
         
         self._cnx.commit()
         cursor.close()

@@ -56,8 +56,12 @@ class AnwenderMapper (Mapper):
                 anwender.set_erstellungszeitpunkt(create_time)
                 result.append(anwender)
 
-        result = anwender
+            result = anwender
 
+        else:
+
+            result = None
+    
         self._cnx.commit()
         cursor.close()
 
