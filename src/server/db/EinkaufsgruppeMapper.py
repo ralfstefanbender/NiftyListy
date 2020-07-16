@@ -22,13 +22,11 @@ class EinkaufsgruppeMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, create_time, teilnehmerliste, artikelliste) in tuples:
+        for (id, name, create_time) in tuples:
             einkaufsgruppe = Einkaufsgruppe()
             einkaufsgruppe.set_id(id)
             einkaufsgruppe.set_einkaufsgruppe_name(name)
             einkaufsgruppe.set_erstellungszeitpunkt(create_time)
-            einkaufsgruppe.set_teilnehmerliste(teilnehmerliste)
-            einkaufsgruppe.set_artikelliste(artikelliste)
             result.append(einkaufsgruppe)
         
         self._cnx.commit()
@@ -47,13 +45,11 @@ class EinkaufsgruppeMapper (Mapper):
 
         if len (tuples) != 0:
 
-            for (id, name, create_time, teilnehmerliste, artikelliste) in tuples:
+            for (id, name, create_time) in tuples:
                 einkaufsgruppe = Einkaufsgruppe()
                 einkaufsgruppe.set_id(id)
                 einkaufsgruppe.set_einkaufsgruppe_name(name)
                 einkaufsgruppe.set_erstellungszeitpunkt(create_time)
-                einkaufsgruppe.set_teilnehmerliste(teilnehmerliste)
-                einkaufsgruppe.set_artikelliste(artikelliste)
                 result.append(einkaufsgruppe)
         
         result = einkaufsgruppe
@@ -72,8 +68,8 @@ class EinkaufsgruppeMapper (Mapper):
         for (MaxID) in tuples:
             einkaufsgruppe.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO einkaufsgruppe (id, einkaufsgruppe_name, create_time, teilnehmerliste, artikelliste) VALUES ('{}','{}','{}','{}','{}')"\
-                .format(einkaufsgruppe.get_id(), einkaufsgruppe.get_name(), einkaufsgruppe.get_erstellungszeitpunkt(), einkaufsgruppe.get_teilnehmerliste(), einkaufsgruppe.get_artikelliste())
+        command = "INSERT INTO einkaufsgruppe (id, name, create_time) VALUES ('{}','{}','{}')"\
+                .format(einkaufsgruppe.get_id(), einkaufsgruppe.get_einkaufsgruppe_name(), einkaufsgruppe.get_erstellungszeitpunkt())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -84,8 +80,8 @@ class EinkaufsgruppeMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE einkaufsgruppe SET einkaufsgruppe_name = ('{}'), einkaufsgruppe_create_time = ('{}'), einkaufsgruppe_teilnehmerliste = ('{}'), einkaufsgruppe_artikelliste = ('{}')" "WHERE einkaufsgruppe_id = ('{}')"\
-                .format(einkaufsgruppe.get_name(), einkaufsgruppe.get_id(), einkaufsgruppe.get_create_time(), einkaufsgruppe.get_teilnehmerliste(), einkaufsgruppe.get_artikelliste())
+        command = "UPDATE einkaufsgruppe SET name = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
+                .format(einkaufsgruppe.get_einkaufsgruppe_name(), einkaufsgruppe.get_erstellungszeitpunkt(),einkaufsgruppe.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -106,6 +102,5 @@ class EinkaufsgruppeMapper (Mapper):
 
 if __name__ == "__main__":
     with EinkaufsgruppeMapper() as mapper:
-        result = mapper.find_all()
-        for p in result:
-            print(p.get_einkaufsgruppe_name)
+        test = mapper.find_by_key(3)
+        mapper.delete(test)
