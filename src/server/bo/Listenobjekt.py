@@ -15,7 +15,7 @@ class Listenobjekt(BusinessObject):
     def get_parent_list(self):
         return self.__parent_list
 
-    def set_parent_list(parent):
+    def set_parent_list(self,parent):
         self.__parent_list = parent
 
     def get_user_id(self):

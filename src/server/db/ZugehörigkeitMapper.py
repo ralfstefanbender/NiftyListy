@@ -1,7 +1,8 @@
 from src.server.bo.Zugehörigkeit import Zugehörigkeit
 from src.server.db.Mapper import Mapper
 
-class ZugehörigkeitMapper (Mapper):
+
+class ZugehörigkeitMapper(Mapper):
     """Mapper-Klasse, die Zugehörigkeiten auf eine relationale
     Datenbank abbildet. Hierzu wird eine Reihe von Methoden zur Verfügung
     gestellt, mit deren Hilfe z.B. Objekte gesucht, erzeugt, modifiziert und
@@ -90,7 +91,6 @@ class ZugehörigkeitMapper (Mapper):
 
 if __name__ == "__main__":
     with ZugehörigkeitMapper() as mapper:
-        result = mapper.find_all
-        for p in result:
-            print(p.get_id)
+        result = mapper.find_all()
+
 

@@ -123,5 +123,6 @@ class EinzelhändlerMapper(Mapper):
 
 if __name__ == "__main__":
     with EinzelhändlerMapper() as mapper:
-        Rewe = mapper.find_by_key(189)
-        mapper.delete(Rewe)
+        result = mapper.find_all()
+        for p in result:
+            print(p.get_name())
