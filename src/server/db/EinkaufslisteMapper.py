@@ -23,10 +23,11 @@ class EinkaufslisteMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, create_time) in tuples:
+        for (id, einkaufsgruppe_id, name, create_time) in tuples:
             einkaufsliste = Einkaufsliste()
             einkaufsliste.set_id(id)
-            einkaufsliste.set_einkaufsliste_name(name)
+            einkaufsliste.set_name(name)
+            einkaufsliste.set_einkaufsgruppe(einkaufsgruppe_id)
             einkaufsliste.set_erstellungszeitpunkt(create_time)
             result.append(einkaufsliste)
         
@@ -46,10 +47,11 @@ class EinkaufslisteMapper (Mapper):
 
         if len (tuples) != 0:
 
-            for (id, name, create_time) in tuples:
+            for (id, einkaufsgruppen_id, name, create_time) in tuples:
                 einkaufsliste = Einkaufsliste()
                 einkaufsliste.set_id(id)
-                einkaufsliste.set_einkaufsliste_name(name)
+                einkaufsliste.set_einkaufsgruppe(einkaufsgruppen_id)
+                einkaufsliste.set_name(name)
                 einkaufsliste.set_erstellungszeitpunkt(create_time)
                 result.append(einkaufsliste)
 
@@ -70,8 +72,8 @@ class EinkaufslisteMapper (Mapper):
         for (MaxID) in tuples:
             einkaufsliste.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO einkaufsgruppe (id, name, create_time) VALUES ('{}','{}','{}')"\
-                .format(einkaufsliste.get_id(), einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt())
+        command = "INSERT INTO einkaufsliste (id, einkaufsgruppen_id, name, create_time) VALUES ('{}','{}','{}','{}')"\
+                .format(einkaufsliste.get_id(), einkaufsliste.get_einkaufsgruppe(), einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -82,8 +84,8 @@ class EinkaufslisteMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE einkaufsliste SET name = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
-                .format(einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt(), einkaufsliste.get_id())
+        command = "UPDATE einkaufsliste SET name = ('{}'), create_time = ('{}'), einkaufsgruppen_id = ('{}')" "WHERE id = ('{}')"\
+                .format(einkaufsliste.get_name(), einkaufsliste.get_erstellungszeitpunkt(), einkaufsliste.get_einkaufsgruppe(), einkaufsliste.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -104,6 +106,5 @@ class EinkaufslisteMapper (Mapper):
 
 if __name__ == "__main__":
     with EinkaufslisteMapper() as mapper:
-        result = mapper.find_all()
-        for p in result:
-            print(p.get_name)
+        liste = mapper.find_by_key(2)
+        mapper.delete(liste)
