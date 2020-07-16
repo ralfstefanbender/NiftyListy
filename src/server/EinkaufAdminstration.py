@@ -4,6 +4,7 @@ from src.server.bo.Einkaufsgruppe import Einkaufsgruppe
 from src.server.bo.Einkaufsliste import Einkaufsliste
 from src.server.bo.Einzelhändler import Einzelhändler
 from src.server.bo.Listenobjekt import Listenobjekt
+from src.server.bo.Zugehörigkeit import Zugehörigkeit
 
 from src.server.db.Mapper import Mapper
 from src.server.db.AnwenderMapper import AnwenderMapper
@@ -12,6 +13,7 @@ from src.server.db.ArtikelMapper import ArtikelMapper
 from src.server.db.EinkaufslisteMapper import EinkaufslisteMapper
 from src.server.db.EinzelhändlerMapper import EinzelhändlerMapper
 from src.server.db.ListenobjektMapper import ListenobjektMapper
+from src.server.db.ZugehörigkeitMapper import ZugehörigkeitMapper
 
 class EinkaufAdministration (object):
     """Diese Klasse aggregiert nahezu sämtliche Applikationslogik (engl. Business Logic).
@@ -240,3 +242,50 @@ class EinkaufAdministration (object):
     def delete_einkaufsliste(self, einkaufsliste):
         with EinkaufslisteMapper() as mapper:
             mapper.delete(einkaufsliste)
+
+        # Zugehörigkeit
+
+    def create_zugehörigkeit(self, anwender_id, einkaufsgruppe_id):
+        zugehörigkeit = Zugehörigkeit()
+        zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
+        zugehörigkeit.set_anwender_id(anwender_id)
+        zugehörigkeit.set_id(1)
+
+        with ZugehörigkeitMapper() as mapper:
+            return mapper.insert(zugehörigkeit)
+
+    def get_zugehörigkeit_by_id(self, number):
+        with ZugehörigkeitMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_all_zugehörigkeit(self):
+        with ZugehörigkeitMapper() as mapper:
+            return mapper.find_all()
+
+    def save_zugehörigkeit(self, zugehörigkeit):
+        with ZugehörigkeitMapper() as mapper:
+            mapper.update(zugehörigkeit)
+
+    def delete_zugehörigkeit(self, zugehörigkeit):
+        with ZugehörigkeitMapper() as mapper:
+            mapper.delete(zugehörigkeit)
+
+    # Add
+
+    def add_member_to_group(self, anwender_id, einkaufsgruppe_id):
+
+        duplicate = False
+        liste = self.get_all_zugehörigkeit()
+        for i in liste:
+            if i == [anwender_id, einkaufsgruppe_id]:
+                duplicate = True
+
+        if duplicate is False:
+            self.create_zugehörigkeit(anwender_id, einkaufsgruppe_id)
+
+    def remove_member_from_group(self, anwender_id, einkaufsgruppe_id):
+
+        liste = self.get_all_zugehörigkeit()
+        for i in liste:
+            if i == [anwender_id, einkaufsgruppe_id]:
+                self.delete_zugehörigkeit(i)
