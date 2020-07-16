@@ -21,7 +21,7 @@ shopping = api.namespace('shopping', description='Funktionen des SSLS')
 
 bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='_id', description='Der Unique Identifier eines Business Object'),
-    'creation_date': fields.DateTime(attribute='_erstellungszeitpunkt', description='Das Erstellungsdatum '
+    'creation_date': fields.Date(attribute='_erstellungszeitpunkt', description='Das Erstellungsdatum '
                                                                             'eines Business Object'),
 })
 
@@ -32,8 +32,8 @@ anwender = api.inherit('Anwender', bo, {
 })
 
 artikel = api.inherit('Artikel', bo, {
-    'name': fields.DateTime(attribute='__name', description='Der Name eines Artikels'),
-    'einheit': fields.DateTime(attribute='__einheit', description='Die Einheit eines Artikels'),
+    'name': fields.String(attribute='__name', description='Der Name eines Artikels'),
+    'einheit': fields.String(attribute='__einheit', description='Die Einheit eines Artikels'),
 })
 
 einkaufsgruppe = api.inherit('Einkaufsgruppe', bo, {
@@ -69,6 +69,17 @@ class HelloWorld(Resource):
     def get(self):
         return jsonify({'hello': 'world'})
 
+
+@shopping.route("/item/<int:id>")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@shopping.param('id', 'Die ID des Account-Objekts')
+class ArtikelOperationen(Resource):
+    @shopping.marshal_with(artikel)
+    def get(self,id):
+        """Auslesen eines Artikels aus der DB """
+        adm = EinkaufAdministration()
+        item = adm.get_artikel_by_id(id)
+        return item
 
 if __name__ =='__main__':
     app.run(debug=True)
