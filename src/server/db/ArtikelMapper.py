@@ -80,9 +80,7 @@ class ArtikelMapper (Mapper):
                 artikel.set_name(name)
                 artikel.set_einheit(einheit)
                 artikel.set_erstellungszeitpunkt(create_time)
-                result.append(artikel)
-
-            result = artikel
+                result = artikel
 
         else:
 
