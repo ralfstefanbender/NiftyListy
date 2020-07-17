@@ -22,11 +22,12 @@ class ZugehörigkeitMapper(Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()  
 
-        for (id, user_id, zugehörigkeit_id) in tuples:
+        for (id, anwender_id, einkaufsgruppe_id, create_time) in tuples:
             zugehörigkeit = Zugehörigkeit()
             zugehörigkeit.set_id(id)
-            zugehörigkeit.set_user_id(user_id)
+            zugehörigkeit.set_anwender_id(anwender_id)
             zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
+            zugehörigkeit.set_erstellungszeitpunkt(create_time)
             result.append(zugehörigkeit)
 
         self._cnx.commit()
@@ -45,11 +46,12 @@ class ZugehörigkeitMapper(Mapper):
 
         if len (tuples) != 0:
 
-            for (id, user_id, einkaufsgruppe_id) in tuples:
+            for (id, anwender_id, einkaufsgruppe_id, create_time) in tuples:
                 zugehörigkeit = Zugehörigkeit()
                 zugehörigkeit.set_id(id)
-                zugehörigkeit.set_user_id(user_id)
+                zugehörigkeit.set_anwender_id(anwender_id)
                 zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
+                zugehörigkeit.set_erstellungszeitpunkt(create_time)
                 result.append(zugehörigkeit)
 
             result = zugehörigkeit
@@ -73,8 +75,8 @@ class ZugehörigkeitMapper(Mapper):
         for (MaxID) in tuples:
             zugehörigkeit.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO zugehörigkeit (id, anwender_id, einkaufsgruppe_id) VALUES ('{}','{}','{}')"\
-            .format(zugehörigkeit.get_id(), zugehörigkeit.get_id(), zugehörigkeit.get_id())
+        command = "INSERT INTO zugehörigkeit (id, anwender_id, einkaufsgruppe_id, create_time) VALUES ('{}','{}','{}')"\
+            .format(zugehörigkeit.get_id(), zugehörigkeit.get_anwender_id(), zugehörigkeit.get_einkaufsgruppe_id(), zugehörigkeit.get_erstellungszeitpunkt())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -85,8 +87,8 @@ class ZugehörigkeitMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE zugehörigkeit SET name = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
-                .format(einkaufsgruppe.get_einkaufsgruppe_name(), einkaufsgruppe.get_erstellungszeitpunkt(),einkaufsgruppe.get_id())
+        command = "UPDATE zugehörigkeit SET anwender_id = ('{}'), einkaufsgruppe_id = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
+                .format(zugehörigkeit.get_anwender_id(), zugehörigkeit.get_einkaufsgruppe_id(), zugehörigkeit.get_erstellungszeitpunkt(), zugehörigkeit.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
