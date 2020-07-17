@@ -38,10 +38,10 @@ class GroupList extends Component {
   /** Fetch Befehl für alle EinkaufsgruppeBOs aus dem Backend */
   getGruppe = () => {
     ListAPI.getAPI().getGruppe()
-      .then(EinkaufsgruppeBO =>
+      .then(anwenderBOs =>
         this.setState({               // Erstellt einen neuen State sobald alle GruppeBOs gefetched sind
-          GruppenArray: EinkaufsgruppeBO,
-          filteredGruppe: [...EinkaufsgruppeBO], // speichert eine Kopie
+          GruppenArray: anwenderBOs,
+          filteredGruppe: [...anwenderBOs], // speichert eine Kopie
           loadingInProgress: false,   // Der Ladebalken wird "vrborgen"
           error: null
         })).catch(e =>
