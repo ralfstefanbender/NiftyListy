@@ -75,7 +75,7 @@ class ZugehörigkeitMapper(Mapper):
         for (MaxID) in tuples:
             zugehörigkeit.set_id(MaxID[0]+1)
 
-        command = "INSERT INTO zugehörigkeit (id, anwender_id, einkaufsgruppe_id, create_time) VALUES ('{}','{}','{}')"\
+        command = "INSERT INTO zugehörigkeit (id, anwender_id, einkaufsgruppe_id, create_time) VALUES ('{}','{}','{}','{}')"\
             .format(zugehörigkeit.get_id(), zugehörigkeit.get_anwender_id(), zugehörigkeit.get_einkaufsgruppe_id(), zugehörigkeit.get_erstellungszeitpunkt())
         cursor.execute(command)
 
@@ -98,7 +98,7 @@ class ZugehörigkeitMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM zugehörigkeit WHERE id={}".format(zugehörigkeit.get_id())
+        command = "DELETE FROM zugehörigkeit WHERE id={}".format(zugehörigkeit)
         cursor.execute(command)
 
         self._cnx.commit()
@@ -109,8 +109,11 @@ class ZugehörigkeitMapper(Mapper):
 
 if __name__ == "__main__":
     with ZugehörigkeitMapper() as mapper:
-        result = mapper.find_all()
-        for p in result:
-            print(p.get_id())
+        test = mapper.find_by_key(1)
+        test.set_anwender_id(10)
+        mapper.update(test)
+
+
+
 
 
