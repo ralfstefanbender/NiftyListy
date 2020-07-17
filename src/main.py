@@ -26,14 +26,14 @@ bo = api.model('BusinessObject', {
 })
 
 anwender = api.inherit('Anwender', bo, {
-    'benutzername': fields.String(attribute='__benutzername', description='Der Benutzername eines Anwenders'),
-    'email': fields.String(attribute='__email', description='Der E-Mail eines Anwenders'),
-    'google_id': fields.String(attribute='__google_id', description='Die Google-ID eines Anwenders'),
+    'benutzername': fields.String(attribute='_benutzername', description='Der Benutzername eines Anwenders'),
+    'email': fields.String(attribute='_email', description='Der E-Mail eines Anwenders'),
+    'google_id': fields.String(attribute='_google_id', description='Die Google-ID eines Anwenders'),
 })
 
 artikel = api.inherit('Artikel', bo, {
-    'name': fields.String(attribute='__name', description='Der Name eines Artikels'),
-    'einheit': fields.String(attribute='__einheit', description='Die Einheit eines Artikels'),
+    'name': fields.String(attribute='_name', description='Der Name eines Artikels'),
+    'einheit': fields.String(attribute='_einheit', description='Die Einheit eines Artikels'),
 })
 
 einkaufsgruppe = api.inherit('Einkaufsgruppe', bo, {
@@ -41,26 +41,26 @@ einkaufsgruppe = api.inherit('Einkaufsgruppe', bo, {
 })
 
 einkaufsliste = api.inherit('Einkaufsliste', bo, {
-    'name': fields.Integer(attribute='__name', description='Der Name der Einkaufsliste'),
-    'einkaufsgruppe_id': fields.Integer(attribute='__einkaufsgruppe_id', description='Die ID der Einkaufsgruppe'),
+    'name': fields.Integer(attribute='_name', description='Der Name der Einkaufsliste'),
+    'einkaufsgruppe_id': fields.Integer(attribute='_einkaufsgruppe_id', description='Die ID der Einkaufsgruppe'),
 })
 
 einzelhändler = api.inherit('Einzelhändler', bo, {
-    'name': fields.Integer(attribute='__name', description='Der Name des Einzelhändlers'),
+    'name': fields.Integer(attribute='_name', description='Der Name des Einzelhändlers'),
 })
 
 listenobjekt = api.inherit('Listenobjekt', bo, {
-    'parent_list': fields.Integer(attribute='__parent_list', description='Die ID der Gruppe'),
-    'user_id': fields.Integer(attribute='__user_id', description='Die ID des Anwenders'),
-    'artikel_id': fields.Integer(attribute='__artikel_id', description='Die ID des Artikels'),
-    'einzelhändler_id': fields.Integer(attribute='__einzelhändler_id', description='Die ID des Einzelhändlers'),
-    'menge': fields.Integer(attribute='__menge', description='Die Menge'),
-    'ticked': fields.Integer(attribute='__ticked', description='Gekauft'),
+    'parent_list': fields.Integer(attribute='_parent_list', description='Die ID der Gruppe'),
+    'user_id': fields.Integer(attribute='_user_id', description='Die ID des Anwenders'),
+    'artikel_id': fields.Integer(attribute='_artikel_id', description='Die ID des Artikels'),
+    'einzelhändler_id': fields.Integer(attribute='_einzelhändler_id', description='Die ID des Einzelhändlers'),
+    'menge': fields.Integer(attribute='_menge', description='Die Menge'),
+    'ticked': fields.Integer(attribute='_ticked', description='Gekauft'),
 })
 
 Zugehörigkeit = api.inherit('Zugehörigkeit', bo, {
-    'anwender_id': fields.Integer(attribute='__anwender_id', description='Die ID des Anwenders'),
-    'einkaufsgruppe_id': fields.Integer(attribute='__einkaufsgruppe_id', description='Die ID der Gruppe'),
+    'anwender_id': fields.Integer(attribute='_anwender_id', description='Die ID des Anwenders'),
+    'einkaufsgruppe_id': fields.Integer(attribute='_einkaufsgruppe_id', description='Die ID der Gruppe'),
 })
 
 
