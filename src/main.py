@@ -69,6 +69,29 @@ class HelloWorld(Resource):
     def get(self):
         return jsonify({'hello': 'world'})
 
+"""Anwender"""
+@shopping.route("/anwender/<int:id>")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@shopping.param('id', 'Die ID des Account-Objekts')
+class AnwenderOperationen(Resource):
+    @shopping.marshal_with(anwender)
+    def get(self,id):
+        """Auslesen eines Anwenders aus der DB"""
+        adm = EinkaufAdministration()
+        user = adm.get_anwender_by_id(id)
+        return user
+
+    def delete(self,id):
+        """Löschen eines Anwender aus der DB"""
+        adm = EinkaufAdministration()
+        item = adm.get_anwender_by_id(id)
+        if item is None:
+            return '', 500
+        else:
+            adm.delete_artikel(item)
+            return '', 200
+
+"""Artikel"""
 
 @shopping.route("/item/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -80,6 +103,92 @@ class ArtikelOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_artikel_by_id(id)
         return item
+    
+    def delete(self,id):
+        """Löschen eines Artikels aus der DB"""
+        adm = EinkaufAdministration()
+        item = adm.get_artikel_by_id(id)
+        if item is None:
+            return '', 500
+        else:
+            adm.delete_artikel(item)
+            return '', 200
+
+"""Einkaufsgruppe"""
+
+@shopping.route("/einkaufsgruppe/<int:id>")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@shopping.param('id', 'Die ID des Account-Objekts')
+class EinkaufsgruppeOperationen(Resource):
+    @shopping.marshal_with(einkaufsgruppe)
+
+
+    def delete(self,id):
+        """Löschen einer Einkaufsgruppe aus der DB"""
+        adm = EinkaufAdministration()
+        item = adm.get_einkaufsgruppe_by_id(id)
+        if item is None:
+            return '', 500
+        else:
+            adm.delete_artikel(item)
+            return '', 200
+
+"""Einkaufsliste"""
+
+@shopping.route("/einkaufsliste/<int:id>")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@shopping.param('id', 'Die ID des Account-Objekts')
+class EinkaufslisteOperationen(Resource):
+    @shopping.marshal_with(einkaufsliste)
+
+
+    def delete(self,id):
+        """Löschen einer Einkaufsliste aus der DB"""
+        adm = EinkaufAdministration()
+        item = adm.get_einkaufsliste_by_id(id)
+        if item is None:
+            return '', 500
+        else:
+            adm.delete_artikel(item)
+            return '', 200
+
+"""Einzelhändler"""
+
+@shopping.route("/einzelhändler/<int:id>")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@shopping.param('id', 'Die ID des Account-Objekts')
+class EinzelhändlerOperationen(Resource):
+    @shopping.marshal_with(einzelhändler)
+
+
+    def delete(self,id):
+        """Löschen eines Einzelhändlers aus der DB"""
+        adm = EinkaufAdministration()
+        item = adm.get_einzelhändler_by_id(id)
+        if item is None:
+            return '', 500
+        else:
+            adm.delete_artikel(item)
+            return '', 200
+
+"""Listenobjekt"""
+
+@shopping.route("/listenobjekt/<int:id>")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@shopping.param('id', 'Die ID des Account-Objekts')
+class ListenobjektOperationen(Resource):
+    @shopping.marshal_with(listenobjekt)
+
+
+    def delete(self,id):
+        """Löschen eines Listenobjektes aus der DB"""
+        adm = EinkaufAdministration()
+        item = adm.get_listenobjekt_by_id(id)
+        if item is None:
+            return '', 500
+        else:
+            adm.delete_artikel(item)
+            return '', 200
 
 if __name__ =='__main__':
     app.run(debug=True)
