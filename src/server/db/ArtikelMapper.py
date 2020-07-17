@@ -44,7 +44,35 @@ class ArtikelMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        if len (tuples) != 0:
+        if len(tuples) != 0:
+
+            for (id, name, einheit, create_time) in tuples:
+
+                artikel = Artikel()
+                artikel.set_id(id)
+                artikel.set_name(name)
+                artikel.set_einheit(einheit)
+                artikel.set_erstellungszeitpunkt(create_time)
+                result = artikel
+        else:
+
+            result = None
+        
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_by_name(self, name):
+        """Suchen eines Artikel anhand des Namens des Artikels."""
+
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM artikel WHERE name like '{}'".format(name)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        if len(tuples) != 0:
 
             for (id, name, einheit, create_time) in tuples:
                 artikel = Artikel()
@@ -59,7 +87,7 @@ class ArtikelMapper (Mapper):
         else:
 
             result = None
-        
+
         self._cnx.commit()
         cursor.close()
 
@@ -108,11 +136,5 @@ class ArtikelMapper (Mapper):
 
 if __name__ == "__main__":
     with ArtikelMapper() as mapper:
-        artikel = mapper.find_by_key(2)
-        artikel.set_einheit("liter")
-        mapper.update(artikel)
-        result = mapper.find_all()
-        for p in result:
-            print(p.get_name())
-
-
+        artikel = mapper.find_by_name("Wasser").get_id()
+        print(artikel)
