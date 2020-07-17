@@ -22,7 +22,7 @@ class ZugehörigkeitMapper(Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()  
 
-        for (id, user_id, einkaufsgruppe_id) in tuples:
+        for (id, user_id, zugehörigkeit_id) in tuples:
             zugehörigkeit = Zugehörigkeit()
             zugehörigkeit.set_id(id)
             zugehörigkeit.set_user_id(user_id)
@@ -78,7 +78,19 @@ class ZugehörigkeitMapper(Mapper):
         cursor.execute(command)
 
         self._cnx.commit()
-        cursor.close() 
+        cursor.close()
+
+    def update(self, zugehörigkeit):
+        """Wiederholtes Schreiben eines Objekts in die Datenbank."""
+
+        cursor = self._cnx.cursor()
+
+        command = "UPDATE zugehörigkeit SET name = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
+                .format(einkaufsgruppe.get_einkaufsgruppe_name(), einkaufsgruppe.get_erstellungszeitpunkt(),einkaufsgruppe.get_id())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
 
     def delete(self, zugehörigkeit):
 
