@@ -107,12 +107,11 @@ class ArtikelMapper (Mapper):
 """Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
+    """a = Artikel()
+    a.set_name("Milch")
+    a.set_einheit("Liter")"""
     with ArtikelMapper() as mapper:
-        artikel = mapper.find_by_key(2)
-        artikel.set_einheit("liter")
-        mapper.update(artikel)
-        result = mapper.find_all()
-        for p in result:
-            print(p.get_name())
+        """mapper.delete(mapper.find_by_key(2))"""
+        print(mapper.find_by_key(3).get_name())
 
 
