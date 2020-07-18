@@ -85,10 +85,16 @@ class EinkaufAdministration (object):
 
     def delete_anwender(self, user):
         with AnwenderMapper() as mapper:
-            zugehörigkeiten = self.get_zugehörigkeit_by_anwender(user)
+            zugehörigkeiten = self.get_zugehörigkeit_by_anwender(user.get_id())
             if not (zugehörigkeiten is None):
                 for i in zugehörigkeiten:
                     self.delete_zugehörigkeit(i)
+
+            listenobjekte = self.get_listenobjekt_by_anwender(user.get_id())
+            if not (listenobjekte is None):
+                for i in listenobjekte:
+                    self.delete_listenobjekt(i)
+
 
             mapper.delete(user)
 
@@ -172,9 +178,9 @@ class EinkaufAdministration (object):
         with ListenobjektMapper() as mapper:
             return mapper.insert(listenobjekt)
 
-    def get_listenobjekt_by_name(self, name):
+    def get_listenobjekt_by_anwender(self, id):
         with ListenobjektMapper() as mapper:
-            return mapper.find_by_name(name)
+            return mapper.find_by_anwender(id)
 
     def get_listenobjekt_by_id(self, number):
         with ListenobjektMapper() as mapper:
