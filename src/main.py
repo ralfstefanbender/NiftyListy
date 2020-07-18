@@ -140,6 +140,11 @@ class EinkaufsgruppeOperationen(Resource):
 class EinkaufslisteOperationen(Resource):
     @shopping.marshal_with(einkaufsliste)
 
+    def get(self,id):
+        """Auslesen einer Einkaufsliste aus der DB """
+        adm = EinkaufAdministration()
+        item = adm.get_einkaufsliste_by_id(id)
+        return item
 
     def delete(self,id):
         """Löschen einer Einkaufsliste aus der DB"""
@@ -159,6 +164,11 @@ class EinkaufslisteOperationen(Resource):
 class EinzelhändlerOperationen(Resource):
     @shopping.marshal_with(einzelhändler)
 
+    def get(self,id):
+        """Auslesen einer Einkaufsliste aus der DB """
+        adm = EinkaufAdministration()
+        item = adm.get_einzelhändler_by_id(id)
+        return item
 
     def delete(self,id):
         """Löschen eines Einzelhändlers aus der DB"""
@@ -178,6 +188,11 @@ class EinzelhändlerOperationen(Resource):
 class ListenobjektOperationen(Resource):
     @shopping.marshal_with(listenobjekt)
 
+    def get(self,id):
+        """Auslesen einer Einkaufsliste aus der DB """
+        adm = EinkaufAdministration()
+        item = adm.get_listenobjekt_by_id(id)
+        return item
 
     def delete(self,id):
         """Löschen eines Listenobjektes aus der DB"""
