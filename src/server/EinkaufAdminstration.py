@@ -193,7 +193,7 @@ class EinkaufAdministration (object):
         einkaufsgruppe = Einkaufsgruppe()
         einkaufsgruppe.set_einkaufsgruppe_name(name)
 
-        with ListenobjektMapper() as mapper:
+        with EinkaufsgruppeMapper() as mapper:
             return mapper.insert(einkaufsgruppe)
 
     def get_einkaufsgruppe_by_id(self, number):

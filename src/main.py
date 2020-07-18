@@ -83,11 +83,11 @@ class AnwenderOperationen(Resource):
     def delete(self,id):
         """Löschen eines Anwender aus der DB"""
         adm = EinkaufAdministration()
-        item = adm.get_anwender_by_id(id)
-        if item is None:
+        user = adm.get_anwender_by_id(id)
+        if user is None:
             return '', 500
         else:
-            adm.delete_artikel(item)
+            adm.delete_anwender(user)
             return '', 200
 
 """Artikel"""
