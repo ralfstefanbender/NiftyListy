@@ -132,6 +132,11 @@ class EinkaufAdministration (object):
 
     def delete_artikel(self, artikel):
         with ArtikelMapper() as mapper:
+            listenobjekt = self.get_listenobjekt_by_artikel(artikel.get_id())
+            if not (listenobjekt is None):
+                for i in listenobjekt:
+                    self.delete_listenobjekt(i)
+
             mapper.delete(artikel)
 
     # Einzelhändler
@@ -182,6 +187,14 @@ class EinkaufAdministration (object):
         with ListenobjektMapper() as mapper:
             return mapper.find_by_anwender(id)
 
+    def get_listenobjekt_by_einkaufsliste(self, id):
+        with ListenobjektMapper() as mapper:
+            return mapper.find_by_einkaufsliste(id)
+
+    def get_listenobjekt_by_artikel(self, id):
+        with ListenobjektMapper() as mapper:
+            return mapper.find_by_artikel(id)
+
     def get_listenobjekt_by_id(self, number):
         with ListenobjektMapper() as mapper:
             return mapper.find_by_key(number)
@@ -221,6 +234,12 @@ class EinkaufAdministration (object):
 
     def delete_einkaufsgruppe(self, einkaufsgruppe):
         with EinkaufsgruppeMapper() as mapper:
+
+            zugehörigkeiten = self.get_zugehörigkeit_by_einkaufsgruppe(einkaufsgruppe.get_id())
+            if not (zugehörigkeiten is None):
+                for i in zugehörigkeiten:
+                    self.delete_zugehörigkeit(i)
+
             mapper.delete(einkaufsgruppe)
 
     # Einkaufsliste
@@ -252,7 +271,13 @@ class EinkaufAdministration (object):
 
     def delete_einkaufsliste(self, einkaufsliste):
         with EinkaufslisteMapper() as mapper:
+            listenobjekt = self.get_listenobjekt_by_einkaufsliste(einkaufsliste.get_id())
+            if not (listenobjekt is None):
+                for i in listenobjekt:
+                    self.delete_listenobjekt(i)
+
             mapper.delete(einkaufsliste)
+
 
         # Zugehörigkeit
 
@@ -272,6 +297,10 @@ class EinkaufAdministration (object):
     def get_zugehörigkeit_by_anwender(self, anwender_id):
         with ZugehörigkeitMapper() as mapper:
             return mapper.find_by_account(anwender_id)
+
+    def get_zugehörigkeit_by_einkaufsgruppe(self, einkaufsgruppe_id):
+        with ZugehörigkeitMapper() as mapper:
+            return mapper.find_by_einkaufsgruppe(einkaufsgruppe_id)
 
     def get_all_zugehörigkeit(self):
         with ZugehörigkeitMapper() as mapper:
