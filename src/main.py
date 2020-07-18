@@ -133,7 +133,7 @@ class EinkaufsgruppeOperationen(Resource):
         if item is None:
             return '', 500
         else:
-            adm.delete_artikel(item)
+            adm.delete_einkaufsgruppe(item)
             return '', 200
 
 """Einkaufsliste"""
@@ -157,7 +157,7 @@ class EinkaufslisteOperationen(Resource):
         if item is None:
             return '', 500
         else:
-            adm.delete_artikel(item)
+            adm.delete_einkaufsliste(item)
             return '', 200
 
 """Einzelhändler"""
@@ -181,7 +181,7 @@ class EinzelhändlerOperationen(Resource):
         if item is None:
             return '', 500
         else:
-            adm.delete_artikel(item)
+            adm.delete_einzelhändler(item)
             return '', 200
 
 """Listenobjekt"""
@@ -205,7 +205,7 @@ class ListenobjektOperationen(Resource):
         if item is None:
             return '', 500
         else:
-            adm.delete_artikel(item)
+            adm.delete_listenobjekt(item)
             return '', 200
 
 if __name__ =='__main__':
