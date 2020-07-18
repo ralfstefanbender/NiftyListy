@@ -120,7 +120,11 @@ class ArtikelOperationen(Resource):
 @shopping.param('id', 'Die ID des Account-Objekts')
 class EinkaufsgruppeOperationen(Resource):
     @shopping.marshal_with(einkaufsgruppe)
-
+    def get(self,id):
+        """Auslesen einer Einkaufsgruppe aus der DB """
+        adm = EinkaufAdministration()
+        item = adm.get_einkaufsgruppe_by_id(id)
+        return item
 
     def delete(self,id):
         """Löschen einer Einkaufsgruppe aus der DB"""
