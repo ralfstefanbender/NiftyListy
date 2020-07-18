@@ -44,7 +44,7 @@ class ZugehörigkeitMapper(Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        if len (tuples) != 0:
+        if len(tuples) != 0:
 
             for (id, anwender_id, einkaufsgruppe_id, create_time) in tuples:
                 zugehörigkeit = Zugehörigkeit()
@@ -63,6 +63,30 @@ class ZugehörigkeitMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
+        return result
+
+    def find_by_account(self, id):
+
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM zugehörigkeit WHERE anwender_id like '{}'".format(id)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        if len(tuples) != 0:
+            for (id, anwender_id, einkaufsgruppe_id, create_time) in tuples:
+                zugehörigkeit = Zugehörigkeit()
+                zugehörigkeit.set_id(id)
+                zugehörigkeit.set_anwender_id(anwender_id)
+                zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
+                zugehörigkeit.set_erstellungszeitpunkt(create_time)
+                result.append(zugehörigkeit)
+
+        else:
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
         return result
 
     def insert(self, zugehörigkeit):
@@ -109,8 +133,10 @@ class ZugehörigkeitMapper(Mapper):
 
 if __name__ == "__main__":
     with ZugehörigkeitMapper() as mapper:
-        test = mapper.find_by_key(2)
-        mapper.delete(test)
+        test = mapper.find_by_account(1)
+        print(test)
+        for i in test:
+            mapper.delete(i)
 
 
 

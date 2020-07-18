@@ -85,6 +85,11 @@ class EinkaufAdministration (object):
 
     def delete_anwender(self, user):
         with AnwenderMapper() as mapper:
+            zugehörigkeiten = self.get_zugehörigkeit_by_anwender(user)
+            if not (zugehörigkeiten is None):
+                for i in zugehörigkeiten:
+                    self.delete_zugehörigkeit(i)
+
             mapper.delete(user)
 
 
@@ -257,6 +262,10 @@ class EinkaufAdministration (object):
     def get_zugehörigkeit_by_id(self, number):
         with ZugehörigkeitMapper() as mapper:
             return mapper.find_by_key(number)
+
+    def get_zugehörigkeit_by_anwender(self, anwender_id):
+        with ZugehörigkeitMapper() as mapper:
+            return mapper.find_by_account(anwender_id)
 
     def get_all_zugehörigkeit(self):
         with ZugehörigkeitMapper() as mapper:
