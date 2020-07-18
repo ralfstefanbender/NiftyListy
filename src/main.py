@@ -37,7 +37,7 @@ artikel = api.inherit('Artikel', bo, {
 })
 
 einkaufsgruppe = api.inherit('Einkaufsgruppe', bo, {
-    'einkaufsgruppe_name': fields.Integer(attribute='__einkaufsgruppe_name', description='Der Name der Einkaufsgruppe'),
+    'einkaufsgruppe_name': fields.Integer(attribute='_einkaufsgruppe_name', description='Der Name der Einkaufsgruppe'),
 })
 
 einkaufsliste = api.inherit('Einkaufsliste', bo, {
@@ -102,7 +102,7 @@ class ArtikelOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_artikel_by_id(id)
         return item
-    
+
     def delete(self,id):
         """Löschen eines Artikels aus der DB"""
         adm = EinkaufAdministration()
@@ -112,6 +112,17 @@ class ArtikelOperationen(Resource):
         else:
             adm.delete_artikel(item)
             return '', 200
+
+    @shopping.marshal_with(artikel, code=200)
+    @shopping.expect(artikel)
+    def post(self):
+        adm = EinkaufAdministration()
+        proposal = Artikel.from_dict(api.payload)
+        if proposal is not None:
+            c = adm.create_artikel(proposal.get_name(), proposal.get_einheit())
+            return c, 200
+        else:
+            return '', 500
 
 """Einkaufsgruppe"""
 
@@ -123,8 +134,8 @@ class EinkaufsgruppeOperationen(Resource):
     def get(self,id):
         """Auslesen einer Einkaufsgruppe aus der DB """
         adm = EinkaufAdministration()
-        item = adm.get_einkaufsgruppe_by_id(id)
-        return item
+        group = adm.get_einkaufsgruppe_by_id(id)
+        return group
 
     def delete(self,id):
         """Löschen einer Einkaufsgruppe aus der DB"""
