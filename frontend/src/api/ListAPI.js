@@ -6,12 +6,7 @@ import EinzelhändlerBO from './EinzelhändlerBO';
 import ListenObjektBO from './ListenObjektBO';
 import ZugehörigkeitBO from './ZugehörigkeitBO';
 
-/**
- * Abstracts the REST interface of the Python backend with convenient access methods.
- * The class is implemented as a singleton. 
- * 
- * @author [Christoph Kunz](https://github.com/christophkunz)
- */
+
 export default class ListAPI {
 
     // Singelton instance
@@ -57,8 +52,8 @@ export default class ListAPI {
 
     // Listenobjekt
     #getAllListenobjektURL = () => `${this.#ListServerBaseURL}/listenobjekt`;
-    #addlistenobjektURL = () => `${this.#ListServerBaseURL}/listenobjekt-hinzufügen`;
-    #getlistenobjektURL = (id) => `${this.#ListServerBaseURL}/listenobjekt/${id}`;
+    #addListenobjektURL = () => `${this.#ListServerBaseURL}/listenobjekt-hinzufügen`;
+    #getListenobjektURL = (id) => `${this.#ListServerBaseURL}/listenobjekt/${id}`;
     #updateListenobjektURL = (id) => `${this.#ListServerBaseURL}/listenobjekt/${id}`;
     #deleteListenobjektURL = (id) => `${this.#ListServerBaseURL}/listenobjekt/${id}`;
 
@@ -104,14 +99,6 @@ export default class ListAPI {
         })
     }
 
-
-    /**
-     * Adds a customer and returns a Promise, which resolves to a new CustomerBO object with the 
-     * firstName and lastName of the parameter customerBO object.
-     * 
-     * @param {CustomerBO} customerBO to be added. The ID of the new customer is set by the backend
-     * @public
-     */
     addAnwender(anwenderBO) {
         return this.#fetchAdvanced(this.#addAnwenderURL(), {
             method: 'POST',
@@ -187,11 +174,158 @@ export default class ListAPI {
 
     //Einkaufsliste
 
+    
     //Einzelhändler
 
+    // Gibt einen Promise zurück mit allen Einzelhändlern
+    getAllEinzelhändler() {
+        return this.#fetchAdvanced(this.#getAllEinzelhändlerURL()).then((responseJSON) => {
+            let einzelhändlerBOs = EinzelhändlerBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(einzelhändlerBOs);
+            })
+        })
+    }
+
+
+    addEinzelhändler(einzelhändlerBO) {
+        return this.#fetchAdvanced(this.#addEinzelhändlerURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(einzelhändlerBO)
+        }).then((responseJSON) => {
+            let responseEinzelhändlerBO = EinzelhändlerBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinzelhändlerBO);
+            })
+        })
+    }
+
+
+
+    getEinzelhändler(einzelhändlerID) {
+        return this.#fetchAdvanced(this.#getEinzelhändlerURL(einzelhändlerID)).then((responseJSON) => {
+            let responseEinzelhändlerBO = EinzelhändlerBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinzelhändlerBO);
+            })
+        })
+    }
+
+
     //Listenobjekt
+
+    // Gibt einen Promise zurück mit allen Listenobjekten
+    getAllListenobjekt() {
+        return this.#fetchAdvanced(this.#getAllListenobjektURL()).then((responseJSON) => {
+            let listenobjektBOs = ListenObjektBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(listenobjektBOs);
+            })
+        })
+    }
+    
+    
+    addListenobjekt(listenobjektBO) {
+        return this.#fetchAdvanced(this.#addListenobjektURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(listenobjektBO)
+        }).then((responseJSON) => {
+            let responseListenobjektBO = ListenObjektBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseListenobjektBO);
+            })
+        })
+    }
+
+
+    getListenobjekt(listenobjektID) {
+        return this.#fetchAdvanced(this.#getListenobjektURL(listenobjektID)).then((responseJSON) => {
+            let responseListenobjektBO = ListenObjektBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseListenobjektBO);
+            })
+        })
+    }
+
+
+    updateListenobjekt(listenobjektBO) {
+        return this.#fetchAdvanced(this.#updateListenobjektURL(listenobjektBO.getID()), {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(listenobjektBO)
+        }).then((responseJSON) => {
+            let responseListenobjektBO = ListenObjektBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseListenobjektBO);
+            })
+        })
+    }
+
+
+
+    deleteListenobjekt(listenobjektID) {
+        return this.#fetchAdvanced(this.#deleteListenobjektURL(listenobjektID), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseListenobjektBO = ListenObjektBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseListenobjektBO);
+            })
+        })
+    }
     
     //Zugehörigkeit
+    
+
+    addZugehörigkeit(zugehörigkeitBO) {
+        return this.#fetchAdvanced(this.#addZugehörigkeitURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(zugehörigkeitBO)
+        }).then((responseJSON) => {
+            let responseZugehörigkeitBO = ZugehörigkeitBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseZugehörigkeitBO);
+            })
+        })
+    }
+
+
+
+    getZugehörigkeit(zugehörigkeitID) {
+        return this.#fetchAdvanced(this.#getZugehörigkeitURL(zugehörigkeitID)).then((responseJSON) => {
+            let responseZugehörigkeitBO = ZugehörigkeitBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseZugehörigkeitBO);
+            })
+        })
+    }
+
+
+    deleteZugehörigkeit(zugehörigkeitID) {
+        return this.#fetchAdvanced(this.#deleteZugehörigkeitURL(zugehörigkeitID), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseZugehörigkeitBO = ZugehörigkeitBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseZugehörigkeitBO);
+            })
+        })
+    }
 
 
 }
