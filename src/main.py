@@ -58,7 +58,7 @@ listenobjekt = api.inherit('Listenobjekt', bo, {
     'ticked': fields.Integer(attribute='_ticked', description='Gekauft'),
 })
 
-Zugehörigkeit = api.inherit('Zugehörigkeit', bo, {
+zugehörigkeit = api.inherit('Zugehörigkeit', bo, {
     'anwender_id': fields.Integer(attribute='_anwender_id', description='Die ID des Anwenders'),
     'einkaufsgruppe_id': fields.Integer(attribute='_einkaufsgruppe_id', description='Die ID der Gruppe'),
 })
@@ -134,8 +134,8 @@ class EinkaufsgruppeOperationen(Resource):
     def get(self,id):
         """Auslesen einer Einkaufsgruppe aus der DB """
         adm = EinkaufAdministration()
-        group = adm.get_einkaufsgruppe_by_id(id)
-        return group
+        item = adm.get_einkaufsgruppe_by_id(id)
+        return item
 
     def delete(self,id):
         """Löschen einer Einkaufsgruppe aus der DB"""
@@ -217,6 +217,28 @@ class ListenobjektOperationen(Resource):
             return '', 500
         else:
             adm.delete_listenobjekt(item)
+            return '', 200
+
+@shopping.route("/zugehörigkeit/<int:id>")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@shopping.param('id', 'Die ID des Account-Objekts')
+class ZugehörigkeitOperationen(Resource):
+    @shopping.marshal_with(zugehörigkeit)
+
+    def get(self,id):
+        """Auslesen einer Listenobjektes aus der DB """
+        adm = EinkaufAdministration()
+        item = adm.get_zugehörigkeit_by_id()
+        return item
+
+    def delete(self,id):
+        """Löschen eines Listenobjektes aus der DB"""
+        adm = EinkaufAdministration()
+        item = adm.get_zugehörigkeit_by_id()
+        if item is None:
+            return '', 500
+        else:
+            adm.delete_zugehörigkeit(item)
             return '', 200
 
 if __name__ =='__main__':
