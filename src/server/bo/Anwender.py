@@ -7,33 +7,33 @@ class Anwender(bo.BusinessObject):
     """
     def __init__(self):
         super().__init__()
-        self.__benutzername = ""
-        self.__email = ""
-        self.__google_id = ""
+        self._benutzername = ""
+        self._email = ""
+        self._google_id = ""
 
     def set_benutzername(self, benutzername):
         """Setzen des Benutzernamens"""
-        self.__benutzername = benutzername
+        self._benutzername = benutzername
 
     def get_benutzername(self):
         """Auslesen des Benutzernames"""
-        return self.__benutzername
+        return self._benutzername
 
     def set_email(self, email):
         """Setzen der E-Mail"""
-        self.__email = email
+        self._email = email
 
     def get_email(self):
         """Auslesen der E-Mail"""
-        return self.__email
+        return self._email
 
     def set_google_id(self, id):
         """Setzen der User ID"""
-        self.__google_id = id
+        self._google_id = id
 
     def get_google_id(self):
         """Auslesen der User ID"""
-        return self.__google_id
+        return self._google_id
 
 
     @staticmethod

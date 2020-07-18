@@ -8,15 +8,15 @@ class Einkaufsgruppe(bo.BusinessObject):
     """
     def __init__(self):
         super().__init__()
-        self.__einkaufsgruppe_name = ""
+        self._einkaufsgruppe_name = ""
 
     def get_einkaufsgruppe_name(self):
         """Auslesen des Gruppennamens"""
-        return self.__einkaufsgruppe_name
+        return self._einkaufsgruppe_name
 
     def set_einkaufsgruppe_name(self,name):
         """Gruppennamen ändern"""
-        self.__einkaufsgruppe_name = name
+        self._einkaufsgruppe_name = name
         return
 
     @staticmethod

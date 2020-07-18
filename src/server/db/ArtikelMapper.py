@@ -136,5 +136,5 @@ class ArtikelMapper (Mapper):
 
 if __name__ == "__main__":
     with ArtikelMapper() as mapper:
-        artikel = mapper.find_by_name("Wasser").get_id()
+        artikel = mapper.find_by_key(3).get_name()
         print(artikel)

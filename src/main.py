@@ -63,7 +63,6 @@ Zugehörigkeit = api.inherit('Zugehörigkeit', bo, {
     'einkaufsgruppe_id': fields.Integer(attribute='_einkaufsgruppe_id', description='Die ID der Gruppe'),
 })
 
-
 @api.route('/hello')
 class HelloWorld(Resource):
     def get(self):

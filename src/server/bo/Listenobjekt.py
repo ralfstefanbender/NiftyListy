@@ -4,48 +4,48 @@ class Listenobjekt(BusinessObject):
 
     def __init__(self):
         super().__init__()
-        self.__parent_list = 0
-        self.__user_id = 0
-        self.__artikel_id = 0
-        self.einzelhändler_id = 0
-        self.__menge = 0
-        self.__ticked = 0
+        self._parent_list = 0
+        self._user_id = 0
+        self._artikel_id = 0
+        self._einzelhändler_id = 0
+        self._menge = 0
+        self._ticked = 0
 
     def get_parent_list(self):
         return self.__parent_list
 
     def set_parent_list(self,parent):
-        self.__parent_list = parent
+        self._parent_list = parent
 
     def get_user_id(self):
         return self.__user_id
 
     def set_user_id(self,user_id):
-        self.__user_id = user_id
+        self._user_id = user_id
 
     def get_artikel_id(self):
         return self.__artikel_id
 
     def set_artikel_id(self,artikel_id):
-        self.__artikel_id = artikel_id
+        self._artikel_id = artikel_id
 
     def get_einzelhändler_id(self):
-        return self.einzelhändler_id
+        return self._einzelhändler_id
 
     def set_einzelhändler_id(self,einzelhändler_id):
-        self.einzelhändler_id = einzelhändler_id
+        self._einzelhändler_id = einzelhändler_id
 
     def get_menge(self):
-        return self.__menge
+        return self._menge
 
     def set_menge(self, menge):
-        self.__menge = menge
+        self._menge = menge
 
     def get_ticked(self):
-        return self.__ticked
+        return self._ticked
 
     def set_ticked(self, ticked):
-        self.__ticked = ticked
+        self._ticked = ticked
 
 
     @staticmethod

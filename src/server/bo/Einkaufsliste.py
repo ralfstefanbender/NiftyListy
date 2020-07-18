@@ -6,8 +6,8 @@ class Einkaufsliste(BusinessObject):
     """
     def __init__(self):
         super().__init__()
-        self.__name = ""
-        self.__einkaufsgruppe_id = None
+        self._name = ""
+        self._einkaufsgruppe_id = None
 
     def get_name(self):
         """Auslesen des Namens"""
@@ -15,13 +15,13 @@ class Einkaufsliste(BusinessObject):
 
     def set_name(self, new_name):
         """Änderung des Namens"""
-        self.__name = new_name
+        self._name = new_name
 
     def set_einkaufsgruppe(self,einkaufsgruppe_id):
-        self.__einkaufsgruppe_id = einkaufsgruppe_id
+        self._einkaufsgruppe_id = einkaufsgruppe_id
 
     def get_einkaufsgruppe(self):
-        return self.__einkaufsgruppe_id
+        return self._einkaufsgruppe_id
 
     @staticmethod
     def from_dict(dict):

@@ -156,9 +156,9 @@ class AnwenderMapper (Mapper):
 """Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
+    a = Anwender()
+    a.set_benutzername("Testname")
+    a.set_email("test@gmail.com")
+    a.set_google_id("123ABC")
     with AnwenderMapper() as mapper:
-        user = mapper.find_by_key(12)
-        mapper.delete(user)
-        result = mapper.find_all()
-        for p in result:
-            print(p.get_email())
+        mapper.insert(a)

@@ -7,24 +7,24 @@ class Artikel(BusinessObject):
     """
     def __init__(self):
         super().__init__()
-        self.__name = ""
-        self.__einheit = ""
+        self._name = ""
+        self._einheit = ""
 
     def get_name(self):
         """Auslesen des Namens"""
-        return self.__name
+        return self._name
 
     def set_name(self, new_name):
         """Setzen des Namens"""
-        self.__name = new_name
+        self._name = new_name
 
     def get_einheit(self):
         """Auslesen der Einheit"""
-        return self.__einheit
+        return self._einheit
 
     def set_einheit(self, new_einheit):
         """Setzen der Einheit"""
-        self.__einheit = new_einheit
+        self._einheit = new_einheit
 
     @staticmethod
     def from_dict(dict = dict()):

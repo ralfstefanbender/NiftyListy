@@ -7,15 +7,15 @@ class Einzelhändler(BusinessObject):
 
     def __init__(self):
         super().__init__()
-        self.__name = ""
+        self._name = ""
 
     def get_name(self):
         """Auslesen des Einzelhändlernamens"""
-        return self.__name
+        return self._name
 
     def set_name(self, new_name):
         """Ändern des Einzelhändlernamens"""
-        self.__name = new_name
+        self._name = new_name
 
     @staticmethod
     def from_dict(dict):
