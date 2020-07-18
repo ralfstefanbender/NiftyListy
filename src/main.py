@@ -85,10 +85,10 @@ class AnwenderOperationen(Resource):
         adm = EinkaufAdministration()
         user = adm.get_anwender_by_id(id)
         if user is None:
-            return '', 500
+            return 'Anwender konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_anwender(user)
-            return '', 200
+            return 'Anwender wurde erfolgreich aus der DB gelöscht', 200
 
 """Artikel"""
 
@@ -108,10 +108,10 @@ class ArtikelOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_artikel_by_id(id)
         if item is None:
-            return '', 500
+            return 'Artikel konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_artikel(item)
-            return '', 200
+            return 'Artikel wurde erfolgreich aus der DB gelöscht', 200
 
     @shopping.marshal_with(artikel, code=200)
     @shopping.expect(artikel)
@@ -142,10 +142,10 @@ class EinkaufsgruppeOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_einkaufsgruppe_by_id(id)
         if item is None:
-            return '', 500
+            return 'Einkaufsgruppe konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_einkaufsgruppe(item)
-            return '', 200
+            return 'Einkaufsgruppe wurde erfolgreich aus der DB gelöscht', 200
 
 """Einkaufsliste"""
 
@@ -166,10 +166,10 @@ class EinkaufslisteOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_einkaufsliste_by_id(id)
         if item is None:
-            return '', 500
+            return 'Einkaufsliste konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_einkaufsliste(item)
-            return '', 200
+            return 'Einkaufsliste wurde erfolgreich aus der DB gelöscht', 200
 
 """Einzelhändler"""
 
@@ -190,10 +190,10 @@ class EinzelhändlerOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_einzelhändler_by_id(id)
         if item is None:
-            return '', 500
+            return 'Einzelhändler konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_einzelhändler(item)
-            return '', 200
+            return 'Einzelhändler wurde erfolgreich aus der DB gelöscht', 200
 
 """Listenobjekt"""
 
@@ -214,10 +214,12 @@ class ListenobjektOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_listenobjekt_by_id(id)
         if item is None:
-            return '', 500
+            return 'Listenobjekt konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_listenobjekt(item)
-            return '', 200
+            return 'Listenobjekt wurde erfolgreich aus der DB gelöscht', 200
+
+"""Zugehörigkeit"""  
 
 @shopping.route("/zugehörigkeit/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -236,10 +238,10 @@ class ZugehörigkeitOperationen(Resource):
         adm = EinkaufAdministration()
         item = adm.get_zugehörigkeit_by_id()
         if item is None:
-            return '', 500
+            return 'Zugehörigkeit konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_zugehörigkeit(item)
-            return '', 200
+            return 'Zugehörogkeit wurde erfolgreich aus der DB gelöscht', 200
 
 if __name__ =='__main__':
     app.run(debug=True)
