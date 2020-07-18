@@ -66,6 +66,90 @@ class ListenobjektMapper (Mapper):
         cursor.close()
         return result
 
+    def find_by_artikel(self, id):
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM listenobjekt WHERE artikel_id like '{}'".format(id)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        if len(tuples) != 0:
+            for (
+            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id) in tuples:
+                listenobjekt = Listenobjekt()
+                listenobjekt.set_id(id)
+                listenobjekt.set_artikel_id(artikel_id)
+                listenobjekt.set_einzelhändler_id(einzelhändler_id)
+                listenobjekt.set_menge(menge)
+                listenobjekt.set_ticked(gekauft)
+                listenobjekt.set_erstellungszeitpunkt(create_time)
+                listenobjekt.set_user_id(anwender_id)
+                listenobjekt.set_parent_list(einkaufsliste_id)
+                result.append(listenobjekt)
+
+        else:
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+        return result
+
+    def find_by_einkaufsliste(self, id):
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM listenobjekt WHERE einkaufsliste_id like '{}'".format(id)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        if len(tuples) != 0:
+            for (
+            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id) in tuples:
+                listenobjekt = Listenobjekt()
+                listenobjekt.set_id(id)
+                listenobjekt.set_artikel_id(artikel_id)
+                listenobjekt.set_einzelhändler_id(einzelhändler_id)
+                listenobjekt.set_menge(menge)
+                listenobjekt.set_ticked(gekauft)
+                listenobjekt.set_erstellungszeitpunkt(create_time)
+                listenobjekt.set_user_id(anwender_id)
+                listenobjekt.set_parent_list(einkaufsliste_id)
+                result.append(listenobjekt)
+
+        else:
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+        return result
+
+    def find_by_einzelhändler(self, id):
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM listenobjekt WHERE einzelhändler_id like '{}'".format(id)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        if len(tuples) != 0:
+            for (
+            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id) in tuples:
+                listenobjekt = Listenobjekt()
+                listenobjekt.set_id(id)
+                listenobjekt.set_artikel_id(artikel_id)
+                listenobjekt.set_einzelhändler_id(einzelhändler_id)
+                listenobjekt.set_menge(menge)
+                listenobjekt.set_ticked(gekauft)
+                listenobjekt.set_erstellungszeitpunkt(create_time)
+                listenobjekt.set_user_id(anwender_id)
+                listenobjekt.set_parent_list(einkaufsliste_id)
+                result.append(listenobjekt)
+
+        else:
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+        return result
+
     def find_by_key(self, id):
         
         result = []

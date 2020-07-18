@@ -89,6 +89,30 @@ class ZugehörigkeitMapper(Mapper):
         cursor.close()
         return result
 
+    def find_by_einkaufsgruppe(self, id):
+
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM zugehörigkeit WHERE einkaufsgruppe_id like '{}'".format(id)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        if len(tuples) != 0:
+            for (id, anwender_id, einkaufsgruppe_id, create_time) in tuples:
+                zugehörigkeit = Zugehörigkeit()
+                zugehörigkeit.set_id(id)
+                zugehörigkeit.set_anwender_id(anwender_id)
+                zugehörigkeit.set_einkaufsgruppe_id(einkaufsgruppe_id)
+                zugehörigkeit.set_erstellungszeitpunkt(create_time)
+                result.append(zugehörigkeit)
+
+        else:
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+        return result
+
     def insert(self, zugehörigkeit):
         """Einfügen eines Anwender-Objekts in die Datenbank."""
 
