@@ -92,7 +92,7 @@ class AnwenderOperationen(Resource):
 
 """Artikel"""
 
-@shopping.route("/item/<int:id>")
+@shopping.route("/artikel/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @shopping.param('id', 'Die ID des Account-Objekts')
 class ArtikelOperationen(Resource):
@@ -236,7 +236,7 @@ class ZugehörigkeitOperationen(Resource):
     def delete(self,id):
         """Löschen eines Listenobjektes aus der DB"""
         adm = EinkaufAdministration()
-        item = adm.get_zugehörigkeit_by_id()
+        item = adm.get_zugehörigkeit_by_id(id)
         if item is None:
             return 'Zugehörigkeit konnte nicht aus der DB gelöscht werden', 500
         else:
