@@ -37,16 +37,16 @@ artikel = api.inherit('Artikel', bo, {
 })
 
 einkaufsgruppe = api.inherit('Einkaufsgruppe', bo, {
-    'einkaufsgruppe_name': fields.Integer(attribute='_einkaufsgruppe_name', description='Der Name der Einkaufsgruppe'),
+    'einkaufsgruppe_name': fields.String(attribute='_einkaufsgruppe_name', description='Der Name der Einkaufsgruppe'),
 })
 
 einkaufsliste = api.inherit('Einkaufsliste', bo, {
-    'name': fields.Integer(attribute='_name', description='Der Name der Einkaufsliste'),
+    'name': fields.String(attribute='_name', description='Der Name der Einkaufsliste'),
     'einkaufsgruppe_id': fields.Integer(attribute='_einkaufsgruppe_id', description='Die ID der Einkaufsgruppe'),
 })
 
 einzelhändler = api.inherit('Einzelhändler', bo, {
-    'name': fields.Integer(attribute='_name', description='Der Name des Einzelhändlers'),
+    'name': fields.String(attribute='_name', description='Der Name des Einzelhändlers'),
 })
 
 listenobjekt = api.inherit('Listenobjekt', bo, {
@@ -54,8 +54,8 @@ listenobjekt = api.inherit('Listenobjekt', bo, {
     'user_id': fields.Integer(attribute='_user_id', description='Die ID des Anwenders'),
     'artikel_id': fields.Integer(attribute='_artikel_id', description='Die ID des Artikels'),
     'einzelhändler_id': fields.Integer(attribute='_einzelhändler_id', description='Die ID des Einzelhändlers'),
-    'menge': fields.Integer(attribute='_menge', description='Die Menge'),
-    'ticked': fields.Integer(attribute='_ticked', description='Gekauft'),
+    'menge': fields.String(attribute='_menge', description='Die Menge'),
+    'ticked': fields.String(attribute='_ticked', description='Gekauft'),
 })
 
 zugehörigkeit = api.inherit('Zugehörigkeit', bo, {
@@ -228,7 +228,7 @@ class ZugehörigkeitOperationen(Resource):
     def get(self,id):
         """Auslesen einer Listenobjektes aus der DB """
         adm = EinkaufAdministration()
-        item = adm.get_zugehörigkeit_by_id()
+        item = adm.get_zugehörigkeit_by_id(id)
         return item
 
     def delete(self,id):
