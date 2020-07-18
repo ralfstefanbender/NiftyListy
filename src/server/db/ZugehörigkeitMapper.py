@@ -98,7 +98,7 @@ class ZugehörigkeitMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM zugehörigkeit WHERE id={}".format(zugehörigkeit)
+        command = "DELETE FROM zugehörigkeit WHERE id={}".format(zugehörigkeit.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -109,9 +109,8 @@ class ZugehörigkeitMapper(Mapper):
 
 if __name__ == "__main__":
     with ZugehörigkeitMapper() as mapper:
-        test = mapper.find_by_key(1)
-        test.set_anwender_id(10)
-        mapper.update(test)
+        test = mapper.find_by_key(2)
+        mapper.delete(test)
 
 
 
