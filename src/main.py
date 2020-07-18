@@ -165,7 +165,7 @@ class EinzelhändlerOperationen(Resource):
     @shopping.marshal_with(einzelhändler)
 
     def get(self,id):
-        """Auslesen einer Einkaufsliste aus der DB """
+        """Auslesen einer Einzelhändler aus der DB """
         adm = EinkaufAdministration()
         item = adm.get_einzelhändler_by_id(id)
         return item
@@ -189,7 +189,7 @@ class ListenobjektOperationen(Resource):
     @shopping.marshal_with(listenobjekt)
 
     def get(self,id):
-        """Auslesen einer Einkaufsliste aus der DB """
+        """Auslesen einer Listenobjektes aus der DB """
         adm = EinkaufAdministration()
         item = adm.get_listenobjekt_by_id(id)
         return item
