@@ -11,7 +11,7 @@ class Einkaufsliste(BusinessObject):
 
     def get_name(self):
         """Auslesen des Namens"""
-        return self.__name
+        return self._name
 
     def set_name(self, new_name):
         """Änderung des Namens"""
