@@ -113,6 +113,19 @@ class ArtikelOperationen(Resource):
             adm.delete_artikel(item)
             return 'Artikel wurde erfolgreich aus der DB gelöscht', 200
 
+    @shopping.expect(artikel)
+    def put(self, id):
+        """Artikel werden aktualisiert"""
+        adm = EinkaufAdministration()
+        item = Artikel.from_dict(api.payload)
+
+        if item is not None:
+            item.set_id(id)
+            adm.save_artikel(item)
+            return "Artikel wurde erfolgreich geändert", 200
+        else:
+            return "Artikel konnte nicht geändert werden", 500
+
     @shopping.marshal_with(artikel, code=200)
     @shopping.expect(artikel)
     def post(self):
