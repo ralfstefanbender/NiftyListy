@@ -9,6 +9,7 @@ from src.server.bo.Listenobjekt import Listenobjekt
 from src.server.bo.Einkaufsliste import Einkaufsliste
 from src.server.bo.Einkaufsgruppe import Einkaufsgruppe
 from src.server.bo.Zugehörigkeit import Zugehörigkeit
+from src.server.bo.Einzelhändler import Einzelhändler
 
 from src.server.EinkaufAdminstration import EinkaufAdministration
 
@@ -92,6 +93,21 @@ class AnwenderOperationen(Resource):
 
 """Artikel"""
 
+@shopping.route("/artikel")
+class ArtikelListOperationen(Resource):
+    @shopping.marshal_with(artikel, code=200)
+    @shopping.expect(artikel)
+    def post(self):
+        """Artikel erstellen"""
+        adm = EinkaufAdministration()
+        proposal = Artikel.from_dict(api.payload)
+        if proposal is not None:
+            c = adm.create_artikel(proposal.get_name(), proposal.get_einheit())
+            return c, 200
+        else:
+            return '', 500
+
+
 @shopping.route("/artikel/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @shopping.param('id', 'Die ID des Account-Objekts')
@@ -126,18 +142,24 @@ class ArtikelOperationen(Resource):
         else:
             return "Artikel konnte nicht geändert werden", 500
 
-    @shopping.marshal_with(artikel, code=200)
-    @shopping.expect(artikel)
+
+
+"""Einkaufsgruppe"""
+
+@shopping.route("/einkaufsgruppe")
+class EinkaufsgruppeListOperationen(Resource):
+    @shopping.marshal_with(einkaufsgruppe, code=200)
+    @shopping.expect(einkaufsgruppe)
     def post(self):
+        """Einkaufsgruppe erstellen"""
         adm = EinkaufAdministration()
-        proposal = Artikel.from_dict(api.payload)
+        proposal = Einkaufsgruppe.from_dict(api.payload)
         if proposal is not None:
-            c = adm.create_artikel(proposal.get_name(), proposal.get_einheit())
+            c = adm.create_einkaufsgruppe(proposal.get_einkaufsgruppe_name())
             return c, 200
         else:
             return '', 500
 
-"""Einkaufsgruppe"""
 
 @shopping.route("/einkaufsgruppe/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -162,6 +184,21 @@ class EinkaufsgruppeOperationen(Resource):
 
 """Einkaufsliste"""
 
+@shopping.route("/einkaufsliste")
+class EinkaufslisteListOperationen(Resource):
+    @shopping.marshal_with(einkaufsliste, code=200)
+    @shopping.expect(einkaufsliste)
+    def post(self):
+        """Einkaufsliste erstellen"""
+        adm = EinkaufAdministration()
+        proposal = Einkaufsliste.from_dict(api.payload)
+        if proposal is not None:
+            c = adm.create_einkaufsliste(proposal.get_name(), proposal.get_einkaufsgruppe())
+            return c, 200
+        else:
+            return '', 500
+
+
 @shopping.route("/einkaufsliste/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @shopping.param('id', 'Die ID des Account-Objekts')
@@ -185,6 +222,22 @@ class EinkaufslisteOperationen(Resource):
             return 'Einkaufsliste wurde erfolgreich aus der DB gelöscht', 200
 
 """Einzelhändler"""
+
+@shopping.route("/einzelhändler")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class EinzelhändlerListOperationen(Resource):
+    @shopping.marshal_with(einzelhändler, code=200)
+    @shopping.expect(einzelhändler)
+    def post(self):
+        """Einzelhändler erstellen"""
+        adm = EinkaufAdministration()
+        proposal = Einzelhändler.from_dict(api.payload)
+        if proposal is not None:
+            c = adm.create_einzelhändler(proposal.get_name())
+            return c, 200
+        else:
+            return '', 500
+
 
 @shopping.route("/einzelhändler/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')

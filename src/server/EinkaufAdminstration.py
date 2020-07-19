@@ -109,7 +109,6 @@ class EinkaufAdministration (object):
         artikel = Artikel()
         artikel.set_name(name)
         artikel.set_einheit(einheit)
-        artikel.set_id(1)
 
         with ArtikelMapper() as mapper:
             return mapper.insert(Artikel)
@@ -144,6 +143,7 @@ class EinkaufAdministration (object):
     def create_einzelhändler(self, name):
         einzelhändler = Einzelhändler()
         einzelhändler.set_name(name)
+        einzelhändler.set_id(1)
 
         with EinzelhändlerMapper() as mapper:
             return mapper.insert(Einzelhändler)
@@ -333,3 +333,6 @@ class EinkaufAdministration (object):
         for i in liste:
             if i == [anwender_id, einkaufsgruppe_id]:
                 self.delete_zugehörigkeit(i)
+
+
+

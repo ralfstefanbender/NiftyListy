@@ -135,6 +135,8 @@ class ArtikelMapper (Mapper):
 """Testzwecke um uns die Daten anzeigen zu lassen"""
 
 if __name__ == "__main__":
+    a = Artikel()
+    a.set_einheit("23123")
+    a.set_name("Test")
     with ArtikelMapper() as mapper:
-        artikel = mapper.find_by_key(3).get_name()
-        print(artikel)
+       mapper.insert(a)

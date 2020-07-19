@@ -18,7 +18,7 @@ class Einzelhändler(BusinessObject):
         self._name = new_name
 
     @staticmethod
-    def from_dict(dict):
+    def from_dict(dict=dict()):
         new_einzelhaendler = Einzelhändler()
         new_einzelhaendler.set_id(dict["id"])
         new_einzelhaendler.set_name(dict["name"])

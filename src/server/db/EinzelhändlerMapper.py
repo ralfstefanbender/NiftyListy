@@ -87,11 +87,11 @@ class EinzelhändlerMapper(Mapper):
         """Einfügen eines Einzelhändlers-Objekts in die Datenbank."""
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) as MAXID from einzelhändler")
+        cursor.execute("SELECT MAX(id) as maxid FROM einzelhändler")
         tuples = cursor.fetchall()
 
-        for (MaxID) in tuples:
-            einzelhändler.set_id(MaxID[0]+1)
+        for (maxid) in tuples:
+            einzelhändler.set_id(maxid[0]+1)
 
         command = "INSERT INTO einzelhändler (id, name, create_time) VALUES ('{}','{}','{}')"\
                 .format(einzelhändler.get_id(), einzelhändler.get_name(), einzelhändler.get_erstellungszeitpunkt())
