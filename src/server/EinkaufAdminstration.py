@@ -160,9 +160,9 @@ class EinkaufAdministration (object):
         with EinzelhändlerMapper() as mapper:
             return mapper.find_all()
 
-    def save_einzelhändler(self, artikel):
+    def save_einzelhändler(self, einzelhändler):
         with EinzelhändlerMapper() as mapper:
-            mapper.update(artikel)
+            mapper.update(einzelhändler)
 
     def delete_einzelhändler(self, einzelhändler):
         with EinzelhändlerMapper() as mapper:
@@ -203,9 +203,9 @@ class EinkaufAdministration (object):
         with ListenobjektMapper() as mapper:
             return mapper.find_all()
 
-    def save_listenobjekt(self, artikel):
+    def save_listenobjekt(self, listenobjekt):
         with ListenobjektMapper() as mapper:
-            mapper.update(artikel)
+            mapper.update(listenobjekt)
 
     def delete_listenobjekt(self, listenobjekt):
         with ListenobjektMapper() as mapper:
