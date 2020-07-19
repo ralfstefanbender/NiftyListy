@@ -142,8 +142,9 @@ class EinkaufAdministration (object):
 
     def create_einzelhändler(self, name):
         einzelhändler = Einzelhändler()
-        einzelhändler.set_name(name)
         einzelhändler.set_id(1)
+        einzelhändler.set_name(name)
+
 
         with EinzelhändlerMapper() as mapper:
             return mapper.insert(Einzelhändler)

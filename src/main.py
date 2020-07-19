@@ -10,6 +10,7 @@ from src.server.bo.Einkaufsliste import Einkaufsliste
 from src.server.bo.Einkaufsgruppe import Einkaufsgruppe
 from src.server.bo.Zugehörigkeit import Zugehörigkeit
 from src.server.bo.Einzelhändler import Einzelhändler
+from src.server.bo.Anwender import Anwender
 
 from src.server.EinkaufAdminstration import EinkaufAdministration
 
