@@ -21,7 +21,7 @@ class ListenobjektMapper (Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
         
-        for (id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id,einkaufsliste_id) in tuples:
+        for (id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id, artikel_preis) in tuples:
             listenobjekt = Listenobjekt()
             listenobjekt.set_id(id)
             listenobjekt.set_artikel_id(artikel_id)
@@ -31,6 +31,7 @@ class ListenobjektMapper (Mapper):
             listenobjekt.set_erstellungszeitpunkt(create_time)
             listenobjekt.set_user_id(anwender_id)
             listenobjekt.set_parent_list(einkaufsliste_id)
+            listenobjekt.set_artikel_preis(artikel_preis)
             result.append(listenobjekt)
 
         self._cnx.commit()
@@ -47,7 +48,7 @@ class ListenobjektMapper (Mapper):
 
         if len(tuples) != 0:
             for (
-            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id) in tuples:
+            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id, artikel_preis) in tuples:
                 listenobjekt = Listenobjekt()
                 listenobjekt.set_id(id)
                 listenobjekt.set_artikel_id(artikel_id)
@@ -57,6 +58,7 @@ class ListenobjektMapper (Mapper):
                 listenobjekt.set_erstellungszeitpunkt(create_time)
                 listenobjekt.set_user_id(anwender_id)
                 listenobjekt.set_parent_list(einkaufsliste_id)
+                listenobjekt.set_artikel_preis(artikel_preis)
                 result.append(listenobjekt)
 
         else:
@@ -75,7 +77,7 @@ class ListenobjektMapper (Mapper):
 
         if len(tuples) != 0:
             for (
-            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id) in tuples:
+            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id, artikel_preis) in tuples:
                 listenobjekt = Listenobjekt()
                 listenobjekt.set_id(id)
                 listenobjekt.set_artikel_id(artikel_id)
@@ -85,6 +87,7 @@ class ListenobjektMapper (Mapper):
                 listenobjekt.set_erstellungszeitpunkt(create_time)
                 listenobjekt.set_user_id(anwender_id)
                 listenobjekt.set_parent_list(einkaufsliste_id)
+                listenobjekt.set_artikel_preis(artikel_preis)
                 result.append(listenobjekt)
 
         else:
@@ -132,7 +135,7 @@ class ListenobjektMapper (Mapper):
 
         if len(tuples) != 0:
             for (
-            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id) in tuples:
+            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id, artikel_preis) in tuples:
                 listenobjekt = Listenobjekt()
                 listenobjekt.set_id(id)
                 listenobjekt.set_artikel_id(artikel_id)
@@ -142,6 +145,7 @@ class ListenobjektMapper (Mapper):
                 listenobjekt.set_erstellungszeitpunkt(create_time)
                 listenobjekt.set_user_id(anwender_id)
                 listenobjekt.set_parent_list(einkaufsliste_id)
+                listenobjekt.set_artikel_preis(artikel_preis)
                 result.append(listenobjekt)
 
         else:
@@ -161,7 +165,7 @@ class ListenobjektMapper (Mapper):
 
         if len (tuples) != 0:
 
-            for (id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id,einkaufsliste_id) in tuples:
+            for (id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id,einkaufsliste_id, artikel_preis) in tuples:
                 listenobjekt = Listenobjekt()
                 listenobjekt.set_id(id)
                 listenobjekt.set_artikel_id(artikel_id)
@@ -171,6 +175,7 @@ class ListenobjektMapper (Mapper):
                 listenobjekt.set_erstellungszeitpunkt(create_time)
                 listenobjekt.set_user_id(anwender_id)
                 listenobjekt.set_parent_list(einkaufsliste_id)
+                listenobjekt.set_artikel_preis(artikel_preis)
                 result.append(listenobjekt)
             
             result = listenobjekt
@@ -193,8 +198,8 @@ class ListenobjektMapper (Mapper):
         for (MAXID) in tuples:
             listenobjekt.set_id(MAXID[0]+1)
 
-        command = "INSERT INTO listenobjekt (id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id,einkaufsliste_id) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}')"\
-                .format(listenobjekt.get_id(), listenobjekt.get_artikel_id(),listenobjekt.get_einzelhändler_id(), listenobjekt.get_menge(),listenobjekt.get_ticked(),listenobjekt.get_erstellungszeitpunkt(), listenobjekt.get_user_id(), listenobjekt.get_parent_list())
+        command = "INSERT INTO listenobjekt (id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id,einkaufsliste_id, artikel_preis) VALUES ('{}','{}','{}','{}','{}','{}','{}','{}','{}')"\
+                .format(listenobjekt.get_id(), listenobjekt.get_artikel_id(),listenobjekt.get_einzelhändler_id(), listenobjekt.get_menge(),listenobjekt.get_ticked(),listenobjekt.get_erstellungszeitpunkt(), listenobjekt.get_user_id(), listenobjekt.get_parent_list(), listenobjekt.get_artikel_preis())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -204,8 +209,8 @@ class ListenobjektMapper (Mapper):
         
         cursor = self._cnx.cursor()
 
-        command = "UPDATE listenobjekt SET  artikel_id = ('{}'), einzelhändler_id = ('{}') ,menge = ('{}'), gekauft = ('{}'), create_time = ('{}'), anwender_id = ('{}'), einkaufsliste_id = ('{}')" "WHERE id = ('{}')"\
-                .format( listenobjekt.get_artikel_id(), listenobjekt.get_einzelhändler_id(), listenobjekt.get_menge(), listenobjekt.get_ticked(), listenobjekt.get_erstellungszeitpunkt(), listenobjekt.get_user_id(), listenobjekt.get_parent_list(), listenobjekt.get_id())
+        command = "UPDATE listenobjekt SET  artikel_id = ('{}'), einzelhändler_id = ('{}') ,menge = ('{}'), gekauft = ('{}'), create_time = ('{}'), anwender_id = ('{}'), einkaufsliste_id = ('{}'), artikel_preis = ('{}')" "WHERE id = ('{}')"\
+                .format( listenobjekt.get_artikel_id(), listenobjekt.get_einzelhändler_id(), listenobjekt.get_menge(), listenobjekt.get_ticked(), listenobjekt.get_erstellungszeitpunkt(), listenobjekt.get_user_id(), listenobjekt.get_parent_list(), listenobjekt.get_id(), listenobjekt.get_artikel_preis())
         cursor.execute(command)
 
         self._cnx.commit()
