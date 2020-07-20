@@ -92,6 +92,20 @@ class AnwenderOperationen(Resource):
             adm.delete_anwender(user)
             return 'Anwender wurde erfolgreich aus der DB gelöscht', 200
 
+    @shopping.expect(anwender)
+    def put(self, id):
+        """Anwender werden aktualisiert"""
+        adm = EinkaufAdministration()
+        user = Anwender.from_dict(api.payload)
+
+        if user is None:
+            return "Anwender konnte nicht geändert werden", 500
+
+        else:
+            user.set_id(id)
+            adm.save_anwender(user)
+            return "Anwender wurde erfolgreich geändert", 200
+
 """Artikel"""
 
 @shopping.route("/artikel")
@@ -136,13 +150,13 @@ class ArtikelOperationen(Resource):
         adm = EinkaufAdministration()
         item = Artikel.from_dict(api.payload)
 
-        if item is not None:
+        if item is None:
+            return "Artikel konnte nicht geändert werden", 500
+
+        else:
             item.set_id(id)
             adm.save_artikel(item)
             return "Artikel wurde erfolgreich geändert", 200
-        else:
-            return "Artikel konnte nicht geändert werden", 500
-
 
 
 """Einkaufsgruppe"""
@@ -183,6 +197,20 @@ class EinkaufsgruppeOperationen(Resource):
             adm.delete_einkaufsgruppe(item)
             return 'Einkaufsgruppe wurde erfolgreich aus der DB gelöscht', 200
 
+    @shopping.expect(einkaufsgruppe)
+    def put(self, id):
+        """Einkaufsgruppe werden aktualisiert"""
+        adm = EinkaufAdministration()
+        group = Einkaufsgruppe.from_dict(api.payload)
+
+        if group is None:
+            return "Einkaufsgruppe konnte nicht geändert werden", 500
+
+        else:
+            group.set_id(id)
+            adm.save_einkaufsgruppe(group)
+            return "Einkaufsgruppe wurde erfolgreich geändert", 200
+
 """Einkaufsliste"""
 
 @shopping.route("/einkaufsliste")
@@ -221,6 +249,20 @@ class EinkaufslisteOperationen(Resource):
         else:
             adm.delete_einkaufsliste(item)
             return 'Einkaufsliste wurde erfolgreich aus der DB gelöscht', 200
+
+    @shopping.expect(einkaufsliste)
+    def put(self, id):
+        """Einkaufsliste werden aktualisiert"""
+        adm = EinkaufAdministration()
+        buy = Einkaufsliste.from_dict(api.payload)
+
+        if buy is None:
+            return "Einkaufsliste konnte nicht geändert werden", 500
+
+        else:
+            buy.set_id(id)
+            adm.save_einkaufsliste(buy)
+            return "Einkaufsliste wurde erfolgreich geändert", 200
 
 """Einzelhändler"""
 
@@ -262,6 +304,20 @@ class EinzelhändlerOperationen(Resource):
             adm.delete_einzelhändler(item)
             return 'Einzelhändler wurde erfolgreich aus der DB gelöscht', 200
 
+    @shopping.expect(einzelhändler)
+    def put(self, id):
+        """Einzelhändler werden aktualisiert"""
+        adm = EinkaufAdministration()
+        sell = Einzelhändler.from_dict(api.payload)
+
+        if sell is None:
+            return "Einzelhändler konnte nicht geändert werden", 500
+
+        else:
+            sell.set_id(id)
+            adm.save_einzelhändler(sell)
+            return "Einzelhändler wurde erfolgreich geändert", 200
+
 """Listenobjekt"""
 
 @shopping.route("/listenobjekt/<int:id>")
@@ -286,6 +342,8 @@ class ListenobjektOperationen(Resource):
             adm.delete_listenobjekt(item)
             return 'Listenobjekt wurde erfolgreich aus der DB gelöscht', 200
 
+
+
 """Zugehörigkeit"""  
 
 @shopping.route("/zugehörigkeit/<int:id>")
@@ -308,7 +366,22 @@ class ZugehörigkeitOperationen(Resource):
             return 'Zugehörigkeit konnte nicht aus der DB gelöscht werden', 500
         else:
             adm.delete_zugehörigkeit(item)
-            return 'Zugehörogkeit wurde erfolgreich aus der DB gelöscht', 200
+            return 'Zugehörigkeit wurde erfolgreich aus der DB gelöscht', 200
+
+    @shopping.expect(zugehörigkeit)
+    def put(self, id):
+        """Zugehörigkeit werden aktualisiert"""
+        adm = EinkaufAdministration()
+        zug = Zugehörigkeit.from_dict(api.payload)
+
+        if zug is None:
+            return "Zugehörigkeit konnte nicht geändert werden", 500
+
+        else:
+            zug.set_id(id)
+            adm.save_zugehörigkeit(zug)
+            return "zugehörigkeit wurde erfolgreich geändert", 200
+
 
 if __name__ =='__main__':
     app.run(debug=True)
