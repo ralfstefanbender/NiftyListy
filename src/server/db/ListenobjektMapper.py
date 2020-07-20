@@ -102,8 +102,8 @@ class ListenobjektMapper (Mapper):
         tuples = cursor.fetchall()
 
         if len(tuples) != 0:
-            for (
-            id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id) in tuples:
+            for (id, artikel_id, einzelhändler_id, menge, gekauft, create_time, anwender_id, einkaufsliste_id,
+                 artikel_preis) in tuples:
                 listenobjekt = Listenobjekt()
                 listenobjekt.set_id(id)
                 listenobjekt.set_artikel_id(artikel_id)
@@ -113,6 +113,7 @@ class ListenobjektMapper (Mapper):
                 listenobjekt.set_erstellungszeitpunkt(create_time)
                 listenobjekt.set_user_id(anwender_id)
                 listenobjekt.set_parent_list(einkaufsliste_id)
+                listenobjekt.set_artikel_preis(artikel_preis)
                 result.append(listenobjekt)
 
         else:
