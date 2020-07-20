@@ -111,7 +111,7 @@ class EinkaufAdministration (object):
         artikel.set_einheit(einheit)
 
         with ArtikelMapper() as mapper:
-            return mapper.insert(Artikel)
+            return mapper.insert(artikel)
 
     def get_artikel_by_name(self, name):
         with ArtikelMapper() as mapper:
@@ -147,7 +147,7 @@ class EinkaufAdministration (object):
 
 
         with EinzelhändlerMapper() as mapper:
-            return mapper.insert(Einzelhändler)
+            return mapper.insert(einzelhändler)
 
     def get_einzelhändler_by_name(self, name):
         with EinzelhändlerMapper() as mapper:
@@ -216,7 +216,7 @@ class EinkaufAdministration (object):
 
     def create_einkaufsgruppe(self, name):
         einkaufsgruppe = Einkaufsgruppe()
-        einkaufsgruppe.set_einkaufsgruppe_name(name)
+        einkaufsgruppe.set_name(name)
 
         with EinkaufsgruppeMapper() as mapper:
             return mapper.insert(einkaufsgruppe)

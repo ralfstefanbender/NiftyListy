@@ -39,7 +39,7 @@ artikel = api.inherit('Artikel', bo, {
 })
 
 einkaufsgruppe = api.inherit('Einkaufsgruppe', bo, {
-    'einkaufsgruppe_name': fields.String(attribute='_einkaufsgruppe_name', description='Der Name der Einkaufsgruppe'),
+    'name': fields.String(attribute='_name', description='Der Name der Einkaufsgruppe'),
 })
 
 einkaufsliste = api.inherit('Einkaufsliste', bo, {
@@ -156,7 +156,7 @@ class EinkaufsgruppeListOperationen(Resource):
         adm = EinkaufAdministration()
         proposal = Einkaufsgruppe.from_dict(api.payload)
         if proposal is not None:
-            c = adm.create_einkaufsgruppe(proposal.get_einkaufsgruppe_name())
+            c = adm.create_einkaufsgruppe(proposal.get_name())
             return c, 200
         else:
             return '', 500

@@ -25,7 +25,7 @@ class EinkaufsgruppeMapper (Mapper):
         for (id, name, create_time) in tuples:
             einkaufsgruppe = Einkaufsgruppe()
             einkaufsgruppe.set_id(id)
-            einkaufsgruppe.set_einkaufsgruppe_name(name)
+            einkaufsgruppe.set_name(name)
             einkaufsgruppe.set_erstellungszeitpunkt(create_time)
             result.append(einkaufsgruppe)
         
@@ -48,7 +48,7 @@ class EinkaufsgruppeMapper (Mapper):
             for (id, name, create_time) in tuples:
                 einkaufsgruppe = Einkaufsgruppe()
                 einkaufsgruppe.set_id(id)
-                einkaufsgruppe.set_einkaufsgruppe_name(name)
+                einkaufsgruppe.set_name(name)
                 einkaufsgruppe.set_erstellungszeitpunkt(create_time)
                 result.append(einkaufsgruppe)
         
@@ -73,7 +73,7 @@ class EinkaufsgruppeMapper (Mapper):
             einkaufsgruppe.set_id(MaxID[0]+1)
 
         command = "INSERT INTO einkaufsgruppe (id, name, create_time) VALUES ('{}','{}','{}')"\
-                .format(einkaufsgruppe.get_id(), einkaufsgruppe.get_einkaufsgruppe_name(), einkaufsgruppe.get_erstellungszeitpunkt())
+                .format(einkaufsgruppe.get_id(), einkaufsgruppe.get_name(), einkaufsgruppe.get_erstellungszeitpunkt())
         cursor.execute(command)
 
         self._cnx.commit()

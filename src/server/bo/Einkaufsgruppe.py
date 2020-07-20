@@ -8,20 +8,20 @@ class Einkaufsgruppe(bo.BusinessObject):
     """
     def __init__(self):
         super().__init__()
-        self._einkaufsgruppe_name = ""
+        self._name = ""
 
-    def get_einkaufsgruppe_name(self):
+    def get_name(self):
         """Auslesen des Gruppennamens"""
-        return self._einkaufsgruppe_name
+        return self._name
 
-    def set_einkaufsgruppe_name(self,name):
+    def set_name(self, name):
         """Gruppennamen ändern"""
-        self._einkaufsgruppe_name = name
+        self._name = name
         return
 
     @staticmethod
     def from_dict(dict):
         new_einkaufsgruppe = Einkaufsgruppe()
         new_einkaufsgruppe.set_id(dict["id"])
-        new_einkaufsgruppe.set_einkaufsgruppe_name(dict["name"])
+        new_einkaufsgruppe.set_name(dict["name"])
         return new_einkaufsgruppe
