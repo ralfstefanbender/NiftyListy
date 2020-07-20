@@ -6,7 +6,7 @@ import BusinessObject from './BusinessObject';
  * Enthalten die BO andere Methoden neben get und set?
  */
 
-export default class EinkaufshändlerBO extends BusinessObject {
+export default class EinzelhändlerBO extends BusinessObject {
 
     //this.itemID = 0
     //this.id = 0

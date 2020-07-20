@@ -124,7 +124,7 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-shoppingList.propTypes = {
+ShoppingList.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   group: PropTypes.object.isRequired,

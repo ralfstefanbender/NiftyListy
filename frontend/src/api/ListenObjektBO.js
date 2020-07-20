@@ -78,14 +78,14 @@ export default class ListenObjektBO extends BusinessObject {
         let result = [];
 
         if (Array.isArray(ListenObjekt)) {
-            artikel.forEach((lo) => {
-                Object.setPrototypeOf(zu, ListenObjektBO.prototype)
+            ListenObjekt.forEach((lo) => {
+                Object.setPrototypeOf(lo, ListenObjektBO.prototype)
                 result.push(lo)
             })
         } else {
             // Es handelt sich offenbar um ein singuläres Objekt
             let lo = ListenObjekt;
-            Object.setPrototypeOf(zu, ListenObjektBO.prototype)
+            Object.setPrototypeOf(lo, ListenObjektBO.prototype)
             result.push(lo)
         }
 
