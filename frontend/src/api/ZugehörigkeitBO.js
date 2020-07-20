@@ -34,7 +34,7 @@ export default class ZugehörigkeitBO extends BusinessObject {
         let result = [];
 
         if (Array.isArray(Zughörigkeit)) {
-            artikel.forEach((zu) => {
+            Zughörigkeit.forEach((zu) => {
                 Object.setPrototypeOf(zu, ZugehörigkeitBO.prototype)
                 result.push(zu)
             })

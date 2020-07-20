@@ -2,7 +2,7 @@ export default class BusinessObject {
 
     constructor() {
         this.id = 0;
-        this.erstellungszeitpunkt
+        this.erstellungszeitpunkt = Date;
     }
 
     setID(id) {

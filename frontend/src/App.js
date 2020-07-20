@@ -7,6 +7,7 @@ import Header from './components/layout/Header';
 import About from './components/pages/About';
 import SignIn from './components/pages/SignIn';
 import Theme from './Theme';
+import ShoppingList from './components/ShoppingList'
 
 
 class App extends React.Component {
@@ -126,6 +127,10 @@ class App extends React.Component {
 							// Is a user signed in?
 							currentUser ?
 								<>
+								<Redirect from='/' to='einkaufsliste' />
+									<Route exact path='/einkaufsliste'>
+										<ShoppingList />
+									</Route>
 									<Route path='/about' component={About} />
 								</>
 								:
