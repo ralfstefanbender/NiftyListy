@@ -56,8 +56,9 @@ listenobjekt = api.inherit('Listenobjekt', bo, {
     'user_id': fields.Integer(attribute='_user_id', description='Die ID des Anwenders'),
     'artikel_id': fields.Integer(attribute='_artikel_id', description='Die ID des Artikels'),
     'einzelhändler_id': fields.Integer(attribute='_einzelhändler_id', description='Die ID des Einzelhändlers'),
-    'menge': fields.String(attribute='_menge', description='Die Menge'),
-    'ticked': fields.String(attribute='_ticked', description='Gekauft'),
+    'menge': fields.Integer(attribute='_menge', description='Die Menge'),
+    'ticked': fields.Boolean(attribute='_ticked', description='Gekauft'),
+    'artikel_preis': fields.Integer(attribute='_artikel_preis', description='Gekauft'),
 })
 
 zugehörigkeit = api.inherit('Zugehörigkeit', bo, {
@@ -319,6 +320,23 @@ class EinzelhändlerOperationen(Resource):
             return "Einzelhändler wurde erfolgreich geändert", 200
 
 """Listenobjekt"""
+
+@shopping.route("/listenobjekt")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class ListenobjektListOperationen(Resource):
+    @shopping.marshal_with(listenobjekt, code=200)
+    @shopping.expect(listenobjekt)
+    def post(self):
+        """Listenobjekt erstellen"""
+        adm = EinkaufAdministration()
+        proposal = Listenobjekt.from_dict(api.payload)
+        if proposal is not None:
+            c = adm.create_listenobjekt(proposal.get_parent_list(), proposal.get_user_id(), proposal.get_artikel_id(),
+                                        proposal.get_einzelhändler_id(), proposal.get_artikel_preis(),
+                                        proposal.get_menge(), proposal.get_ticked())
+            return c, 200
+        else:
+            return '', 500
 
 @shopping.route("/listenobjekt/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')

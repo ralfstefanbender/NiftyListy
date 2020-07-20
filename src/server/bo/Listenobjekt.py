@@ -10,21 +10,28 @@ class Listenobjekt(BusinessObject):
         self._einzelhändler_id = 0
         self._menge = 0
         self._ticked = 0
+        self._artikel_preis = 0
+
+    def get_artikel_preis(self):
+        return self._artikel_preis
+
+    def set_artikel_preis(self, preis):
+        self._artikel_preis = preis
 
     def get_parent_list(self):
-        return self.__parent_list
+        return self._parent_list
 
     def set_parent_list(self,parent):
         self._parent_list = parent
 
     def get_user_id(self):
-        return self.__user_id
+        return self._user_id
 
     def set_user_id(self,user_id):
         self._user_id = user_id
 
     def get_artikel_id(self):
-        return self.__artikel_id
+        return self._artikel_id
 
     def set_artikel_id(self,artikel_id):
         self._artikel_id = artikel_id
@@ -32,7 +39,7 @@ class Listenobjekt(BusinessObject):
     def get_einzelhändler_id(self):
         return self._einzelhändler_id
 
-    def set_einzelhändler_id(self,einzelhändler_id):
+    def set_einzelhändler_id(self, einzelhändler_id):
         self._einzelhändler_id = einzelhändler_id
 
     def get_menge(self):
