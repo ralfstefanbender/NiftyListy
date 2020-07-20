@@ -10,7 +10,7 @@ class Listenobjekt(BusinessObject):
         self._einzelhändler_id = 0
         self._menge = 0
         self._ticked = 0
-        self._artikel_preis = 0
+        self._artikel_preis = 0.0
 
     def get_artikel_preis(self):
         return self._artikel_preis
