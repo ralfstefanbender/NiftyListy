@@ -362,7 +362,23 @@ class ListenobjektOperationen(Resource):
 
 
 
-"""Zugehörigkeit"""  
+"""Zugehörigkeit"""
+
+@shopping.route("/zugehörigkeit")
+@shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class ZugehörigkeitListOperationen(Resource):
+    @shopping.marshal_with(zugehörigkeit, code=200)
+    @shopping.expect(zugehörigkeit)
+    def post(self):
+        """Zugehörigkeit erstellen"""
+        adm = EinkaufAdministration()
+        proposal = Zugehörigkeit.from_dict(api.payload)
+        if proposal is not None:
+            c = adm.create_zugehörigkeit(proposal.get_anwender_id(), proposal.get_einkaufsgruppe_id())
+            return c, 200
+        else:
+            return '', 500
+
 
 @shopping.route("/zugehörigkeit/<int:id>")
 @shopping.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
