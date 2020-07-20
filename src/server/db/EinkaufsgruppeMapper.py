@@ -85,7 +85,7 @@ class EinkaufsgruppeMapper (Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE einkaufsgruppe SET name = ('{}'), create_time = ('{}')" "WHERE id = ('{}')"\
-                .format(einkaufsgruppe.get_einkaufsgruppe_name(), einkaufsgruppe.get_erstellungszeitpunkt(),einkaufsgruppe.get_id())
+                .format(einkaufsgruppe.get_name(), einkaufsgruppe.get_erstellungszeitpunkt(),einkaufsgruppe.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
