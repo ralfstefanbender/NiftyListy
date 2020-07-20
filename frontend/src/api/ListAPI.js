@@ -168,13 +168,181 @@ export default class ListAPI {
     }
 
 
-    //Artikel
+   //Artikel
+
+    getAllArtikel() {
+        return this.#fetchAdvanced(this.#getAllArtikelURL()).then((responseJSON) => {
+            let artikelBOs = ArtikelBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(artikelBOs);
+            })
+        })
+    }
+
+
+    //artikelID vorhanden???
+    getArtikel(artikelID) {
+        return this.#fetchAdvanced(this.#getArtikelURL(artikelID)).then((responseJSON) => {
+            let responseArtikelBO = ArtikelBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseArtikelBO);
+            })
+        })
+    }
+
+
+    addArtikel(artikelBO) {
+        return this.#fetchAdvanced(this.#addArtikelURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(artikelBO)
+        }).then((responseJSON) => {
+            let responseArtikelBO = ArtikelBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseArtikelBO);
+            })
+        })
+    }
+
+
+    //artikelID vorhanden???
+    deleteAnwender(artikelID) {
+        return this.#fetchAdvanced(this.#deleteArtikelURL(artikelID), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseArtikelBO = ArtikelBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseArtikelBO);
+            })
+        })
+    }
+
 
     //Einkaufsgruppe
 
+    getAllEinkaufsgruppen() {
+        return this.#fetchAdvanced(this.#getAllEinkaufsgruppeURL()).then((responseJSON) => {
+            let einkaufsgruppeBOs = EinkaufsgruppeBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(einkaufsgruppeBOs);
+            })
+        })
+    }
+
+
+    //einkaufsgruppeID vorhanden???
+    getEinkaufsgruppen(einkaufsgruppeID) {
+        return this.#fetchAdvanced(this.#getEinkaufsgruppeURL(einkaufsgruppeID)).then((responseJSON) => {
+            let responseEinkaufsgruppeBO = EinkaufsgruppeBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinkaufsgruppeBO);
+            })
+        })
+    }
+
+
+    addEinkaufsgruppe(einkaufsgruppeBO) {
+        return this.#fetchAdvanced(this.#addEinkaufsgruppeURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(einkaufsgruppeBO)
+        }).then((responseJSON) => {
+            let responseEinkaufsgruppeBO = EinkaufsgruppeBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinkaufsgruppeBO);
+            })
+        })
+    }
+
+
+    //einkaufsgruppeID vorhanden???
+    deleteEinkaufsgruppe(einkaufsgruppeID) {
+        return this.#fetchAdvanced(this.#deleteEinkaufsgruppeURL(einkaufsgruppeID), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseEinkaufsgruppeBO = EinkaufsgruppeBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinkaufsgruppeBO);
+            })
+        })
+    }
+
     //Einkaufsliste
 
-    
+    getAllEinkaufslisten() {
+        return this.#fetchAdvanced(this.#getAllEinkaufslisteURL()).then((responseJSON) => {
+            let einkaufslisteBOs = EinkaufslisteBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(einkaufslisteBOs);
+            })
+        })
+    }
+
+
+    //einkaufslisteID vorhanden???
+    getEinkaufslisten(einkaufslisteID) {
+        return this.#fetchAdvanced(this.#getEinkaufslisteURL(einkaufslisteID)).then((responseJSON) => {
+            let responseEinkaufslisteBO = EinkaufslisteBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinkaufslisteBO);
+            })
+        })
+    }
+
+
+    addEinkaufsliste(einkaufslisteBO) {
+        return this.#fetchAdvanced(this.#addEinkaufslisteURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(einkaufslisteBO)
+        }).then((responseJSON) => {
+            let responseEinkaufslisteBO = EinkaufslisteBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinkaufslisteBO);
+            })
+        })
+    }
+
+
+    updateEinkaufsliste(einkaufslisteBO) {
+        return this.#fetchAdvanced(this.#updateEinkaufslisteURL(einkaufslisteBO.getID()), {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(einkaufslisteBO)
+        }).then((responseJSON) => {
+            let responseEinkaufslisteBO = EinkaufslisteBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinkaufslisteBO);
+            })
+        })
+    }
+
+
+    //einkaufslisteID vorhanden???
+    deleteEinkaufsliste(einkaufslisteID) {
+        return this.#fetchAdvanced(this.#deleteEinkaufslisteURL(einkaufslisteID), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseEinkaufslisteBO = EinkaufslisteBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseEinkaufslisteBO);
+            })
+        })
+    }
+
+
     //Einzelhändler
 
     // Gibt einen Promise zurück mit allen Einzelhändlern
